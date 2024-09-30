@@ -1,4 +1,5 @@
-import { DragElement, windowViewportToSVGViewport } from '../App'
+import { DragElement, HEIGHT, WIDTH } from '../App'
+import { windowViewportToSVGViewport } from './viewport'
 
 export function handlePointerMove(
     index1: number,
@@ -26,8 +27,14 @@ export function handlePointerMove(
 
             return {
                 ...item,
-                x: cursorSvgPositionX - item.xOffset,
-                y: cursorSvgPositionY - item.yOffset
+                x: Math.min(
+                    Math.max(cursorSvgPositionX - item.xOffset, 0),
+                    WIDTH - item.width
+                ),
+                y: Math.min(
+                    Math.max(cursorSvgPositionY - item.yOffset, 0),
+                    HEIGHT - item.height
+                )
             }
         }
         return item

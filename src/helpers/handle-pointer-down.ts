@@ -1,4 +1,5 @@
-import { DragElement, windowViewportToSVGViewport } from '../App'
+import { DragElement } from '../App'
+import { windowViewportToSVGViewport } from './viewport'
 
 export function handlePointerDown(
     index1: number,

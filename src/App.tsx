@@ -14,22 +14,7 @@ export interface DragElement {
     pointerId?: number
 }
 
-export const windowViewportToSVGViewport = (
-    elBBox: DOMRect,
-    svgViewbox: DOMRect,
-    svgBBox: DOMRect
-): DOMRect => {
-    const ratio = {
-        x: svgViewbox.width / svgBBox.width,
-        y: svgViewbox.height / svgBBox.height
-    }
-    const x = svgViewbox.x + (elBBox.x - svgBBox.x) * ratio.x
-    const y = svgViewbox.y + (elBBox.y - svgBBox.y) * ratio.y
-    const width = elBBox.width * ratio.x
-    const height = elBBox.height * ratio.y
 
-    return DOMRect.fromRect({ x, y, width, height })
-}
 
 const generateDragElementDefault = (
     x: number,
@@ -47,6 +32,9 @@ const generateDragElementDefault = (
         key: index.toString()
     }
 }
+
+export const HEIGHT = 600
+export const WIDTH = 800
 
 function App() {
     const [elements, setElements] = useState<DragElement[]>([
@@ -82,8 +70,8 @@ function App() {
         <div className="flex flex-row w-full justify-center">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={800}
-                height={600}
+                width={WIDTH}
+                height={HEIGHT}
                 viewBox="0 0 800 600"
                 className="bg-gray-500"
             >
