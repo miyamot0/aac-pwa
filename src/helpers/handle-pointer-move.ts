@@ -1,11 +1,14 @@
-import { DragElement, HEIGHT, WIDTH } from '../App'
+import { DragElement } from '@/types/drag-element'
+import { HEIGHT, WIDTH } from '../App'
 import { windowViewportToSVGViewport } from './viewport'
+
+export const BUFFER = 1
 
 export function handlePointerMove(
     index1: number,
     e: React.PointerEvent<SVGElement>,
     elements: DragElement[],
-    setElements: React.Dispatch<React.SetStateAction<DragElement[]>>
+    setElements: (icons: DragElement[]) => void
 ) {
     const newElements = elements.map(function (item, index2): DragElement {
         if (index1 === index2 && item.active === true) {
@@ -28,12 +31,12 @@ export function handlePointerMove(
             return {
                 ...item,
                 x: Math.min(
-                    Math.max(cursorSvgPositionX - item.xOffset, 0),
-                    WIDTH - item.width
+                    Math.max(cursorSvgPositionX - item.xOffset, BUFFER),
+                    WIDTH - item.width - BUFFER
                 ),
                 y: Math.min(
-                    Math.max(cursorSvgPositionY - item.yOffset, 0),
-                    HEIGHT - item.height
+                    Math.max(cursorSvgPositionY - item.yOffset, BUFFER),
+                    HEIGHT - item.height - BUFFER
                 )
             }
         }

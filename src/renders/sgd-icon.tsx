@@ -1,28 +1,36 @@
 import { cn } from '@/lib/utils'
-import { DragElement } from '../App'
 import { handlePointerDown } from '../helpers/handle-pointer-down'
 import { handlePointerMove } from '../helpers/handle-pointer-move'
 import { handlePointerUp } from '../helpers/handle-pointer-up'
+import { IconsContext } from '@/providers/icons-provider'
+import { useContext } from 'react'
+import { DragElement } from '@/types/drag-element'
 
 type Props = {
     Icon: DragElement
     Index: number
-    Elements: DragElement[]
-    SetElements: React.Dispatch<React.SetStateAction<DragElement[]>>
 }
 
-export default function SGDIcon({ Icon, Index, Elements, SetElements }: Props) {
+export default function SGDIcon({ Icon, Index }: Props) {
+    const context = useContext(IconsContext)
+
+    if (context === null) {
+        throw new Error('IconsContext not found')
+    }
+
+    const { Icons, UpdateContext } = context
+
     return (
         <rect
             key={Icon.key}
             x={Icon.x}
             y={Icon.y}
-            z={-Icon}
+            z={-Index}
             rx={5}
             className={cn(
-                'text-yellow-300 fill-current transition-colors ease-in-out duration-250',
+                'text-white fill-current transition-colors ease-in-out duration-250',
                 {
-                    'text-orange-400': Icon.active
+                    'text-green-200': Icon.active
                 }
             )}
             stroke={'black'}
@@ -30,13 +38,13 @@ export default function SGDIcon({ Icon, Index, Elements, SetElements }: Props) {
             width={Icon.width}
             height={Icon.height}
             onPointerDown={(evt) =>
-                handlePointerDown(Index, evt, Elements, SetElements)
+                handlePointerDown(Index, evt, Icons, UpdateContext)
             }
             onPointerUp={(evt) =>
-                handlePointerUp(Index, evt, Elements, SetElements)
+                handlePointerUp(Index, evt, Icons, UpdateContext)
             }
             onPointerMove={(evt) =>
-                handlePointerMove(Index, evt, Elements, SetElements)
+                handlePointerMove(Index, evt, Icons, UpdateContext)
             }
         />
     )

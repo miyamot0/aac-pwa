@@ -1,11 +1,11 @@
-import { DragElement } from '../App'
+import { DragElement } from '@/types/drag-element'
 import { windowViewportToSVGViewport } from './viewport'
 
 export function handlePointerDown(
     index1: number,
     e: React.PointerEvent<SVGElement>,
     elements: DragElement[],
-    setElements: React.Dispatch<React.SetStateAction<DragElement[]>>
+    setElements: (icons: DragElement[]) => void
 ) {
     const newElements = elements.map(function (item, index2): DragElement {
         if (index1 === index2) {
