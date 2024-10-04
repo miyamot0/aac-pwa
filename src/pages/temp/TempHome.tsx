@@ -1,5 +1,4 @@
 import { BUFFER } from '@/helpers/handle-pointer-move'
-import { cn } from '@/lib/utils'
 import { IconsContext } from '@/providers/icons-provider'
 import SGDIcon from '@/renders/sgd-icon'
 import { useContext, useEffect } from 'react'
@@ -36,18 +35,42 @@ export default function TempHomePage() {
                 viewBox="0 0 800 600"
                 className="bg-gray-200"
             >
-                <rect
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.0"
+                    width="100"
+                    height="100"
                     x={WIDTH - BUFFER - 100 - 5}
                     y={BUFFER + 5}
-                    z={100}
-                    className={cn(
-                        'text-white fill-current transition-colors ease-in-out duration-250'
-                    )}
-                    stroke={'gray'}
-                    strokeWidth={1}
-                    width={100}
-                    height={100}
-                />
+                    viewBox="0 0 75 75"
+                >
+                    <rect
+                        x={0}
+                        y={0}
+                        z={1000000}
+                        rx={5}
+                        stroke="black"
+                        strokeWidth={2}
+                        fill="white"
+                        width={75}
+                        height={75}
+                    />
+                    <path
+                        d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z"
+                        stroke="#111"
+                        strokeWidth={5}
+                        strokeLinejoin="round"
+                        fill="#111"
+                    />
+                    <path
+                        d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6"
+                        fill="none"
+                        stroke="#111"
+                        strokeWidth={5}
+                        strokeLinecap="round"
+                    />
+                </svg>
+
                 {Icons.map(function (item, index) {
                     return <SGDIcon key={item.key} Icon={item} Index={index} />
                 })}
