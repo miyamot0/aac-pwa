@@ -1,8 +1,9 @@
 import { DeleteIcon, Volume2 } from 'lucide-react'
 import { useContext, useEffect } from 'react'
-import { IconObject, IconsContext } from '@/providers/icons-provider'
+import { IconsContext } from '@/providers/icons-provider'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import type { IconObject } from '@/providers/provider-types'
 
 function FrameIconAnimated({ icon }: { icon: IconObject }) {
     const [displayed, setDisplayed] = useState(false)
@@ -32,7 +33,9 @@ function FrameIconAnimated({ icon }: { icon: IconObject }) {
 }
 
 export default function BoardFrame() {
-    const { Frame, RemoveFromFrame, Speaker } = useContext(IconsContext)
+    const { Frame, RemoveFromFrame, Speaker, Settings, ClearFrame } =
+        useContext(IconsContext)
+    const { ResetAfterSpeak } = Settings
 
     return (
         <div className="flex flex-col">
@@ -66,6 +69,10 @@ export default function BoardFrame() {
 
                         for (let i = 0; i < words.length; i++) {
                             await getNextAudio(words[i])
+                        }
+
+                        if (ResetAfterSpeak) {
+                            ClearFrame()
                         }
                     }}
                 >

@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import { useContext } from 'react'
-import { IconsContext, IconObject } from '@/providers/icons-provider'
+import { IconsContext } from '@/providers/icons-provider'
+import { IconObject } from '@/providers/provider-types'
 
 const COLS: number = 8
 

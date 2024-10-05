@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { MenuIcon } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
 import { useContext } from 'react'
-import { IconsContext, LanguageOption } from '@/providers/icons-provider'
+import { IconsContext } from '@/providers/icons-provider'
 import { Button } from '@/components/ui/button'
 import {
     Select,
@@ -19,15 +19,17 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
+import { LanguageOption } from '@/providers/provider-types'
 
 export default function MenuSheet() {
     const {
         SettingsToggleLocked,
+        SettingsToggleFrameReset,
         SettingsDisplaySheet,
         SettingsSwitchLanguage,
         Settings
     } = useContext(IconsContext)
-    const { Locked, SheetOpen, LanguageContext } = Settings
+    const { Locked, SheetOpen, LanguageContext, ResetAfterSpeak } = Settings
 
     return (
         <Sheet
@@ -61,6 +63,14 @@ export default function MenuSheet() {
                             id="secure-mode"
                             checked={Locked}
                             onCheckedChange={() => SettingsToggleLocked()}
+                        />
+                    </div>
+                    <div className="flex flex-row gap-4 justify-between items-center">
+                        <Label htmlFor="frame-mode">Frame Reset</Label>
+                        <Switch
+                            id="frame-mode"
+                            checked={ResetAfterSpeak}
+                            onCheckedChange={() => SettingsToggleFrameReset()}
                         />
                     </div>
                     <div className="flex flex-row gap-4 justify-between items-center">

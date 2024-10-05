@@ -1,25 +1,5 @@
 import React, { ReactNode } from 'react'
-
-export type LanguageOption = 'L1' | 'L2'
-
-export type BoardSettings = {
-    Locked: boolean
-    SheetOpen: boolean
-    LanguageContext: LanguageOption
-}
-
-export type LanguageContext = {
-    Language: 'en-us' | 'es-us'
-    Label: string
-    Image: string
-}
-
-export type IconObject = {
-    id: string
-    L1: LanguageContext
-    L2: LanguageContext
-    Index: number
-}
+import { BoardSettings, IconObject, LanguageOption } from './provider-types'
 
 interface IconsContextType {
     Settings: BoardSettings
@@ -28,7 +8,9 @@ interface IconsContextType {
     Frame: IconObject[]
     AddToFrame: (icon: IconObject) => void
     RemoveFromFrame: () => void
+    ClearFrame: () => void
     SettingsToggleLocked: () => void
+    SettingsToggleFrameReset: () => void
     SettingsDisplaySheet: (status: boolean) => void
     SettingsSwitchLanguage: (language: LanguageOption) => void
 }
@@ -37,6 +19,7 @@ export const IconsContext = React.createContext<IconsContextType>({
     Settings: {
         Locked: false,
         SheetOpen: false,
+        ResetAfterSpeak: false,
         LanguageContext: 'L1'
     },
     Speaker: window.speechSynthesis,
@@ -44,7 +27,9 @@ export const IconsContext = React.createContext<IconsContextType>({
     Frame: [],
     AddToFrame: () => {},
     RemoveFromFrame: () => {},
+    ClearFrame: () => {},
     SettingsToggleLocked: () => {},
+    SettingsToggleFrameReset: () => {},
     SettingsDisplaySheet: () => {},
     SettingsSwitchLanguage: () => {}
 })
@@ -59,6 +44,7 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
     const [settings, setSettings] = React.useState<BoardSettings>({
         Locked: false,
         SheetOpen: false,
+        ResetAfterSpeak: false,
         LanguageContext: 'L1'
     })
 
@@ -103,6 +89,7 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
                 Frame: frame,
                 AddToFrame: (icon: IconObject) => setFrame([...frame, icon]),
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
+                ClearFrame: () => setFrame([]),
                 SettingsToggleLocked: () => {
                     setSettings((prev) => {
                         return {
@@ -110,6 +97,14 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
                             Locked: !prev.Locked,
                             SheetOpen:
                                 !prev.Locked === true ? false : prev.SheetOpen
+                        }
+                    })
+                },
+                SettingsToggleFrameReset: () => {
+                    setSettings((prev) => {
+                        return {
+                            ...prev,
+                            ResetAfterSpeak: !prev.ResetAfterSpeak
                         }
                     })
                 },
