@@ -10,7 +10,7 @@ function Icon({ Icon }: { Icon: IconObject }) {
 
     return (
         <div
-            className="border border-black rounded aspect-square bg-white hover:bg-gray-100 cursor-pointer flex flex-col justify-end items-center select-none"
+            className="border border-black rounded aspect-square bg-white hover:bg-gray-100 cursor-pointer flex flex-col justify-end items-center select-none relative"
             draggable={false}
             onClick={() => {
                 if (Settings.Locked === false) {
@@ -22,14 +22,16 @@ function Icon({ Icon }: { Icon: IconObject }) {
                 AddToFrame(Icon)
             }}
         >
-            <div className="aspect-square">
+            <div className="object-scale-down p-1">
                 <img
                     src={Icon.L1.Image}
                     alt={Icon.L1.Label}
                     draggable={false}
                 />
             </div>
-            {Icon.L1.Label}
+            <div className="absolute bg-white px-2 border border-black rounded-sm mb-2">
+                {Icon.L1.Label}
+            </div>
         </div>
     )
 }
@@ -51,7 +53,9 @@ export default function BoardField() {
 
                 if (icon) return <Icon key={i} Icon={icon}></Icon>
 
-                return <div className="aspect-square bg-white"></div>
+                return (
+                    <div className="aspect-square bg-white border border-black rounded"></div>
+                )
             })}
         </div>
     )
