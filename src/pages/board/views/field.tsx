@@ -17,7 +17,9 @@ function Icon({ Icon }: { Icon: IconObject }) {
             draggable={false}
             onClick={() => {
                 if (Settings.Locked === false) {
-                    navigate(`/icons/${Icon.Index}/${Icon.id}`)
+                    navigate(`/icons/${Icon.Index}/${Icon.id}`, {
+                        unstable_viewTransition: true
+                    })
 
                     return
                 }
@@ -25,7 +27,7 @@ function Icon({ Icon }: { Icon: IconObject }) {
                 AddToFrame(Icon)
             }}
         >
-            <div className="object-scale-down p-1">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <img
                     src={Icon.L1.Image}
                     alt={Icon.L1.Label}
@@ -64,12 +66,14 @@ export default function BoardField() {
 
                     return (
                         <div
-                            className="aspect-square bg-white border border-black rounded shadow-md flex items-center justify-center"
+                            className="aspect-square bg-white border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none"
                             onClick={() => {
-                                navigate(`/icons/${i}/undefined`)
+                                navigate(`/icons/${i}/undefined`, {
+                                    unstable_viewTransition: true
+                                })
                             }}
                         >
-                            {Locked ? null : <PlusIcon size={32} />}
+                            {Locked ? null : <PlusIcon size={24} />}
                         </div>
                     )
                 })}

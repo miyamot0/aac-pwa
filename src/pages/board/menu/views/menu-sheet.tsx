@@ -49,11 +49,11 @@ export default function MenuSheet() {
                         SettingsDisplaySheet(!SheetOpen)
                     }}
                 >
-                    <MenuIcon size={24} />
+                    <MenuIcon className="h-6 w-6" />
                 </div>
 
                 <Badge
-                    className={cn('rounded-full', {
+                    className={cn('rounded-full pointer-events-none', {
                         'bg-blue-400': LanguageContext === 'L1',
                         'bg-purple-400': LanguageContext === 'L2'
                     })}

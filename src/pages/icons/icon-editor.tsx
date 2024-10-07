@@ -78,11 +78,15 @@ export default function IconEditorPage() {
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex flex-row justify-between bg-gray-300">
+            <div className="flex flex-row justify-between bg-gray-300 p-2">
                 <Button
                     variant={'ghost'}
                     className="flex flex-row gap-2 items-center h-12"
-                    onClick={() => navigate('/')}
+                    onClick={() =>
+                        navigate('/', {
+                            unstable_viewTransition: true
+                        })
+                    }
                 >
                     <ChevronLeft className="cursor-pointer h-6 w-6" />
                     Back
