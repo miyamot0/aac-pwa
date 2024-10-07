@@ -55,12 +55,12 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
             L1: {
                 Label: 'Label 1',
                 Image: 'https://via.placeholder.com/150',
-                Language: 'en-us'
+                Language: 'en'
             },
             L2: {
                 Label: 'Label 1',
                 Image: 'https://via.placeholder.com/150',
-                Language: 'en-us'
+                Language: 'es'
             },
             Index: 0
         },
@@ -69,12 +69,12 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
             L1: {
                 Label: 'Label 2',
                 Image: 'https://via.placeholder.com/150',
-                Language: 'en-us'
+                Language: 'en'
             },
             L2: {
                 Label: 'Label 2',
                 Image: 'https://via.placeholder.com/150',
-                Language: 'en-us'
+                Language: 'es'
             },
             Index: 4
         }

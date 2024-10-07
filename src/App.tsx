@@ -12,7 +12,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/">
             <Route index element={<BoardPage />} />
-            <Route path={'/icon/:id'} element={<IconEditorPage />} />
+            <Route path={'/icons/:index/:id'} element={<IconEditorPage />} />
         </Route>
     )
 )

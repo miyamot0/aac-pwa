@@ -2,13 +2,14 @@ import { cn } from '@/lib/utils'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { IconObject } from '@/providers/provider-types'
-import { toast } from 'sonner'
 import { PlusIcon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const COLS: number = 8
 
 function Icon({ Icon }: { Icon: IconObject }) {
     const { AddToFrame, Settings } = useContext(IconsContext)
+    const navigate = useNavigate()
 
     return (
         <div
@@ -16,7 +17,7 @@ function Icon({ Icon }: { Icon: IconObject }) {
             draggable={false}
             onClick={() => {
                 if (Settings.Locked === false) {
-                    toast.error('Board in Edit Mode: Edit Icon.')
+                    navigate(`/icons/${Icon.Index}/${Icon.id}`)
 
                     return
                 }
@@ -42,6 +43,8 @@ const ArrayNumber = Array.from({ length: 32 }, (_, i) => i)
 
 export default function BoardField() {
     const { Field, Settings } = useContext(IconsContext)
+    const navigate = useNavigate()
+
     const { Locked } = Settings
 
     return (
@@ -60,7 +63,12 @@ export default function BoardField() {
                     if (icon) return <Icon key={i} Icon={icon}></Icon>
 
                     return (
-                        <div className="aspect-square bg-white border border-black rounded shadow-md flex items-center justify-center">
+                        <div
+                            className="aspect-square bg-white border border-black rounded shadow-md flex items-center justify-center"
+                            onClick={() => {
+                                navigate(`/icons/${i}/undefined`)
+                            }}
+                        >
                             {Locked ? null : <PlusIcon size={32} />}
                         </div>
                     )

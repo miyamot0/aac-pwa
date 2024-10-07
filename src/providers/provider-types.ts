@@ -8,7 +8,7 @@ export type BoardSettings = {
 }
 
 export type LanguageContext = {
-    Language: 'en-us' | 'es-us'
+    Language: 'en' | 'es'
     Label: string
     Image: string
 }
