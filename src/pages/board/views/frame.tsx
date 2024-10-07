@@ -60,6 +60,9 @@ export default function BoardFrame() {
 
                         async function getNextAudio(sentence: string) {
                             const audio = new SpeechSynthesisUtterance(sentence)
+                            audio.lang =
+                                Settings.LanguageContext === 'L1' ? 'en' : 'es'
+
                             Speaker.speak(audio)
 
                             return new Promise((resolve) => {

@@ -20,6 +20,8 @@ import {
     SelectValue
 } from '@/components/ui/select'
 import { LanguageOption } from '@/providers/provider-types'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 
 export default function MenuSheet() {
     const {
@@ -36,9 +38,11 @@ export default function MenuSheet() {
             open={SheetOpen}
             onOpenChange={(open) => SettingsDisplaySheet(open)}
         >
-            <div className="flex flex-row gap-2 items-center">
+            <div className="flex flex-row gap-2 items-center h-6">
                 <div
-                    className="p-1 rounded hover:bg-gray-200"
+                    className={cn('p-1 rounded hover:bg-gray-200', {
+                        hidden: Locked === true
+                    })}
                     onClick={() => {
                         if (Locked === true) return
 
@@ -47,9 +51,15 @@ export default function MenuSheet() {
                 >
                     <MenuIcon size={24} />
                 </div>
-                <span>
-                    {LanguageContext === 'L1' ? 'Language #1' : 'Language #2'}
-                </span>
+
+                <Badge
+                    className={cn('rounded-full', {
+                        'bg-blue-400': LanguageContext === 'L1',
+                        'bg-purple-400': LanguageContext === 'L2'
+                    })}
+                >
+                    {LanguageContext === 'L1' ? 'English' : 'Spanish'}
+                </Badge>
             </div>
             <SheetContent side={'left'} className="flex flex-col">
                 <SheetHeader>

@@ -1,8 +1,8 @@
-import { LockIcon, PlusIcon } from 'lucide-react'
+import { LockIcon } from 'lucide-react'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
-import { Button } from '@/components/ui/button'
 import MenuSheet from './views/menu-sheet'
+import { Badge } from '@/components/ui/badge'
 
 export default function BoardMenuBar() {
     const { Settings, SettingsToggleLocked } = useContext(IconsContext)
@@ -13,24 +13,15 @@ export default function BoardMenuBar() {
             <MenuSheet />
             <div className="flex flex-row gap-4 items-center">
                 {Locked ? (
-                    <>
-                        <LockIcon
-                            size={24}
-                            onClick={() => SettingsToggleLocked()}
-                        />
-                    </>
+                    <Badge
+                        className="bg-green-400 flex flex-row gap-2 items-center rounded-full"
+                        onClick={() => SettingsToggleLocked()}
+                    >
+                        Locked
+                        <LockIcon className="h-4 w-4" />
+                    </Badge>
                 ) : (
-                    <>
-                        <Button
-                            className="flex flex-row gap-2 items-center bg-green-500 text-white"
-                            variant={'outline'}
-                            size={'sm'}
-                            onClick={() => alert('Add Icon')}
-                        >
-                            <PlusIcon size={16} />
-                            Add Icon
-                        </Button>
-                    </>
+                    <div className="h-6"></div>
                 )}
             </div>
         </div>

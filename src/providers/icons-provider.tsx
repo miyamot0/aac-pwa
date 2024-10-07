@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import { BoardSettings, IconObject, LanguageOption } from './provider-types'
+import { Toaster } from '@/components/ui/sonner'
 
 interface IconsContextType {
     Settings: BoardSettings
@@ -127,6 +128,7 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
             }}
         >
             {children}
+            <Toaster />
         </IconsContext.Provider>
     )
 }
