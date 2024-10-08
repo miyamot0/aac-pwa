@@ -1,37 +1,33 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db, SavedFile } from '@/lib/db'
 
 export default function FileSystemPage() {
-    const [entries, setEntries] = useState([] as string[])
-
-    useEffect(() => {
-        async function puller() {
-            const origin_fs = await navigator.storage.getDirectory()
-
-            if (origin_fs) {
-                const local_entries: string[] = []
-
-                for await (const handle of origin_fs.values()) {
-                    alert(handle.name)
-                    local_entries.push(handle.name)
-                }
-
-                setEntries(local_entries)
-            } else {
-                alert('Err')
-            }
-        }
-
-        puller()
-    }, [])
+    const files: SavedFile[] | undefined = useLiveQuery(() =>
+        db.files.toArray()
+    )
 
     return (
-        <div>
-            <ul>
-                {entries.map((entry, index) => {
-                    return <li key={index}>{entry}</li>
-                })}
-            </ul>
+        <div className="w-full px-2">
+            <div>Header TODO</div>
+            <div className="flex flex-col w-full max-w-screen-lg">
+                <h1>File System</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {files?.map((entry, index) => {
+                        const blob = new Blob([entry.file], {
+                            type: 'image/png'
+                        })
+                        const url = URL.createObjectURL(blob)
+
+                        return (
+                            <img
+                                key={index}
+                                src={url}
+                                className="object-scale-down max-sm:"
+                            />
+                        )
+                    })}
+                </div>
+            </div>
         </div>
     )
 }
