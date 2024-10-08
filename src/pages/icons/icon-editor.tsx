@@ -9,7 +9,7 @@ import { IconsContext } from '@/providers/icons-provider'
 import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { z } from 'zod'
 import {
@@ -24,7 +24,6 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ChevronLeft } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 import {
     Select,
     SelectContent,
@@ -32,6 +31,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
+import HeaderBackground from '@/components/layout/header-bg'
 
 enum LanguageType {
     English = 'en',
@@ -47,7 +47,6 @@ const iconSchema = z.object({
 export default function IconEditorPage() {
     const { Field } = useContext(IconsContext)
     const { id, index } = useParams()
-    const navigate = useNavigate()
 
     if (!index) throw new Error('Index is required')
 
@@ -78,20 +77,17 @@ export default function IconEditorPage() {
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex flex-row justify-between bg-gray-300 p-2">
-                <Button
-                    variant={'ghost'}
-                    className="flex flex-row gap-2 items-center h-12"
-                    onClick={() =>
-                        navigate('/', {
-                            unstable_viewTransition: true
-                        })
-                    }
+            <HeaderBackground className="grid grid-cols-3">
+                <Link
+                    to="/"
+                    className="flex flex-row gap-2"
+                    unstable_viewTransition={true}
                 >
-                    <ChevronLeft className="cursor-pointer h-6 w-6" />
+                    <ChevronLeft className="h-6 w-6" />
                     Back
-                </Button>
-            </div>
+                </Link>
+                <span className="text-lg text-center">Icon Entry Editor</span>
+            </HeaderBackground>
             <div className="flex flex-row justify-center">
                 <Card className="max-w-screen-md">
                     <CardHeader>

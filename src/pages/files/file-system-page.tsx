@@ -1,5 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, SavedFile } from '@/lib/db'
+import HeaderBackground from '@/components/layout/header-bg'
+import { Link } from 'react-router-dom'
+import { ChevronLeft } from 'lucide-react'
 
 export default function FileSystemPage() {
     const files: SavedFile[] | undefined = useLiveQuery(() =>
@@ -7,7 +10,18 @@ export default function FileSystemPage() {
     )
 
     return (
-        <div className="w-full px-2">
+        <div className="flex flex-col gap-2">
+            <HeaderBackground className="grid grid-cols-3">
+                <Link
+                    to="/"
+                    className="flex flex-row gap-2"
+                    unstable_viewTransition={true}
+                >
+                    <ChevronLeft className="h-6 w-6" />
+                    Back
+                </Link>
+                <span className="text-lg text-center">Saved Image Assets</span>
+            </HeaderBackground>
             <div>Header TODO</div>
             <div className="flex flex-col w-full max-w-screen-lg">
                 <h1>File System</h1>
