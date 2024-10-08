@@ -41,7 +41,7 @@ function Icon({ Icon }: { Icon: IconObject }) {
     )
 }
 
-const ArrayNumber = Array.from({ length: 32 }, (_, i) => i)
+const ArrayNumber = Array.from({ length: 24 }, (_, i) => i)
 
 export default function BoardField() {
     const { Field, Settings } = useContext(IconsContext)
@@ -50,7 +50,7 @@ export default function BoardField() {
     const { Locked } = Settings
 
     return (
-        <div className="flex flex-col flex-1 justify-start grow">
+        <div className="flex flex-col flex-1 justify-start grow px-2">
             <div
                 className={cn('grid grid-cols-4 gap-4', {
                     'grid-cols-8': COLS === 8,
@@ -66,7 +66,7 @@ export default function BoardField() {
 
                     return (
                         <div
-                            className="aspect-square bg-white border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none"
+                            className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none"
                             onClick={() => {
                                 navigate(`/icons/${i}/undefined`, {
                                     unstable_viewTransition: true

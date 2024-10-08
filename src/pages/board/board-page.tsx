@@ -4,7 +4,7 @@ import BoardField from './views/field'
 
 export default function BoardPage() {
     return (
-        <div className="flex flex-col w-full min-h-screen px-2 gap-2 py-2 select-none">
+        <div className="flex flex-col w-full min-h-screen gap-2 select-none">
             <BoardMenuBar />
             <BoardFrame />
             <BoardField />

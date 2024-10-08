@@ -8,13 +8,18 @@ export default function FileSystemPage() {
         async function puller() {
             const origin_fs = await navigator.storage.getDirectory()
 
-            const local_entries: string[] = []
+            if (origin_fs) {
+                const local_entries: string[] = []
 
-            for await (const handle of origin_fs.values()) {
-                local_entries.push(handle.name)
+                for await (const handle of origin_fs.values()) {
+                    alert(handle.name)
+                    local_entries.push(handle.name)
+                }
+
+                setEntries(local_entries)
+            } else {
+                alert('Err')
             }
-
-            setEntries(local_entries)
         }
 
         puller()

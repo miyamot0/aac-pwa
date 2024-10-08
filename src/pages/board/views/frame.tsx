@@ -38,7 +38,7 @@ export default function BoardFrame() {
     const { ResetAfterSpeak } = Settings
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col px-2">
             <div className="grid grid-cols-8 h-[15vh] max-h-[15vh] text-center gap-1 lg:gap-2">
                 <div className="col-span-7 bg-white rounded border border-black flex flex-row justify-between items-center px-4">
                     <div className="flex flex-row gap-2">
