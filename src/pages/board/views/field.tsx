@@ -8,8 +8,19 @@ import { useLiveQuery } from 'dexie-react-hooks'
 const COLS: number = 8
 
 function Icon({ Icon }: { Icon: SGDField }) {
-    const { Settings } = useContext(IconsContext)
+    const { AddToFrame, Settings } = useContext(IconsContext)
     const navigate = useNavigate()
+
+    const icon_to_reference =
+        Settings.LanguageContext === 'L1' ? Icon.L1 : Icon.L2
+
+    const has_file = icon_to_reference?.File !== undefined
+
+    const url = has_file
+        ? URL.createObjectURL(
+              new Blob([icon_to_reference!.File!], { type: 'image/png' })
+          )
+        : icon_to_reference!.Image
 
     return (
         <div
@@ -24,13 +35,13 @@ function Icon({ Icon }: { Icon: SGDField }) {
                     return
                 }
 
-                //AddToFrame(Icon)
+                AddToFrame(Icon)
             }}
         >
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <img
-                    src={Icon.L1.Image}
-                    alt={Icon.L1.Label}
+                    src={url}
+                    alt={icon_to_reference?.Label ?? 'Blank Icon'}
                     draggable={false}
                 />
             </div>
@@ -55,12 +66,6 @@ export default function BoardField() {
                 })}
             >
                 {ArrayNumber.map((_, i) => {
-                    /*
-                    const icon = Field.find(
-                        (icon: IconObject) => icon.Index === i
-                    )
-                    */
-
                     const icon = icons?.find((icon) => icon.index === i)
 
                     if (icon) return <Icon key={i} Icon={icon}></Icon>

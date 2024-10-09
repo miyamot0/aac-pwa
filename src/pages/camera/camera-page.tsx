@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { db } from '@/lib/db'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 import HeaderBackground from '@/components/layout/header-bg'
 import {
@@ -12,9 +12,12 @@ import {
     CardTitle
 } from '@/components/ui/card'
 import { toast } from 'sonner'
-import { BOARD_PAGE } from '@/lib/links'
 
 export default function CameraPage() {
+    const { id, slot } = useParams()
+
+    if (!id || !slot) throw new Error('No ID provided')
+
     const [img, setImg] = useState<string | null>(null)
     const [buffer, setBuffer] = useState<Uint8Array | null>(null)
 
@@ -33,7 +36,7 @@ export default function CameraPage() {
         <div className="flex flex-col gap-2 items">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
-                    to={BOARD_PAGE}
+                    to={`/icons/${id}/${slot}`}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
                 >

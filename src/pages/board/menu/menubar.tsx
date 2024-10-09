@@ -1,17 +1,11 @@
-import {
-    CameraIcon,
-    FolderIcon,
-    LockIcon,
-    PlusIcon,
-    Settings2Icon
-} from 'lucide-react'
+import { LockIcon, PlusIcon, Settings2Icon } from 'lucide-react'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 import HeaderBackground from '@/components/layout/header-bg'
-import { CAMERA_PAGE, IMAGES_PAGE, SETTINGS_PAGE } from '@/lib/links'
+import { SETTINGS_PAGE } from '@/lib/links'
 import { db, SGDField } from '@/lib/db'
 import { toast } from 'sonner'
 
@@ -37,6 +31,7 @@ export default function BoardMenuBar() {
 
             const new_icon = {
                 index,
+                conditional: false,
                 L1: {
                     Language: 'en',
                     Label: 'Blank'
@@ -82,20 +77,6 @@ export default function BoardMenuBar() {
                             to={SETTINGS_PAGE}
                         >
                             <Settings2Icon className="h-6 w-6" />
-                        </Link>
-                        <Link
-                            className={cn('p-1 rounded ')}
-                            unstable_viewTransition={true}
-                            to={CAMERA_PAGE}
-                        >
-                            <CameraIcon className="h-6 w-6" />
-                        </Link>
-                        <Link
-                            className={cn('p-1 rounded ')}
-                            unstable_viewTransition={true}
-                            to={IMAGES_PAGE}
-                        >
-                            <FolderIcon className="h-6 w-6" />
                         </Link>
                     </>
                 )}

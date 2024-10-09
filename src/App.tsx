@@ -13,12 +13,7 @@ import SettingsPage from './pages/settings/settings-page'
 import CameraPage from './pages/camera/camera-page'
 import FileSystemPage from './pages/files/file-system-page'
 import LandingPage from './pages/landing/landing-page'
-import {
-    BOARD_PAGE,
-    CAMERA_PAGE,
-    IMAGES_PAGE,
-    SETTINGS_PAGE
-} from './lib/links'
+import { BOARD_PAGE, IMAGES_PAGE, SETTINGS_PAGE } from './lib/links'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,13 +21,15 @@ const router = createBrowserRouter(
             <Route index element={<LandingPage />} />
             <Route path={BOARD_PAGE} element={<BoardPage />} />
             <Route path={SETTINGS_PAGE} element={<SettingsPage />} />
-            <Route path={CAMERA_PAGE} element={<CameraPage />} />
             <Route path={IMAGES_PAGE} element={<FileSystemPage />} />
             <Route
                 path={'/icons/:id'}
                 element={<IconEditorPage />}
+                // @ts-expect-error Annoying loader typing
                 loader={IconEditorLoader}
             />
+            <Route path={'/icons/:id/:slot'} element={<FileSystemPage />} />
+            <Route path={'/icons/:id/:slot/camera'} element={<CameraPage />} />
         </Route>
     )
 )

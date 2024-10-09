@@ -3,19 +3,31 @@ import { useContext, useEffect } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
-import type { IconObject } from '@/providers/provider-types'
+import { SGDField } from '@/lib/db'
 
-function FrameIconAnimated({ icon }: { icon: IconObject }) {
+function FrameIconAnimated({ icon }: { icon: SGDField }) {
+    const { Settings } = useContext(IconsContext)
     const [displayed, setDisplayed] = useState(false)
 
     useEffect(() => {
         setDisplayed(true)
     }, [])
 
+    const icon_to_reference =
+        Settings.LanguageContext === 'L1' ? icon.L1 : icon.L2
+
+    const has_file = icon_to_reference?.File !== undefined
+
+    const url = has_file
+        ? URL.createObjectURL(
+              new Blob([icon_to_reference!.File!], { type: 'image/png' })
+          )
+        : icon_to_reference!.Image
+
     return (
         <div
             className={cn(
-                'aspect-square bg-white rounded border border-black flex flex-col justify-end items-center h-[10vh] transition-all ease-in-out duration-300',
+                'border border-black rounded aspect-square bg-white flex flex-col justify-end items-center select-none relative shadow-md h-[10vh] transition-all ease-in-out duration-300',
                 {
                     'opacity-100': displayed,
                     'opacity-0': !displayed
@@ -23,13 +35,44 @@ function FrameIconAnimated({ icon }: { icon: IconObject }) {
             )}
         >
             <img
-                src={icon.L1.Image}
-                alt={icon.L1.Label}
-                className="aspect-square object-scale-down w-2/3"
+                src={url}
+                alt={icon_to_reference?.Label ?? 'Blank Icon'}
+                draggable={false}
             />
-            {icon.L1.Label}
+            <div className="absolute bg-white px-2 rounded-sm mb-2">
+                {icon.L1.Label}
+            </div>
         </div>
     )
+
+    /*
+        <div
+            className="border border-black rounded aspect-square bg-white hover:bg-gray-100 cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md"
+            draggable={false}
+            onClick={() => {
+                if (Settings.Locked === false) {
+                    navigate(`/icons/${Icon.id}`, {
+                        unstable_viewTransition: true
+                    })
+
+                    return
+                }
+
+                AddToFrame(Icon)
+            }}
+        >
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <img
+                    src={url}
+                    alt={icon_to_reference?.Label ?? 'Blank Icon'}
+                    draggable={false}
+                />
+            </div>
+            <div className="absolute bg-white px-2 border border-black rounded-sm mb-2">
+                {Icon.L1.Label}
+            </div>
+        </div>    
+    */
 }
 
 export default function BoardFrame() {
@@ -53,7 +96,7 @@ export default function BoardFrame() {
                     data-empty={Frame.length === 0}
                     onClick={async () => {
                         const words = [
-                            Frame.map((icon: IconObject) => icon.L1.Label).join(
+                            Frame.map((icon: SGDField) => icon.L1.Label).join(
                                 ' '
                             )
                         ]

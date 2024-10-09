@@ -1,14 +1,14 @@
 import React, { ReactNode } from 'react'
-import { BoardSettings, IconObject, LanguageOption } from './provider-types'
+import { BoardSettings, LanguageOption } from './provider-types'
 import { Toaster } from '@/components/ui/sonner'
+import { SGDField } from '@/lib/db'
 
 interface IconsContextType {
     Settings: BoardSettings
     Speaker: SpeechSynthesis
-    Field: IconObject[]
-    Frame: IconObject[]
+    Frame: SGDField[]
     FieldSize: number
-    AddToFrame: (icon: IconObject) => void
+    AddToFrame: (icon: SGDField) => void
     RemoveFromFrame: () => void
     ClearFrame: () => void
     SettingsToggleLocked: () => void
@@ -25,7 +25,6 @@ export const IconsContext = React.createContext<IconsContextType>({
         LanguageContext: 'L1'
     },
     Speaker: window.speechSynthesis,
-    Field: [],
     Frame: [],
     FieldSize: 24,
     AddToFrame: () => {},
@@ -51,47 +50,16 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
         LanguageContext: 'L1'
     })
 
-    const [icons] = React.useState<IconObject[]>([
-        {
-            id: '1',
-            L1: {
-                Label: 'Label 1',
-                Image: 'https://via.placeholder.com/150',
-                Language: 'en'
-            },
-            L2: {
-                Label: 'Label 1',
-                Image: 'https://via.placeholder.com/150',
-                Language: 'es'
-            },
-            Index: 0
-        },
-        {
-            id: '2',
-            L1: {
-                Label: 'Label 2',
-                Image: 'https://via.placeholder.com/150',
-                Language: 'en'
-            },
-            L2: {
-                Label: 'Label 2',
-                Image: 'https://via.placeholder.com/150',
-                Language: 'es'
-            },
-            Index: 4
-        }
-    ])
-    const [frame, setFrame] = React.useState<IconObject[]>([])
+    const [frame, setFrame] = React.useState<SGDField[]>([])
 
     return (
         <IconsContext.Provider
             value={{
                 Settings: settings,
                 Speaker: speechSynthesis,
-                Field: icons,
                 Frame: frame,
                 FieldSize: 24,
-                AddToFrame: (icon: IconObject) => setFrame([...frame, icon]),
+                AddToFrame: (icon: SGDField) => setFrame([...frame, icon]),
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
                 ClearFrame: () => setFrame([]),
                 SettingsToggleLocked: () => {
