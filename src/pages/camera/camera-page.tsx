@@ -12,6 +12,7 @@ import {
     CardTitle
 } from '@/components/ui/card'
 import { toast } from 'sonner'
+import { BOARD_PAGE } from '@/lib/links'
 
 export default function CameraPage() {
     const [img, setImg] = useState<string | null>(null)
@@ -32,7 +33,7 @@ export default function CameraPage() {
         <div className="flex flex-col gap-2 items">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
-                    to="/"
+                    to={BOARD_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
                 >

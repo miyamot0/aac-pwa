@@ -4,10 +4,12 @@ import { IconsContext } from '@/providers/icons-provider'
 import { IconObject } from '@/providers/provider-types'
 import { PlusIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { db, SGDField } from '@/lib/db'
+import { useLiveQuery } from 'dexie-react-hooks'
 
 const COLS: number = 8
 
-function Icon({ Icon }: { Icon: IconObject }) {
+function Icon({ Icon }: { Icon: SGDField }) {
     const { AddToFrame, Settings } = useContext(IconsContext)
     const navigate = useNavigate()
 
@@ -17,14 +19,14 @@ function Icon({ Icon }: { Icon: IconObject }) {
             draggable={false}
             onClick={() => {
                 if (Settings.Locked === false) {
-                    navigate(`/icons/${Icon.Index}/${Icon.id}`, {
+                    navigate(`/icons/${Icon.index}/${Icon.id}`, {
                         unstable_viewTransition: true
                     })
 
                     return
                 }
 
-                AddToFrame(Icon)
+                //AddToFrame(Icon)
             }}
         >
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -44,10 +46,12 @@ function Icon({ Icon }: { Icon: IconObject }) {
 const ArrayNumber = Array.from({ length: 24 }, (_, i) => i)
 
 export default function BoardField() {
-    const { Field, Settings } = useContext(IconsContext)
+    const { Settings } = useContext(IconsContext)
     const navigate = useNavigate()
 
     const { Locked } = Settings
+
+    const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
 
     return (
         <div className="flex flex-col flex-1 justify-start grow px-2">
@@ -58,9 +62,13 @@ export default function BoardField() {
                 })}
             >
                 {ArrayNumber.map((_, i) => {
+                    /*
                     const icon = Field.find(
                         (icon: IconObject) => icon.Index === i
                     )
+                    */
+
+                    const icon = icons?.find((icon) => icon.index === i)
 
                     if (icon) return <Icon key={i} Icon={icon}></Icon>
 

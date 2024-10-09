@@ -32,6 +32,7 @@ import {
     SelectValue
 } from '@/components/ui/select'
 import HeaderBackground from '@/components/layout/header-bg'
+import { BOARD_PAGE } from '@/lib/links'
 
 enum LanguageType {
     English = 'en',
@@ -79,7 +80,7 @@ export default function IconEditorPage() {
         <div className="flex flex-col gap-2">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
-                    to="/"
+                    to={BOARD_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
                 >

@@ -20,6 +20,7 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
+import { BOARD_PAGE } from '@/lib/links'
 
 export default function SettingsPage() {
     const {
@@ -34,7 +35,7 @@ export default function SettingsPage() {
         <div>
             <HeaderBackground className="grid grid-cols-3">
                 <Link
-                    to="/"
+                    to={BOARD_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
                 >

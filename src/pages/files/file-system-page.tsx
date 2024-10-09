@@ -3,6 +3,7 @@ import { db, SavedFile } from '@/lib/db'
 import HeaderBackground from '@/components/layout/header-bg'
 import { Link } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
+import { BOARD_PAGE } from '@/lib/links'
 
 export default function FileSystemPage() {
     const files: SavedFile[] | undefined = useLiveQuery(() =>
@@ -13,7 +14,7 @@ export default function FileSystemPage() {
         <div className="flex flex-col gap-2">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
-                    to="/"
+                    to={BOARD_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
                 >

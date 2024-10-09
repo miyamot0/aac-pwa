@@ -1,14 +1,55 @@
-import { CameraIcon, FolderIcon, LockIcon, Settings2Icon } from 'lucide-react'
+import {
+    CameraIcon,
+    FolderIcon,
+    LockIcon,
+    PlusIcon,
+    Settings2Icon
+} from 'lucide-react'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 import HeaderBackground from '@/components/layout/header-bg'
+import { CAMERA_PAGE, IMAGES_PAGE, SETTINGS_PAGE } from '@/lib/links'
+import { db, SGDField } from '@/lib/db'
+import { toast } from 'sonner'
 
 export default function BoardMenuBar() {
-    const { Settings, SettingsToggleLocked } = useContext(IconsContext)
+    const { Settings, FieldSize, SettingsToggleLocked } =
+        useContext(IconsContext)
     const { Locked } = Settings
+
+    async function addIconToField() {
+        try {
+            const icons: SGDField[] = await db.icons.toArray()
+            const indices = icons.map((icon) => icon.index)
+            const spaces = Array.from({ length: FieldSize }, (_, i) => i)
+
+            const available = spaces.filter((space) => !indices.includes(space))
+
+            if (available.length === 0) {
+                toast.error(`No more space available in field`)
+                return
+            }
+
+            const index = Math.min(...available)
+
+            const new_icon = {
+                index,
+                L1: {
+                    Language: 'en',
+                    Label: 'Blank'
+                }
+            } as SGDField
+
+            await db.icons.add({
+                ...new_icon
+            })
+        } catch (err: unknown) {
+            toast.error(`Failed to add new icon to field: ${err}`)
+        }
+    }
 
     return (
         <HeaderBackground>
@@ -27,24 +68,32 @@ export default function BoardMenuBar() {
                         <Badge className="bg-gray-400 flex flex-row gap-2 items-center rounded-full pointer-events-none">
                             Edit Mode
                         </Badge>
+                        <div
+                            className={cn('p-1 rounded cursor-pointer')}
+                            onClick={() => {
+                                addIconToField()
+                            }}
+                        >
+                            <PlusIcon className="h-6 w-6" />
+                        </div>
                         <Link
-                            className={cn('p-1 rounded hover:bg-gray-200')}
+                            className={cn('p-1 rounded ')}
                             unstable_viewTransition={true}
-                            to={'/settings'}
+                            to={SETTINGS_PAGE}
                         >
                             <Settings2Icon className="h-6 w-6" />
                         </Link>
                         <Link
-                            className={cn('p-1 rounded hover:bg-gray-200')}
+                            className={cn('p-1 rounded ')}
                             unstable_viewTransition={true}
-                            to={'/camera'}
+                            to={CAMERA_PAGE}
                         >
                             <CameraIcon className="h-6 w-6" />
                         </Link>
                         <Link
-                            className={cn('p-1 rounded hover:bg-gray-200')}
+                            className={cn('p-1 rounded ')}
                             unstable_viewTransition={true}
-                            to={'/files'}
+                            to={IMAGES_PAGE}
                         >
                             <FolderIcon className="h-6 w-6" />
                         </Link>
