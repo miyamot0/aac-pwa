@@ -38,15 +38,13 @@ function Icon({ Icon }: { Icon: SGDField }) {
                 AddToFrame(Icon)
             }}
         >
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <img
-                    src={url}
-                    alt={icon_to_reference?.Label ?? 'Blank Icon'}
-                    draggable={false}
-                />
-            </div>
+            <img
+                src={url}
+                alt={icon_to_reference?.Label ?? 'Blank Icon'}
+                draggable={false}
+            />
             <div className="absolute bg-white px-2 border border-black rounded-sm mb-2">
-                {Icon.L1.Label}
+                {icon_to_reference?.Label}
             </div>
         </div>
     )

@@ -40,39 +40,10 @@ function FrameIconAnimated({ icon }: { icon: SGDField }) {
                 draggable={false}
             />
             <div className="absolute bg-white px-2 rounded-sm mb-2">
-                {icon.L1.Label}
+                {icon_to_reference?.Label}
             </div>
         </div>
     )
-
-    /*
-        <div
-            className="border border-black rounded aspect-square bg-white hover:bg-gray-100 cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md"
-            draggable={false}
-            onClick={() => {
-                if (Settings.Locked === false) {
-                    navigate(`/icons/${Icon.id}`, {
-                        unstable_viewTransition: true
-                    })
-
-                    return
-                }
-
-                AddToFrame(Icon)
-            }}
-        >
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <img
-                    src={url}
-                    alt={icon_to_reference?.Label ?? 'Blank Icon'}
-                    draggable={false}
-                />
-            </div>
-            <div className="absolute bg-white px-2 border border-black rounded-sm mb-2">
-                {Icon.L1.Label}
-            </div>
-        </div>    
-    */
 }
 
 export default function BoardFrame() {

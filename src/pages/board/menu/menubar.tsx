@@ -1,7 +1,6 @@
-import { LockIcon, PlusIcon, Settings2Icon } from 'lucide-react'
+import { LockIcon, PlusIcon, Settings2Icon, UnlockIcon } from 'lucide-react'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 import HeaderBackground from '@/components/layout/header-bg'
@@ -10,7 +9,7 @@ import { db, SGDField } from '@/lib/db'
 import { toast } from 'sonner'
 
 export default function BoardMenuBar() {
-    const { Settings, FieldSize, SettingsToggleLocked } =
+    const { Settings, FieldSize, SettingsToggleLocked, ClearFrame } =
         useContext(IconsContext)
     const { Locked } = Settings
 
@@ -51,34 +50,57 @@ export default function BoardMenuBar() {
             <span className="text-lg">Otsu (PWA)</span>
             <div className="flex flex-row gap-4 items-center">
                 {Locked ? (
-                    <Badge
-                        className="bg-green-400 flex flex-row gap-2 items-center rounded-full"
-                        onClick={() => SettingsToggleLocked()}
+                    <div
+                        className={cn('p-1 rounded cursor-pointer')}
+                        onClick={() => {
+                            SettingsToggleLocked()
+                            ClearFrame()
+                        }}
                     >
-                        Locked
-                        <LockIcon className="h-4 w-4" />
-                    </Badge>
+                        <LockIcon className="h-6 w-6" />
+                    </div>
                 ) : (
-                    <>
-                        <Badge className="bg-gray-400 flex flex-row gap-2 items-center rounded-full pointer-events-none">
-                            Edit Mode
-                        </Badge>
+                    <div className="flex flex-row gap-4">
                         <div
-                            className={cn('p-1 rounded cursor-pointer')}
+                            className={
+                                'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
+                            }
                             onClick={() => {
                                 addIconToField()
                             }}
                         >
                             <PlusIcon className="h-6 w-6" />
+                            <span className="text-sm hidden md:block">
+                                Add New Icon
+                            </span>
+                        </div>
+                        <div
+                            className={
+                                'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
+                            }
+                            onClick={() => {
+                                SettingsToggleLocked()
+                                ClearFrame()
+                            }}
+                        >
+                            <UnlockIcon className="h-6 w-6" />
+                            <span className="text-sm hidden md:block">
+                                Lock
+                            </span>
                         </div>
                         <Link
-                            className={cn('p-1 rounded ')}
+                            className={
+                                'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
+                            }
                             unstable_viewTransition={true}
                             to={SETTINGS_PAGE}
                         >
                             <Settings2Icon className="h-6 w-6" />
+                            <span className="text-sm hidden md:block">
+                                Settings
+                            </span>
                         </Link>
-                    </>
+                    </div>
                 )}
             </div>
         </HeaderBackground>

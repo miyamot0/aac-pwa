@@ -35,6 +35,7 @@ import { toast } from 'sonner'
 import { Switch } from '@/components/ui/switch'
 import { IconsContext } from '@/providers/icons-provider'
 import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
 
 enum LanguageType {
     English = 'en',
@@ -46,7 +47,9 @@ const iconSchema = z.object({
     index: z.coerce.number().min(0),
     conditional: z.boolean(),
     L1: z.nativeEnum(LanguageType),
-    L2: z.nativeEnum(LanguageType)
+    L1_Label: z.string(),
+    L2: z.nativeEnum(LanguageType),
+    L2_Label: z.string()
 })
 
 type LoaderReturn = {
@@ -86,10 +89,12 @@ export default function IconEditorPage() {
                 relevantIcon?.L1 === undefined
                     ? ('en' as LanguageType)
                     : (relevantIcon.L1.Language as unknown as LanguageType),
+            L1_Label: relevantIcon.L1.Label,
             L2:
                 relevantIcon?.L2 === undefined
                     ? ('N/A' as LanguageType)
-                    : (relevantIcon.L2.Language as unknown as LanguageType)
+                    : (relevantIcon.L2.Language as unknown as LanguageType),
+            L2_Label: relevantIcon.L2?.Label ?? ''
         }
     })
 
@@ -102,13 +107,13 @@ export default function IconEditorPage() {
                 conditional: values.conditional,
                 L1: {
                     Language: values.L1 as 'en' | 'es',
-                    Label: relevantIcon.L1.Label,
+                    Label: values.L1_Label,
                     Image: relevantIcon.L1.Image,
                     File: relevantIcon.L1.File
                 },
                 L2: {
                     Language: values.L2 as 'en' | 'es' | 'N/A',
-                    Label: relevantIcon.L2?.Label ?? 'Blank',
+                    Label: values.L2_Label,
                     Image: relevantIcon.L2?.Image,
                     File: relevantIcon.L2?.File
                 }
@@ -170,11 +175,11 @@ export default function IconEditorPage() {
                 </Link>
                 <span className="text-lg text-center">Icon Entry Editor</span>
                 <div
-                    className="w-full flex flex-row gap-2 justify-end cursor-pointer"
+                    className="w-full flex flex-row gap-2 flex flex-row gap-2 items-center justify-end cursor-pointer"
                     onClick={() => deleteIcon()}
                 >
-                    Delete
-                    <DeleteIcon />
+                    <DeleteIcon className="h-6 w-6" />
+                    <span className="text-sm hidden md:block">Delete Icon</span>
                 </div>
             </HeaderBackground>
             <div className="flex flex-row justify-center">
@@ -298,9 +303,38 @@ export default function IconEditorPage() {
                                     )}
                                 />
 
-                                <div className="grid grid-cols-2">
-                                    <div className="flex flex-col justify-start gap-2 mr-4">
+                                <FormField
+                                    control={form.control}
+                                    name="L1_Label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>L1 Label</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder=""
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                This is the word associated with
+                                                the L1 icon
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <div className="grid">
+                                    <div className="flex flex-col justify-start gap-4 mr-4">
                                         <FormLabel>Current L1 Asset</FormLabel>
+
+                                        <img
+                                            className="p-4 w-full aspect-square border rounded"
+                                            src={l1_asset}
+                                            alt={'L1 Asset'}
+                                            draggable={false}
+                                        />
+
                                         <Link
                                             to={`/icons/${relevantIcon.id}/L1`}
                                             className={cn(
@@ -313,12 +347,6 @@ export default function IconEditorPage() {
                                             Edit L1 Asset
                                         </Link>
                                     </div>
-                                    <img
-                                        className="p-4 w-full aspect-square border rounded"
-                                        src={l1_asset}
-                                        alt={'L1 Asset'}
-                                        draggable={false}
-                                    />
                                 </div>
 
                                 <FormField
@@ -363,13 +391,48 @@ export default function IconEditorPage() {
                                     )}
                                 />
 
+                                <FormField
+                                    control={form.control}
+                                    name="L2_Label"
+                                    render={({ field }) => (
+                                        <FormItem
+                                            className={cn('', {
+                                                hidden:
+                                                    form.getValues('L2') ===
+                                                    'N/A'
+                                            })}
+                                        >
+                                            <FormLabel>L2 Label</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder=""
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                This is the word associated with
+                                                the L2 icon
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
                                 <div
-                                    className={cn('grid grid-cols-2', {
+                                    className={cn('grid', {
                                         hidden: form.getValues('L2') === 'N/A'
                                     })}
                                 >
-                                    <div className="flex flex-col justify-start gap-2 mr-4">
+                                    <div className="flex flex-col justify-start gap-4 mr-4">
                                         <FormLabel>Current L2 Asset</FormLabel>
+
+                                        <img
+                                            className="p-4 w-full aspect-square border rounded"
+                                            src={l2_asset}
+                                            alt={'L2 Asset'}
+                                            draggable={false}
+                                        />
+
                                         <Link
                                             to={`/icons/${relevantIcon.id}/L2`}
                                             className={cn(
@@ -382,12 +445,6 @@ export default function IconEditorPage() {
                                             Edit L2 Asset
                                         </Link>
                                     </div>
-                                    <img
-                                        className="p-4 w-full aspect-square border rounded"
-                                        src={l2_asset}
-                                        alt={'L2 Asset'}
-                                        draggable={false}
-                                    />
                                 </div>
 
                                 <Button type="submit" className="w-full">
