@@ -5,11 +5,10 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
-import { IconsContext } from '@/providers/icons-provider'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 
 import { z } from 'zod'
 import {
@@ -23,7 +22,7 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, DeleteIcon } from 'lucide-react'
 import {
     Select,
     SelectContent,
@@ -33,6 +32,8 @@ import {
 } from '@/components/ui/select'
 import HeaderBackground from '@/components/layout/header-bg'
 import { BOARD_PAGE } from '@/lib/links'
+import { db, SGDField } from '@/lib/db'
+import { toast } from 'sonner'
 
 enum LanguageType {
     English = 'en',
@@ -45,18 +46,28 @@ const iconSchema = z.object({
     L2: z.nativeEnum(LanguageType)
 })
 
+export async function loader({ params }: { params: { id: string } }) {
+    const id = parseInt(params.id)
+
+    if (!id) throw new Error('id is required')
+
+    const icon = await db.icons.get(id)
+
+    return icon
+}
+
 export default function IconEditorPage() {
-    const { Field } = useContext(IconsContext)
-    const { id, index } = useParams()
+    const relevantIcon = useLoaderData() as SGDField | undefined
+    const navigate = useNavigate()
 
-    if (!index) throw new Error('Index is required')
-
-    const relevantIcon = Field.find((icon) => icon.id === id)
+    if (!relevantIcon) throw new Error('No icon found')
 
     const form = useForm<z.infer<typeof iconSchema>>({
         resolver: zodResolver(iconSchema),
         values: {
-            index: parseInt(index),
+            index: parseInt(
+                relevantIcon ? relevantIcon.index.toString() : '-1'
+            ),
             L1:
                 relevantIcon?.L1 === undefined
                     ? ('en' as LanguageType)
@@ -70,6 +81,21 @@ export default function IconEditorPage() {
 
     function onSubmit(values: z.infer<typeof iconSchema>) {
         console.log(values)
+    }
+
+    async function deleteIcon() {
+        if (!relevantIcon) return
+
+        db.icons
+            .where('id')
+            .equals(relevantIcon.id)
+            .delete()
+            .then(() => {
+                toast.success('Icon deleted')
+            })
+            .finally(() => {
+                navigate(BOARD_PAGE)
+            })
     }
 
     useEffect(() => {
@@ -88,6 +114,13 @@ export default function IconEditorPage() {
                     Back
                 </Link>
                 <span className="text-lg text-center">Icon Entry Editor</span>
+                <div
+                    className="w-full flex flex-row gap-2 justify-end cursor-pointer"
+                    onClick={() => deleteIcon()}
+                >
+                    Delete
+                    <DeleteIcon />
+                </div>
             </HeaderBackground>
             <div className="flex flex-row justify-center">
                 <Card className="max-w-screen-md">

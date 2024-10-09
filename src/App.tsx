@@ -6,7 +6,9 @@ import {
 } from 'react-router-dom'
 import BoardPage from './pages/board/board-page'
 import { IconsProvider } from '@/providers/icons-provider'
-import IconEditorPage from './pages/icons/icon-editor'
+import IconEditorPage, {
+    loader as IconEditorLoader
+} from './pages/icons/icon-editor'
 import SettingsPage from './pages/settings/settings-page'
 import CameraPage from './pages/camera/camera-page'
 import FileSystemPage from './pages/files/file-system-page'
@@ -26,7 +28,11 @@ const router = createBrowserRouter(
             <Route path={SETTINGS_PAGE} element={<SettingsPage />} />
             <Route path={CAMERA_PAGE} element={<CameraPage />} />
             <Route path={IMAGES_PAGE} element={<FileSystemPage />} />
-            <Route path={'/icons/:index/:id'} element={<IconEditorPage />} />
+            <Route
+                path={'/icons/:id'}
+                element={<IconEditorPage />}
+                loader={IconEditorLoader}
+            />
         </Route>
     )
 )

@@ -1,8 +1,6 @@
 import { cn } from '@/lib/utils'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
-import { IconObject } from '@/providers/provider-types'
-import { PlusIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { db, SGDField } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
@@ -10,7 +8,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 const COLS: number = 8
 
 function Icon({ Icon }: { Icon: SGDField }) {
-    const { AddToFrame, Settings } = useContext(IconsContext)
+    const { Settings } = useContext(IconsContext)
     const navigate = useNavigate()
 
     return (
@@ -19,7 +17,7 @@ function Icon({ Icon }: { Icon: SGDField }) {
             draggable={false}
             onClick={() => {
                 if (Settings.Locked === false) {
-                    navigate(`/icons/${Icon.index}/${Icon.id}`, {
+                    navigate(`/icons/${Icon.id}`, {
                         unstable_viewTransition: true
                     })
 
@@ -46,11 +44,6 @@ function Icon({ Icon }: { Icon: SGDField }) {
 const ArrayNumber = Array.from({ length: 24 }, (_, i) => i)
 
 export default function BoardField() {
-    const { Settings } = useContext(IconsContext)
-    const navigate = useNavigate()
-
-    const { Locked } = Settings
-
     const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
 
     return (
@@ -73,15 +66,8 @@ export default function BoardField() {
                     if (icon) return <Icon key={i} Icon={icon}></Icon>
 
                     return (
-                        <div
-                            className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none"
-                            onClick={() => {
-                                navigate(`/icons/${i}/undefined`, {
-                                    unstable_viewTransition: true
-                                })
-                            }}
-                        >
-                            {Locked ? null : <PlusIcon size={24} />}
+                        <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none">
+                            <div key={i}></div>
                         </div>
                     )
                 })}
