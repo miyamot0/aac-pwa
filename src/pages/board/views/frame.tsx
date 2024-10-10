@@ -79,15 +79,19 @@ export default function BoardFrame() {
                     data-empty={Frame.length === 0}
                     onClick={async () => {
                         const words = [
-                            Frame.map((icon: SGDField) => icon.L1.Label).join(
-                                ' '
-                            )
+                            Frame.map((icon: SGDField) =>
+                                Settings.LanguageContext === 'L1'
+                                    ? icon.L1.Label
+                                    : icon.L2?.Label ?? ''
+                            ).join(' ')
                         ]
+
+                        const lang =
+                            Settings.LanguageContext === 'L1' ? 'en' : 'es'
 
                         async function getNextAudio(sentence: string) {
                             const audio = new SpeechSynthesisUtterance(sentence)
-                            audio.lang =
-                                Settings.LanguageContext === 'L1' ? 'en' : 'es'
+                            audio.lang = lang
 
                             Speaker.speak(audio)
 
