@@ -35,8 +35,8 @@ export default function FileSystemPage() {
                     <CameraIcon className="h-6 w-6" />
                 </Link>
             </HeaderBackground>
-            <div className="flex flex-col w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-xl bg-green-500 self-center">
+            <div className="flex flex-col w-full px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-xl self-center">
                     {files?.map((entry, index) => {
                         const blob = new Blob([entry.file], {
                             type: 'image/png'
@@ -47,7 +47,7 @@ export default function FileSystemPage() {
                             <img
                                 key={index}
                                 src={url}
-                                className="object-scale-down cursor-pointer"
+                                className="object-cover cursor-pointer aspect-square rounded-lg"
                                 onClick={async () => {
                                     const icon = await db.icons.get(Number(id))
 

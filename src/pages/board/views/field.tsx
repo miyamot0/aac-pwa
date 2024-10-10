@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { db, SGDField } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
 
-const COLS: number = 8
+const COLS: number = 6
 
 function Icon({ Icon }: { Icon: SGDField }) {
     const { AddToFrame, Settings } = useContext(IconsContext)
@@ -20,7 +20,7 @@ function Icon({ Icon }: { Icon: SGDField }) {
         ? URL.createObjectURL(
               new Blob([icon_to_reference!.File!], { type: 'image/png' })
           )
-        : icon_to_reference!.Image
+        : undefined
 
     return (
         <div
@@ -41,6 +41,7 @@ function Icon({ Icon }: { Icon: SGDField }) {
             <img
                 src={url}
                 alt={icon_to_reference?.Label ?? 'Blank Icon'}
+                className="object-cover w-full h-full"
                 draggable={false}
             />
             <div className="absolute bg-white px-2 border border-black rounded-sm mb-2">
@@ -53,12 +54,14 @@ function Icon({ Icon }: { Icon: SGDField }) {
 const ArrayNumber = Array.from({ length: 24 }, (_, i) => i)
 
 export default function BoardField() {
+    const { Settings } = useContext(IconsContext)
     const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
 
     return (
         <div className="flex flex-col flex-1 justify-start grow px-2">
             <div
                 className={cn('grid grid-cols-4 gap-4', {
+                    'grid-cols-6': COLS === 6,
                     'grid-cols-8': COLS === 8,
                     'grid-cols-12': COLS === 12
                 })}
@@ -66,7 +69,20 @@ export default function BoardField() {
                 {ArrayNumber.map((_, i) => {
                     const icon = icons?.find((icon) => icon.index === i)
 
-                    if (icon) return <Icon key={i} Icon={icon}></Icon>
+                    if (icon) {
+                        if (
+                            Settings.LanguageContext === 'L2' &&
+                            !icon.L2?.File
+                        ) {
+                            return (
+                                <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none">
+                                    <div key={i}></div>
+                                </div>
+                            )
+                        }
+
+                        return <Icon key={i} Icon={icon}></Icon>
+                    }
 
                     return (
                         <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none">

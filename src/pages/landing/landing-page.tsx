@@ -6,9 +6,9 @@ import packageJson from '../../../package.json'
 
 export default function LandingPage() {
     return (
-        <div className="flex flex-col w-full min-h-screen justify-end p-4 ">
+        <div className="flex flex-col w-full min-h-screen justify-end bg-green-500 p-4">
             <div className="flex flex-row grow items-center justify-center">
-                <div className="h-fit w-fit flex flex-col">
+                <div className="w-fit flex flex-col">
                     <h1 className="text-4xl font-bold text-center w-full">
                         Otsu PWA Prototype
                     </h1>

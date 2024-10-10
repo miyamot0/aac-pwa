@@ -175,7 +175,7 @@ export default function IconEditorPage() {
                 </Link>
                 <span className="text-lg text-center">Icon Entry Editor</span>
                 <div
-                    className="w-full flex flex-row gap-2 flex flex-row gap-2 items-center justify-end cursor-pointer"
+                    className="w-full flex flex-row gap-2 items-center justify-end cursor-pointer"
                     onClick={() => deleteIcon()}
                 >
                     <DeleteIcon className="h-6 w-6" />
@@ -329,7 +329,7 @@ export default function IconEditorPage() {
                                         <FormLabel>Current L1 Asset</FormLabel>
 
                                         <img
-                                            className="p-4 w-full aspect-square border rounded"
+                                            className="p-4 w-full aspect-square border rounded object-cover "
                                             src={l1_asset}
                                             alt={'L1 Asset'}
                                             draggable={false}
@@ -427,7 +427,7 @@ export default function IconEditorPage() {
                                         <FormLabel>Current L2 Asset</FormLabel>
 
                                         <img
-                                            className="p-4 w-full aspect-square border rounded"
+                                            className="p-4 w-full aspect-square border rounded object-cover "
                                             src={l2_asset}
                                             alt={'L2 Asset'}
                                             draggable={false}
