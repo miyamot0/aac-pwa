@@ -1,13 +1,14 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, SavedFile } from '@/lib/db'
 import HeaderBackground from '@/components/layout/header-bg'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { CameraIcon, ChevronLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 
 export default function FileSystemPage() {
     const { id, slot } = useParams()
+    const navigation = useNavigate()
 
     if (!id || !slot) throw new Error('No ID provided')
 
@@ -76,6 +77,8 @@ export default function FileSystemPage() {
                                             toast.success(
                                                 'Icon successfully updated!'
                                             )
+
+                                            navigation(`/icons/${id}`)
                                         })
                                 }}
                             />
