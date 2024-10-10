@@ -38,7 +38,6 @@ function Icon({ Icon }: { Icon: SGDField }) {
         >
             <img
                 src={url}
-                alt={icon_to_reference?.Label ?? 'Blank Icon'}
                 className="object-cover w-full h-full"
                 draggable={false}
             />

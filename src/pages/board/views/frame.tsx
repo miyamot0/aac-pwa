@@ -36,7 +36,6 @@ function FrameIconAnimated({ icon }: { icon: SGDField }) {
         >
             <img
                 src={url}
-                alt={icon_to_reference?.Label ?? 'Blank Icon'}
                 draggable={false}
                 className="object-cover w-full h-full"
             />
