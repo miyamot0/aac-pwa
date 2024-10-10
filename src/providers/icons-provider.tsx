@@ -55,7 +55,7 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
     const [frame, setFrame] = React.useState<SGDField[]>([])
 
     return (
-        <IconsContext.Provider
+        <IconsContext.Provider 
             value={{
                 Settings: settings,
                 Speaker: speechSynthesis,

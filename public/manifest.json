@@ -1,6 +1,8 @@
 {
     "name": "Web-based Port of Otsu (PWA)",
     "short_name": "Otsu PWA",
+    "description": "Otsu (PWA) is an experimental port of AAC software for research.",
+    "scope": "/",
     "theme_color": "#1976d2",
     "background_color": "#fafafa",
     "icons": [
@@ -71,6 +73,10 @@
             "purpose": "maskable"
         }
     ],
-    "start_url": ".",
+    "orientation": "landscape",
+    "dir": "auto",
+    "lang": "en-US",
+    "start_url": "/",
+    "id": "/",
     "display": "standalone"
 }
