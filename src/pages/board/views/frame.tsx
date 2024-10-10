@@ -61,7 +61,17 @@ export default function BoardFrame() {
                             <FrameIconAnimated key={i} icon={icon} />
                         ))}
                     </div>
-                    <DeleteIcon size={64} onClick={() => RemoveFromFrame()} />
+                    <DeleteIcon
+                        size={64}
+                        className={cn(
+                            'transition-all ease-in-out duration-300',
+                            {
+                                'opacity-25': Frame.length === 0,
+                                'opacity-100': Frame.length > 0
+                            }
+                        )}
+                        onClick={() => RemoveFromFrame()}
+                    />
                 </div>
                 <div
                     className="col-span-1 bg-white rounded flex flex-row justify-center items-center data-[empty=false]:hover:bg-gray-100 data-[empty=false]:cursor-pointer"
@@ -94,7 +104,16 @@ export default function BoardFrame() {
                         }
                     }}
                 >
-                    <Volume2 size={64} />
+                    <Volume2
+                        size={64}
+                        className={cn(
+                            'transition-all ease-in-out duration-300',
+                            {
+                                'opacity-25': Frame.length === 0,
+                                'opacity-100': Frame.length > 0
+                            }
+                        )}
+                    />
                 </div>
             </div>
         </div>

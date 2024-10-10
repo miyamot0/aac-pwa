@@ -8,6 +8,7 @@ interface IconsContextType {
     Speaker: SpeechSynthesis
     Frame: SGDField[]
     FieldSize: number
+    FieldRows: number
     AddToFrame: (icon: SGDField) => void
     RemoveFromFrame: () => void
     ClearFrame: () => void
@@ -26,7 +27,8 @@ export const IconsContext = React.createContext<IconsContextType>({
     },
     Speaker: window.speechSynthesis,
     Frame: [],
-    FieldSize: 24,
+    FieldSize: 12,
+    FieldRows: 2,
     AddToFrame: () => {},
     RemoveFromFrame: () => {},
     ClearFrame: () => {},
@@ -58,7 +60,8 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
                 Settings: settings,
                 Speaker: speechSynthesis,
                 Frame: frame,
-                FieldSize: 24,
+                FieldSize: 12,
+                FieldRows: 2,
                 AddToFrame: (icon: SGDField) => setFrame([...frame, icon]),
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
                 ClearFrame: () => setFrame([]),

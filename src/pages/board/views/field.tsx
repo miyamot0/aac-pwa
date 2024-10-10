@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { db, SGDField } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
 
-const COLS: number = 6
-
 function Icon({ Icon }: { Icon: SGDField }) {
     const { AddToFrame, Settings } = useContext(IconsContext)
     const navigate = useNavigate()
@@ -51,16 +49,21 @@ function Icon({ Icon }: { Icon: SGDField }) {
     )
 }
 
-const ArrayNumber = Array.from({ length: 24 }, (_, i) => i)
-
 export default function BoardField() {
-    const { Settings } = useContext(IconsContext)
+    const { Settings, FieldSize, FieldRows } = useContext(IconsContext)
+
+    const ArrayNumber = Array.from({ length: FieldSize }, (_, i) => i)
     const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
+
+    const COLS: number = FieldSize / FieldRows
 
     return (
         <div className="flex flex-col flex-1 justify-start grow px-2">
             <div
                 className={cn('grid grid-cols-4 gap-4', {
+                    'grid-cols-2': COLS === 2,
+                    'grid-cols-3': COLS === 3,
+                    'grid-cols-4': COLS === 4,
                     'grid-cols-6': COLS === 6,
                     'grid-cols-8': COLS === 8,
                     'grid-cols-12': COLS === 12
