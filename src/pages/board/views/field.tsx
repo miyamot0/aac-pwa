@@ -13,6 +13,7 @@ function Icon({ Icon }: { Icon: SGDField }) {
         Settings.LanguageContext === 'L1' ? Icon.L1 : Icon.L2
 
     const has_file = icon_to_reference?.File !== undefined
+    const has_label = (icon_to_reference?.Label ?? '').trim().length > 0
 
     const url = has_file
         ? URL.createObjectURL(
@@ -22,7 +23,12 @@ function Icon({ Icon }: { Icon: SGDField }) {
 
     return (
         <div
-            className="border border-black rounded aspect-square bg-white hover:bg-gray-100 cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md"
+            className={cn(
+                'border border-black rounded aspect-square bg-white cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md',
+                {
+                    'bg-gray-100': !has_label
+                }
+            )}
             draggable={false}
             onClick={() => {
                 if (Settings.Locked === false) {
@@ -33,6 +39,8 @@ function Icon({ Icon }: { Icon: SGDField }) {
                     return
                 }
 
+                if (!has_label) return
+
                 AddToFrame(Icon)
             }}
         >
@@ -41,7 +49,14 @@ function Icon({ Icon }: { Icon: SGDField }) {
                 className="object-cover w-full h-full"
                 draggable={false}
             />
-            <div className="absolute bg-white px-2 border border-black rounded-sm mb-2">
+            <div
+                className={cn(
+                    'absolute bg-white px-2 border border-black rounded-sm mb-2',
+                    {
+                        'hidden ': !has_label
+                    }
+                )}
+            >
                 {icon_to_reference?.Label}
             </div>
         </div>
@@ -54,7 +69,7 @@ export default function BoardField() {
     const ArrayNumber = Array.from({ length: FieldSize }, (_, i) => i)
     const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
 
-    const COLS: number = FieldSize / FieldRows
+    const COLS: number = Math.floor(FieldSize / FieldRows)
 
     return (
         <div className="flex flex-col flex-1 justify-start grow px-2">
@@ -63,6 +78,7 @@ export default function BoardField() {
                     'grid-cols-2': COLS === 2,
                     'grid-cols-3': COLS === 3,
                     'grid-cols-4': COLS === 4,
+                    'grid-cols-5': COLS === 5,
                     'grid-cols-6': COLS === 6,
                     'grid-cols-8': COLS === 8,
                     'grid-cols-12': COLS === 12
@@ -77,8 +93,8 @@ export default function BoardField() {
                             !icon.L2?.File
                         ) {
                             return (
-                                <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none">
-                                    <div key={i}></div>
+                                <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none">
+                                    <div key={i}>No Image</div>
                                 </div>
                             )
                         }
@@ -87,7 +103,7 @@ export default function BoardField() {
                     }
 
                     return (
-                        <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer select-none">
+                        <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none">
                             <div key={i}></div>
                         </div>
                     )

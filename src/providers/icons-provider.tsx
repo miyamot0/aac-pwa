@@ -27,8 +27,8 @@ export const IconsContext = React.createContext<IconsContextType>({
     },
     Speaker: window.speechSynthesis,
     Frame: [],
-    FieldSize: 12,
-    FieldRows: 2,
+    FieldSize: 5,
+    FieldRows: 1,
     AddToFrame: () => {},
     RemoveFromFrame: () => {},
     ClearFrame: () => {},
@@ -55,13 +55,13 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
     const [frame, setFrame] = React.useState<SGDField[]>([])
 
     return (
-        <IconsContext.Provider 
+        <IconsContext.Provider
             value={{
                 Settings: settings,
                 Speaker: speechSynthesis,
                 Frame: frame,
-                FieldSize: 12,
-                FieldRows: 2,
+                FieldSize: 5,
+                FieldRows: 1,
                 AddToFrame: (icon: SGDField) => setFrame([...frame, icon]),
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
                 ClearFrame: () => setFrame([]),

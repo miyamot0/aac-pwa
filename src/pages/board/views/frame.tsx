@@ -27,7 +27,7 @@ function FrameIconAnimated({ icon }: { icon: SGDField }) {
     return (
         <div
             className={cn(
-                'border border-black rounded aspect-square bg-white flex flex-col justify-end items-center select-none relative shadow-md h-[10vh] transition-all ease-in-out duration-300',
+                'border border-black rounded aspect-square bg-white flex flex-col justify-end items-center select-none relative shadow-md h-[16dvh] transition-all ease-in-out duration-300',
                 {
                     'opacity-100': displayed,
                     'opacity-0': !displayed
@@ -53,17 +53,19 @@ export default function BoardFrame() {
 
     return (
         <div className="flex flex-col px-2">
-            <div className="grid grid-cols-8 h-[15vh] max-h-[15vh] text-center gap-1 lg:gap-2">
+            <div className="grid grid-cols-8 h-[20dvh] max-h-[20dvh] text-center gap-1 lg:gap-2">
                 <div className="col-span-7 bg-white rounded border border-black flex flex-row justify-between items-center px-4">
-                    <div className="flex flex-row gap-2">
-                        {Frame.map((icon, i) => (
-                            <FrameIconAnimated key={i} icon={icon} />
-                        ))}
+                    <div className="flex flex-row overflow-x-hidden">
+                        <div className="flex flex-row gap-2">
+                            {Frame.map((icon, i) => (
+                                <FrameIconAnimated key={i} icon={icon} />
+                            ))}
+                        </div>
                     </div>
                     <DeleteIcon
                         size={64}
                         className={cn(
-                            'transition-all ease-in-out duration-300',
+                            'transition-all ease-in-out duration-300 flex-shrink-0',
                             {
                                 'opacity-25': Frame.length === 0,
                                 'opacity-100': Frame.length > 0
@@ -73,7 +75,7 @@ export default function BoardFrame() {
                     />
                 </div>
                 <div
-                    className="col-span-1 bg-white rounded flex flex-row justify-center items-center data-[empty=false]:hover:bg-gray-100 data-[empty=false]:cursor-pointer"
+                    className="col-span-1 bg-white rounded flex flex-row justify-center items-center data-[empty=false]:cursor-pointer"
                     data-empty={Frame.length === 0}
                     onClick={async () => {
                         const words = [
