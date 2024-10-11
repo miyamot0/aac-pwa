@@ -22,6 +22,8 @@ import { BOARD_PAGE } from '@/lib/links'
 import {
     FieldManagementConfigSelectOptions,
     FieldManagementConfiguration,
+    FrameLengthConfiguration,
+    FrameLengthConfigurationOptions,
     PostSpeechConfigSelectOptions,
     PostSpeechConfiguration
 } from '@/types/board-settings'
@@ -31,7 +33,9 @@ export default function SettingsPage() {
         PostSpeechSettings,
         SettingsUpdatePostSpeechConfig,
         IconPositioning,
-        SettingsUpdateIconPositioningConfig
+        SettingsUpdateIconPositioningConfig,
+        FrameRestrictions,
+        SettingsUpdateFrameRestriction
     } = useContext(IconsContext)
 
     return (
@@ -66,7 +70,7 @@ export default function SettingsPage() {
                                     SettingsUpdatePostSpeechConfig(setting)
                                 }}
                             >
-                                <SelectTrigger className="w-[180px]">
+                                <SelectTrigger className="w-full max-w-[300px]">
                                     <SelectValue placeholder="Set Post-speech Behavior" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -94,11 +98,39 @@ export default function SettingsPage() {
                                     SettingsUpdateIconPositioningConfig(setting)
                                 }}
                             >
-                                <SelectTrigger className="w-[180px]">
+                                <SelectTrigger className="w-full max-w-[300px]">
                                     <SelectValue placeholder="Set Post-speech Behavior" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {FieldManagementConfigSelectOptions.map(
+                                        (option) => (
+                                            <SelectItem
+                                                value={option.value}
+                                                key={option.value}
+                                            >
+                                                {option.label}
+                                            </SelectItem>
+                                        )
+                                    )}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="flex flex-row gap-4 justify-between items-center h-8">
+                            <Label>Length of Response Restrictions</Label>
+                            <Select
+                                value={FrameRestrictions}
+                                onValueChange={(
+                                    setting: FrameLengthConfiguration
+                                ) => {
+                                    SettingsUpdateFrameRestriction(setting)
+                                }}
+                            >
+                                <SelectTrigger className="w-full max-w-[300px]">
+                                    <SelectValue placeholder="Set Frame Restrictions" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {FrameLengthConfigurationOptions.map(
                                         (option) => (
                                             <SelectItem
                                                 value={option.value}

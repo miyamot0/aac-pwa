@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { SGDField } from '@/lib/db'
 import {
     FieldManagementConfiguration,
+    FrameLengthConfiguration,
     PostSpeechConfiguration
 } from '@/types/board-settings'
 import { ShuffleAndUpdateIcons } from './actions'
@@ -15,6 +16,7 @@ interface IconsContextType {
     Settings: BoardSettings
     PostSpeechSettings: PostSpeechConfiguration
     IconPositioning: FieldManagementConfiguration
+    FrameRestrictions: FrameLengthConfiguration
     Speaker: SpeechSynthesis
     Frame: SGDField[]
     FieldSize: number
@@ -30,6 +32,7 @@ interface IconsContextType {
     ) => void
     SettingsDisplaySheet: (status: boolean) => void
     SettingsSwitchLanguage: (language: LanguageOption) => void
+    SettingsUpdateFrameRestriction: (setting: FrameLengthConfiguration) => void
 }
 
 export const IconsContext = React.createContext<IconsContextType>({
@@ -39,6 +42,7 @@ export const IconsContext = React.createContext<IconsContextType>({
     },
     PostSpeechSettings: 'None',
     IconPositioning: 'NoChange',
+    FrameRestrictions: 'NoRestrictions',
     Speaker: window.speechSynthesis,
     Frame: [],
     FieldSize: FIELD_SIZE_DEFAULT,
@@ -51,7 +55,8 @@ export const IconsContext = React.createContext<IconsContextType>({
     SettingsUpdatePostSpeechConfig: () => {},
     SettingsUpdateIconPositioningConfig: () => {},
     SettingsDisplaySheet: () => {},
-    SettingsSwitchLanguage: () => {}
+    SettingsSwitchLanguage: () => {},
+    SettingsUpdateFrameRestriction: () => {}
 })
 
 type Props = {
@@ -67,6 +72,9 @@ export const IconsProvider: FC<Props> = ({ children }) => {
     const [iconPositioning, setIconPositioning] =
         useState<FieldManagementConfiguration>('NoChange')
 
+    const [frameRestrictions, setFrameRestrictions] =
+        useState<FrameLengthConfiguration>('NoRestrictions')
+
     const [settings, setSettings] = useState<BoardSettings>({
         Locked: false,
         LanguageContext: 'L1'
@@ -80,11 +88,20 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                 Settings: settings,
                 PostSpeechSettings: postSpeechSettings,
                 IconPositioning: iconPositioning,
+                FrameRestrictions: frameRestrictions,
                 Speaker: speechSynthesis,
                 Frame: frame,
                 FieldSize: FIELD_SIZE_DEFAULT,
                 FieldRows: FIELD_ROWS_DEFAULT,
-                AddToFrame: (icon: SGDField) => setFrame([...frame, icon]),
+                AddToFrame: (icon: SGDField) => {
+                    if (
+                        frameRestrictions === 'LimitToOneIcon' &&
+                        frame.length > 0
+                    )
+                        return
+
+                    setFrame([...frame, icon])
+                },
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
                 ClearFrame: () => setFrame([]),
                 ShuffleField: async () => await ShuffleAndUpdateIcons(),
@@ -121,6 +138,11 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                             LanguageContext: language
                         }
                     })
+                },
+                SettingsUpdateFrameRestriction: (
+                    setting: FrameLengthConfiguration
+                ) => {
+                    setFrameRestrictions(setting)
                 }
             }}
         >

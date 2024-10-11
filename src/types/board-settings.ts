@@ -19,6 +19,25 @@ export const PostSpeechConfigSelectOptions = [
     }
 ]
 
+/* No additional steps */
+const _free = 'NoRestrictions'
+
+/* Reset the frame to blank after speaking */
+const _limited = 'LimitToOneIcon'
+
+export type FrameLengthConfiguration = typeof _free | typeof _limited
+
+export const FrameLengthConfigurationOptions = [
+    {
+        value: _free,
+        label: 'No Restrictions (Default)'
+    },
+    {
+        value: _limited,
+        label: 'Limit To One Icon'
+    }
+]
+
 // ----------------- Field Options -----------------
 
 /* DO NOT alter positions */
