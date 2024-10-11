@@ -16,7 +16,7 @@ export default defineConfig({
                 sourcemap: false
             },
             devOptions: {
-                enabled: false
+                enabled: true
             },
             // @ts-expect-error - VitePWA types are incorrect
             manifest: { ...manifest }
