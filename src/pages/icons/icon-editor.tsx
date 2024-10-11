@@ -48,20 +48,6 @@ function EntryFieldWrapper({ children }: { children: React.ReactNode }) {
     return <div className="grid grid-cols-3 items-center">{children}</div>
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export async function loader({ params }: { params: { id: string } }) {
-    const id = parseInt(params.id)
-
-    if (!id) throw new Error('id is required')
-
-    const icon = await db.icons.get(id)
-
-    const icons = await db.icons.toArray()
-    const filled_indices = icons.map((icon) => icon.index)
-
-    return { icon, filled_indices }
-}
-
 export default function IconEditorPage() {
     const { FieldSize } = useContext(IconsContext)
     const loaderData = useLoaderData() as LoaderReturn | undefined

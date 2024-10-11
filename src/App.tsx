@@ -6,9 +6,8 @@ import {
 } from 'react-router-dom'
 import BoardPage from './pages/board/board-page'
 import { IconsProvider } from '@/providers/icons-provider'
-import IconEditorPage, {
-    loader as IconEditorLoader
-} from './pages/icons/icon-editor'
+import IconEditorPage from './pages/icons/icon-editor'
+import { IconEditorLoader } from './pages/icons/icon-editor-loader'
 import SettingsPage from './pages/settings/settings-page'
 import CameraPage from './pages/camera/camera-page'
 import FileSystemPage from './pages/files/file-system-page'
@@ -25,7 +24,6 @@ const router = createBrowserRouter(
             <Route
                 path={'/icons/:id'}
                 element={<IconEditorPage />}
-                // @ts-expect-error Annoying loader typing
                 loader={IconEditorLoader}
             />
             <Route path={'/icons/:id/:slot'} element={<FileSystemPage />} />
