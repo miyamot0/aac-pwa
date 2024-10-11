@@ -62,16 +62,10 @@ export default function IconEditorPage() {
         resolver: zodResolver(IconEditorSchema),
         values: {
             index: relevantIcon.index,
-            L1:
-                relevantIcon?.L1 === undefined
-                    ? ('en' as LanguageType)
-                    : (relevantIcon.L1.Language as unknown as LanguageType),
+            L1: relevantIcon.L1.Language as unknown as LanguageType,
             L1_Hidden: relevantIcon.L1.Hidden,
             L1_Label: relevantIcon.L1.Label,
-            L2:
-                relevantIcon.L2 === undefined
-                    ? ('N/A' as LanguageType)
-                    : (relevantIcon.L2.Language as unknown as LanguageType),
+            L2: relevantIcon.L2.Language as unknown as LanguageType,
             L2_Hidden: relevantIcon.L2.Hidden,
             L2_Label: relevantIcon.L2.Label ?? ''
         }

@@ -75,7 +75,7 @@
 
 @layer components {
     .icon-field-type {
-        @apply max-w-[20svw] w-full;
+        @apply max-w-[15svw] w-full;
     }
 }
 

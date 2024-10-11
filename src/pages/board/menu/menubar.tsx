@@ -1,4 +1,10 @@
-import { LockIcon, PlusIcon, Settings2Icon, UnlockIcon } from 'lucide-react'
+import {
+    LockIcon,
+    PlusIcon,
+    RefreshCwIcon,
+    Settings2Icon,
+    UnlockIcon
+} from 'lucide-react'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { cn } from '@/lib/utils'
@@ -9,9 +15,16 @@ import { db, SGDField } from '@/lib/db'
 import { toast } from 'sonner'
 
 export default function BoardMenuBar() {
-    const { Settings, FieldSize, SettingsToggleLocked, ClearFrame } =
-        useContext(IconsContext)
+    const {
+        Settings,
+        FieldSize,
+        SettingsToggleLocked,
+        SettingsSwitchLanguage,
+        ClearFrame
+    } = useContext(IconsContext)
     const { Locked } = Settings
+
+    const is_L1 = Settings.LanguageContext === 'L1'
 
     async function addIconToField() {
         try {
@@ -30,6 +43,7 @@ export default function BoardMenuBar() {
 
             const new_icon = {
                 index,
+                comment: '',
                 L1: {
                     Language: 'en',
                     Hidden: false,
@@ -52,7 +66,11 @@ export default function BoardMenuBar() {
 
     return (
         <HeaderBackground>
-            <span className="text-lg">Otsu (PWA)</span>
+            <div className="flex flex-row gap-2">
+                <span className="text-lg">{`Otsu (PWA Port) - ${
+                    is_L1 ? 'L1 Mode' : 'L2 Mode'
+                }`}</span>
+            </div>
             <div className="flex flex-row gap-4 items-center">
                 {Locked ? (
                     <div
@@ -91,6 +109,19 @@ export default function BoardMenuBar() {
                             <PlusIcon className="h-6 w-6" />
                             <span className="text-sm hidden md:block">
                                 Add Icon
+                            </span>
+                        </div>
+                        <div
+                            className={
+                                'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
+                            }
+                            onClick={() => {
+                                SettingsSwitchLanguage(is_L1 ? 'L2' : 'L1')
+                            }}
+                        >
+                            <RefreshCwIcon className="h-6 w-6" />
+                            <span className="text-sm hidden md:block">
+                                Language
                             </span>
                         </div>
                         <Link

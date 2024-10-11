@@ -23,6 +23,7 @@ export type IconStateType = {
 export interface SGDField {
     id: number
     index: number
+    comment: string
     L1: IconStateType
     L2: IconStateType
 }

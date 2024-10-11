@@ -7,6 +7,7 @@ import { IconWrapper } from './icon-wrapper'
 import { EmptyIcon } from './icon-empty'
 import { Icon } from './icon-field'
 import { useNavigate } from 'react-router-dom'
+import { EyeOff } from 'lucide-react'
 
 export default function BoardField() {
     const { Settings, FieldSize, FieldRows } = useContext(IconsContext)
@@ -58,6 +59,18 @@ export default function BoardField() {
                         )
                     }
 
+                    /* When ACTIVE && No Image Assigned: Hide from view  */
+                    if (
+                        language_context.Language === 'N/A' &&
+                        Settings.Locked === true
+                    ) {
+                        return (
+                            <IconWrapper key={i}>
+                                <EmptyIcon />
+                            </IconWrapper>
+                        )
+                    }
+
                     /* When LOCKED && Hidden: Show shaded  */
                     if (
                         language_context.Hidden === true &&
@@ -93,12 +106,20 @@ export default function BoardField() {
                                         className="object-cover w-full h-full"
                                         draggable={false}
                                     />
+
+                                    <div
+                                        className={cn(
+                                            'absolute top-0 right-0 mr-1 mt-1 p-2 bg-white rounded-full border border-black'
+                                        )}
+                                    >
+                                        <EyeOff className="h-4 w-4" />
+                                    </div>
                                     <div
                                         className={cn(
                                             'absolute bg-white px-2 border border-black rounded-sm mb-2'
                                         )}
                                     >
-                                        {`(Hidden)`}
+                                        {language_context.Label}
                                     </div>
                                 </div>
                             </IconWrapper>

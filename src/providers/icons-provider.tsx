@@ -8,7 +8,8 @@ import {
 } from '@/types/board-settings'
 import { ShuffleAndUpdateIcons } from './actions'
 
-const FIELD_SIZE_DEFAULT = 6
+const FIELD_SIZE_DEFAULT = 18
+const FIELD_ROWS_DEFAULT = 3
 
 interface IconsContextType {
     Settings: BoardSettings
@@ -41,7 +42,7 @@ export const IconsContext = React.createContext<IconsContextType>({
     Speaker: window.speechSynthesis,
     Frame: [],
     FieldSize: FIELD_SIZE_DEFAULT,
-    FieldRows: 2,
+    FieldRows: FIELD_ROWS_DEFAULT,
     ShuffleField: async () => {},
     AddToFrame: () => {},
     RemoveFromFrame: () => {},
@@ -82,7 +83,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                 Speaker: speechSynthesis,
                 Frame: frame,
                 FieldSize: FIELD_SIZE_DEFAULT,
-                FieldRows: 2,
+                FieldRows: FIELD_ROWS_DEFAULT,
                 AddToFrame: (icon: SGDField) => setFrame([...frame, icon]),
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
                 ClearFrame: () => setFrame([]),

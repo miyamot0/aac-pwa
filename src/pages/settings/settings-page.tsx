@@ -8,7 +8,6 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { LanguageOption } from '@/types/provider-types'
 import HeaderBackground from '@/components/layout/header-bg'
 import { Link } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
@@ -29,15 +28,11 @@ import {
 
 export default function SettingsPage() {
     const {
-        Settings,
-        SettingsSwitchLanguage,
         PostSpeechSettings,
         SettingsUpdatePostSpeechConfig,
         IconPositioning,
         SettingsUpdateIconPositioningConfig
     } = useContext(IconsContext)
-
-    const { LanguageContext } = Settings
 
     return (
         <div>
@@ -61,28 +56,6 @@ export default function SettingsPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col gap-6 py-4 grow">
-                        <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label>Language Setting</Label>
-                            <Select
-                                value={LanguageContext}
-                                onValueChange={(lang: LanguageOption) => {
-                                    SettingsSwitchLanguage(lang)
-                                }}
-                            >
-                                <SelectTrigger className="w-[180px]">
-                                    <SelectValue placeholder="Language Type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="L1">
-                                        Language #1
-                                    </SelectItem>
-                                    <SelectItem value="L2">
-                                        Language #2
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
                             <Label>Post Speech Configuration</Label>
                             <Select
