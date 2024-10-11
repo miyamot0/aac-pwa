@@ -66,19 +66,6 @@ export default function BoardMenuBar() {
                                 'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
                             }
                             onClick={() => {
-                                addIconToField()
-                            }}
-                        >
-                            <PlusIcon className="h-6 w-6" />
-                            <span className="text-sm hidden md:block">
-                                Add New Icon
-                            </span>
-                        </div>
-                        <div
-                            className={
-                                'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
-                            }
-                            onClick={() => {
                                 SettingsToggleLocked()
                                 ClearFrame()
                             }}
@@ -86,6 +73,19 @@ export default function BoardMenuBar() {
                             <UnlockIcon className="h-6 w-6" />
                             <span className="text-sm hidden md:block">
                                 Lock
+                            </span>
+                        </div>
+                        <div
+                            className={
+                                'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
+                            }
+                            onClick={() => {
+                                addIconToField()
+                            }}
+                        >
+                            <PlusIcon className="h-6 w-6" />
+                            <span className="text-sm hidden md:block">
+                                Add Icon
                             </span>
                         </div>
                         <Link

@@ -5,6 +5,40 @@ import { useNavigate } from 'react-router-dom'
 import { db, SGDField } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
 
+function IconWrapper({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="flex flex-col grow justify-center items-center">
+            {children}
+        </div>
+    )
+}
+
+function EmptyIcon() {
+    const { Settings } = useContext(IconsContext)
+
+    const { Locked } = Settings
+
+    return (
+        <div
+            className={cn(
+                'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none icon-field-type',
+                {
+                    'cursor-not-allowed bg-transparent border-0 shadow-none':
+                        Locked
+                }
+            )}
+        >
+            <p
+                className={cn('', {
+                    hidden: Locked
+                })}
+            >
+                Empty Icon Slot
+            </p>
+        </div>
+    )
+}
+
 function Icon({ Icon }: { Icon: SGDField }) {
     const { AddToFrame, Settings } = useContext(IconsContext)
     const navigate = useNavigate()
@@ -24,7 +58,7 @@ function Icon({ Icon }: { Icon: SGDField }) {
     return (
         <div
             className={cn(
-                'border border-black rounded aspect-square bg-white cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md',
+                'border border-black rounded aspect-square bg-white cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md icon-field-type',
                 {
                     'bg-gray-100': !has_label
                 }
@@ -72,9 +106,9 @@ export default function BoardField() {
     const COLS: number = Math.floor(FieldSize / FieldRows)
 
     return (
-        <div className="flex flex-col flex-1 justify-start grow px-2">
+        <div className="flex flex-col flex-1 justify-center grow px-2">
             <div
-                className={cn('grid grid-cols-4 gap-4', {
+                className={cn('grid grid-cols-4 gap-4 items-center', {
                     'grid-cols-2': COLS === 2,
                     'grid-cols-3': COLS === 3,
                     'grid-cols-4': COLS === 4,
@@ -93,19 +127,23 @@ export default function BoardField() {
                             !icon.L2?.File
                         ) {
                             return (
-                                <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none">
-                                    <div key={i}>No Image</div>
-                                </div>
+                                <IconWrapper key={i}>
+                                    <div>{`No Image for ${Settings.LanguageContext}`}</div>
+                                </IconWrapper>
                             )
                         }
 
-                        return <Icon key={i} Icon={icon}></Icon>
+                        return (
+                            <IconWrapper key={i}>
+                                <Icon key={i} Icon={icon}></Icon>
+                            </IconWrapper>
+                        )
                     }
 
                     return (
-                        <div className="aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none">
-                            <div key={i}></div>
-                        </div>
+                        <IconWrapper key={i}>
+                            <EmptyIcon />
+                        </IconWrapper>
                     )
                 })}
             </div>

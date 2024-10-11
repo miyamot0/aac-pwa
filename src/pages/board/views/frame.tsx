@@ -80,7 +80,7 @@ export default function BoardFrame() {
                     />
                 </div>
                 <div
-                    className="col-span-1 bg-white rounded flex flex-row justify-center items-center data-[empty=false]:cursor-pointer"
+                    className="col-span-1 rounded flex flex-row justify-center items-center data-[empty=false]:cursor-pointer"
                     data-empty={Frame.length === 0}
                     onClick={async () => {
                         const words = [
