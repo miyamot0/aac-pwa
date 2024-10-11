@@ -5,21 +5,19 @@ import { Link } from 'react-router-dom'
 
 export default function LandingPage() {
     return (
-        <div className="flex flex-col w-full h-full justify-end px-4 py-[10%]">
+        <div className="flex flex-col w-full px-4 min-h-screen-safe">
             <div className="flex flex-row grow items-center justify-center">
                 <div className="w-fit flex flex-col">
-                    <h1 className="text-4xl font-bold text-center w-full">
-                        Otsu PWA Prototype
+                    <h1 className="text-4xl font-bold text-center w-full py-8">
+                        Bilingual PWA Prototype
                     </h1>
                     <span className="text-lg text-center w-full font-semibold">
-                        A prototype for the Otsu PWA
+                        Behavioral Engineering Lab
                     </span>
                     <span className="text-lg text-center w-full">
-                        Version {BUILD_VERSION}
+                        Version {BUILD_VERSION} ({BUILD_DATE})
                     </span>
-                    <span className="text-lg text-center w-full">
-                        Built {BUILD_DATE}
-                    </span>
+                    <span className="text-lg text-center w-full"></span>
                 </div>
             </div>
             <Link
@@ -31,6 +29,9 @@ export default function LandingPage() {
             >
                 Load Board
             </Link>
+            <span className="text-lg text-center w-full pt-4">
+                MIT - Licensed
+            </span>
         </div>
     )
 }

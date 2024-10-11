@@ -33,7 +33,12 @@ export default function FileSystemPage() {
                     unstable_viewTransition={true}
                     to={`/icons/${id}/${slot}/camera`}
                 >
-                    <CameraIcon className="h-6 w-6" />
+                    <div className="flex flex-row gap-2">
+                        <CameraIcon className="h-6 w-6" />
+                        <span className="hidden lg:block">
+                            Capture New Image
+                        </span>
+                    </div>
                 </Link>
             </HeaderBackground>
             <div className="flex flex-col w-full px-4">

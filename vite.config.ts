@@ -5,7 +5,6 @@ import { VitePWA } from 'vite-plugin-pwa'
 import manifest from './public/manifest.json'
 import package_json from './package.json'
 
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         react(),
@@ -17,7 +16,7 @@ export default defineConfig({
                 sourcemap: false
             },
             devOptions: {
-                enabled: true
+                enabled: false
             },
             // @ts-expect-error - VitePWA types are incorrect
             manifest: { ...manifest }

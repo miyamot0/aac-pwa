@@ -56,11 +56,17 @@
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
     }
+    #root {
+        height: -webkit-fill-available;
+    }
 }
 
 @layer base {
     * {
         @apply border-border;
+    }
+    html {
+        @apply px-safe pt-safe;
     }
     body {
         @apply bg-background text-foreground;
@@ -78,6 +84,8 @@
 html {
     touch-action: pan-x pan-y;
     overscroll-behavior: none;
+    /*
     padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
         env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
+    */
 }

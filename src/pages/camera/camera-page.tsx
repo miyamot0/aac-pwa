@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { useState } from 'react'
+import { createRef, useState } from 'react'
 import { db } from '@/lib/db'
 import { Link, useParams } from 'react-router-dom'
-import { ChevronLeft } from 'lucide-react'
+import { CameraIcon, ChevronLeft, SaveIcon } from 'lucide-react'
 import HeaderBackground from '@/components/layout/header-bg'
 import {
     Card,
@@ -12,6 +12,7 @@ import {
     CardTitle
 } from '@/components/ui/card'
 import { toast } from 'sonner'
+import { cn } from '@/lib/utils'
 
 export default function CameraPage() {
     const { id, slot } = useParams()
@@ -21,15 +22,17 @@ export default function CameraPage() {
     const [img, setImg] = useState<string | null>(null)
     const [buffer, setBuffer] = useState<Uint8Array | null>(null)
 
+    const fileInputRef = createRef<HTMLInputElement>()
+
     async function saveImageToDB() {
         if (!buffer) return
 
-        const id = await db.files.add({
+        await db.files.add({
             timestamp: new Date().toISOString(),
             file: buffer
         })
 
-        toast.success(`Saved image to DB with ID: ${id}`)
+        toast.success(`New image added to gallery`)
     }
 
     return (
@@ -60,6 +63,8 @@ export default function CameraPage() {
 
                 <div className="flex flex-col gap-4">
                     <input
+                        ref={fileInputRef}
+                        style={{ display: 'none' }}
                         type="file"
                         name="picture"
                         accept="image/*"
@@ -81,7 +86,25 @@ export default function CameraPage() {
                         }}
                     />
 
-                    <Button onClick={() => saveImageToDB()}>Save to FS</Button>
+                    <Button
+                        className={cn('flex flex-row gap-2')}
+                        onClick={() => {
+                            if (fileInputRef.current) {
+                                fileInputRef.current.click()
+                            }
+                        }}
+                    >
+                        <CameraIcon className="h-4 w-4" />
+                        Take Picture
+                    </Button>
+                    <Button
+                        disabled={!buffer}
+                        className={cn('flex flex-row gap-2')}
+                        onClick={() => saveImageToDB()}
+                    >
+                        <SaveIcon className="h-4 w-4" />
+                        Save Image to Gallery
+                    </Button>
                 </div>
             </div>
         </div>
