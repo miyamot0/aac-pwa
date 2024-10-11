@@ -62,16 +62,7 @@ export default function FileSystemPage() {
                                     if (slot === 'L1') {
                                         icon.L1.File = entry.file
                                     } else {
-                                        icon.L2 = icon.L2
-                                            ? {
-                                                  ...icon.L2,
-                                                  File: entry.file
-                                              }
-                                            : {
-                                                  File: entry.file,
-                                                  Language: 'N/A',
-                                                  Label: ''
-                                              }
+                                        icon.L2.File = entry.file
                                     }
 
                                     db.icons

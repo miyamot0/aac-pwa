@@ -30,9 +30,14 @@ export default function BoardMenuBar() {
 
             const new_icon = {
                 index,
-                conditional: false,
                 L1: {
                     Language: 'en',
+                    Hidden: false,
+                    Label: 'Blank'
+                },
+                L2: {
+                    Language: 'es',
+                    Hidden: false,
                     Label: 'Blank'
                 }
             } as SGDField

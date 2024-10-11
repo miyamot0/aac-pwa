@@ -15,6 +15,7 @@ export type LanguageContext = {
 export type IconStateType = {
     Language: 'en' | 'es' | 'N/A'
     Label: string
+    Hidden: boolean
     Image?: string
     File?: Uint8Array
 }
@@ -22,9 +23,8 @@ export type IconStateType = {
 export interface SGDField {
     id: number
     index: number
-    conditional: boolean
     L1: IconStateType
-    L2?: IconStateType
+    L2: IconStateType
 }
 
 const db = new Dexie('FriendsDatabase') as Dexie & {

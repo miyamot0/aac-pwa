@@ -1,108 +1,22 @@
 import { cn } from '@/lib/utils'
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
-import { useNavigate } from 'react-router-dom'
 import { db, SGDField } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
-
-function IconWrapper({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="flex flex-col grow justify-center items-center">
-            {children}
-        </div>
-    )
-}
-
-function EmptyIcon() {
-    const { Settings } = useContext(IconsContext)
-
-    const { Locked } = Settings
-
-    return (
-        <div
-            className={cn(
-                'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none icon-field-type',
-                {
-                    'cursor-not-allowed bg-transparent border-0 shadow-none':
-                        Locked
-                }
-            )}
-        >
-            <p
-                className={cn('', {
-                    hidden: Locked
-                })}
-            >
-                Empty Icon Slot
-            </p>
-        </div>
-    )
-}
-
-function Icon({ Icon }: { Icon: SGDField }) {
-    const { AddToFrame, Settings } = useContext(IconsContext)
-    const navigate = useNavigate()
-
-    const icon_to_reference =
-        Settings.LanguageContext === 'L1' ? Icon.L1 : Icon.L2
-
-    const has_file = icon_to_reference?.File !== undefined
-    const has_label = (icon_to_reference?.Label ?? '').trim().length > 0
-
-    const url = has_file
-        ? URL.createObjectURL(
-              new Blob([icon_to_reference!.File!], { type: 'image/png' })
-          )
-        : undefined
-
-    return (
-        <div
-            className={cn(
-                'border border-black rounded aspect-square bg-white cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md icon-field-type',
-                {
-                    'bg-gray-100': !has_label
-                }
-            )}
-            draggable={false}
-            onClick={() => {
-                if (Settings.Locked === false) {
-                    navigate(`/icons/${Icon.id}`, {
-                        unstable_viewTransition: true
-                    })
-
-                    return
-                }
-
-                if (!has_label) return
-
-                AddToFrame(Icon)
-            }}
-        >
-            <img
-                src={url}
-                className="object-cover w-full h-full"
-                draggable={false}
-            />
-            <div
-                className={cn(
-                    'absolute bg-white px-2 border border-black rounded-sm mb-2',
-                    {
-                        'hidden ': !has_label
-                    }
-                )}
-            >
-                {icon_to_reference?.Label}
-            </div>
-        </div>
-    )
-}
+import { IconWrapper } from './icon-wrapper'
+import { EmptyIcon } from './icon-empty'
+import { Icon } from './icon-field'
+import { useNavigate } from 'react-router-dom'
 
 export default function BoardField() {
     const { Settings, FieldSize, FieldRows } = useContext(IconsContext)
-
-    const ArrayNumber = Array.from({ length: FieldSize }, (_, i) => i)
+    const navigate = useNavigate()
     const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
 
+    /* Create indexed array per constants */
+    const ArrayNumber = Array.from({ length: FieldSize }, (_, i) => i)
+
+    /* Create columns based per constants */
     const COLS: number = Math.floor(FieldSize / FieldRows)
 
     return (
@@ -121,28 +35,104 @@ export default function BoardField() {
                 {ArrayNumber.map((_, i) => {
                     const icon = icons?.find((icon) => icon.index === i)
 
-                    if (icon) {
-                        if (
-                            Settings.LanguageContext === 'L2' &&
-                            !icon.L2?.File
-                        ) {
-                            return (
-                                <IconWrapper key={i}>
-                                    <div>{`No Image for ${Settings.LanguageContext}`}</div>
-                                </IconWrapper>
-                            )
-                        }
+                    if (!icon) {
+                        return (
+                            <IconWrapper key={i}>
+                                <EmptyIcon />
+                            </IconWrapper>
+                        )
+                    }
+
+                    const language_context =
+                        Settings.LanguageContext === 'L1' ? icon.L1 : icon.L2
+
+                    /* When ACTIVE && Hidden: Hide from view  */
+                    if (
+                        language_context.Hidden === true &&
+                        Settings.Locked === true
+                    ) {
+                        return (
+                            <IconWrapper key={i}>
+                                <EmptyIcon />
+                            </IconWrapper>
+                        )
+                    }
+
+                    /* When LOCKED && Hidden: Show shaded  */
+                    if (
+                        language_context.Hidden === true &&
+                        Settings.Locked === false
+                    ) {
+                        const url = language_context?.File
+                            ? URL.createObjectURL(
+                                  new Blob([language_context?.File], {
+                                      type: 'image/png'
+                                  })
+                              )
+                            : undefined
 
                         return (
                             <IconWrapper key={i}>
-                                <Icon key={i} Icon={icon}></Icon>
+                                <div
+                                    className={cn(
+                                        'border border-black rounded aspect-square bg-white cursor-pointer flex flex-col justify-end items-center select-none relative shadow-md icon-field-type opacity-50'
+                                    )}
+                                    draggable={false}
+                                    onClick={() => {
+                                        if (Settings.Locked === false) {
+                                            navigate(`/icons/${icon.id}`, {
+                                                unstable_viewTransition: true
+                                            })
+
+                                            return
+                                        }
+                                    }}
+                                >
+                                    <img
+                                        src={url}
+                                        className="object-cover w-full h-full"
+                                        draggable={false}
+                                    />
+                                    <div
+                                        className={cn(
+                                            'absolute bg-white px-2 border border-black rounded-sm mb-2'
+                                        )}
+                                    >
+                                        {`(Hidden)`}
+                                    </div>
+                                </div>
+                            </IconWrapper>
+                        )
+                    }
+
+                    const has_file = language_context?.File
+
+                    if (!has_file) {
+                        return (
+                            <IconWrapper key={i}>
+                                <div
+                                    className={cn(
+                                        'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-white cursor-pointer select-none icon-field-type'
+                                    )}
+                                    onClick={() => {
+                                        if (Settings.Locked === false) {
+                                            navigate(`/icons/${icon.id}`, {
+                                                unstable_viewTransition: true
+                                            })
+
+                                            return
+                                        }
+                                    }}
+                                >
+                                    <div>{`Image for ${Settings.LanguageContext} Needed`}</div>
+                                </div>
                             </IconWrapper>
                         )
                     }
 
                     return (
                         <IconWrapper key={i}>
-                            <EmptyIcon />
+                            <Icon key={i} Icon={icon}></Icon>
                         </IconWrapper>
                     )
                 })}

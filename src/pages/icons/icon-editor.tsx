@@ -62,17 +62,18 @@ export default function IconEditorPage() {
         resolver: zodResolver(IconEditorSchema),
         values: {
             index: relevantIcon.index,
-            conditional: relevantIcon.conditional,
             L1:
                 relevantIcon?.L1 === undefined
                     ? ('en' as LanguageType)
                     : (relevantIcon.L1.Language as unknown as LanguageType),
+            L1_Hidden: relevantIcon.L1.Hidden,
             L1_Label: relevantIcon.L1.Label,
             L2:
-                relevantIcon?.L2 === undefined
+                relevantIcon.L2 === undefined
                     ? ('N/A' as LanguageType)
                     : (relevantIcon.L2.Language as unknown as LanguageType),
-            L2_Label: relevantIcon.L2?.Label ?? ''
+            L2_Hidden: relevantIcon.L2.Hidden,
+            L2_Label: relevantIcon.L2.Label ?? ''
         }
     })
 
@@ -82,16 +83,17 @@ export default function IconEditorPage() {
             .equals(relevantIcon.id)
             .modify({
                 index: values.index,
-                conditional: values.conditional,
                 L1: {
                     Language: values.L1 as 'en' | 'es',
                     Label: values.L1_Label,
+                    Hidden: values.L1_Hidden,
                     Image: relevantIcon.L1.Image,
                     File: relevantIcon.L1.File
                 },
                 L2: {
                     Language: values.L2 as 'en' | 'es' | 'N/A',
                     Label: values.L2_Label,
+                    Hidden: values.L2_Hidden,
                     Image: relevantIcon.L2?.Image,
                     File: relevantIcon.L2?.File
                 }
@@ -128,7 +130,7 @@ export default function IconEditorPage() {
 
     available_indices.push(relevantIcon.index)
 
-    const l1_asset = relevantIcon.L1.File
+    const l1_asset = relevantIcon.L1?.File
         ? URL.createObjectURL(
               new Blob([relevantIcon.L1.File], { type: 'image/png' })
           )
@@ -172,7 +174,7 @@ export default function IconEditorPage() {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="grid grid-cols-1 lg:grid-cols-2 max-w-screen-lg gap-4 h-auto py-4"
+                        className="grid grid-cols-1 lg:grid-cols-2 max-w-screen-lg w-full gap-4 h-auto py-4"
                     >
                         <Card className="h-fit">
                             <CardHeader>
@@ -287,19 +289,18 @@ export default function IconEditorPage() {
                                 >
                                     <FormField
                                         control={form.control}
-                                        name="conditional"
+                                        name="L1_Hidden"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <EntryFieldWrapper>
                                                     <div className="col-span-2">
                                                         <FormLabel>
-                                                            Conditional Display
+                                                            Hide Icon
                                                         </FormLabel>
 
                                                         <FormDescription>
                                                             Should this be
-                                                            hidden when language
-                                                            is set to L2?
+                                                            hidden?
                                                         </FormDescription>
                                                         <FormMessage />
                                                     </div>
@@ -495,19 +496,18 @@ export default function IconEditorPage() {
                                 >
                                     <FormField
                                         control={form.control}
-                                        name="conditional"
+                                        name="L2_Hidden"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <EntryFieldWrapper>
                                                     <div className="col-span-2">
                                                         <FormLabel>
-                                                            Conditional Display
+                                                            Hide Icon
                                                         </FormLabel>
 
                                                         <FormDescription>
                                                             Should this be
-                                                            hidden when language
-                                                            is set to L2?
+                                                            hidden?
                                                         </FormDescription>
                                                         <FormMessage />
                                                     </div>
