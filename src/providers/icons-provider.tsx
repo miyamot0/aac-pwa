@@ -8,8 +8,8 @@ import {
 } from '@/types/board-settings'
 import { ShuffleAndUpdateIcons } from './actions'
 
-const FIELD_SIZE_DEFAULT = 18
-const FIELD_ROWS_DEFAULT = 3
+export const FIELD_SIZE_DEFAULT = 18
+export const FIELD_ROWS_DEFAULT = 3
 
 interface IconsContextType {
     Settings: BoardSettings
