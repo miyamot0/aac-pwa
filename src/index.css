@@ -4,7 +4,7 @@
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
+        --background: 0 0% 95%;
         --foreground: 0 0% 3.9%;
         --card: 0 0% 100%;
         --card-foreground: 0 0% 3.9%;
@@ -71,7 +71,7 @@ html {
     overscroll-behavior: none;
 }
 
-body {
+html {
     padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
         env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
 }

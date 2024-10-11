@@ -2,9 +2,11 @@ import React, { ReactNode } from 'react'
 import { BoardSettings, LanguageOption } from './provider-types'
 import { Toaster } from '@/components/ui/sonner'
 import { SGDField } from '@/lib/db'
+import { PostSpeechConfiguration } from '@/types/board-settings'
 
 interface IconsContextType {
     Settings: BoardSettings
+    PostSpeechSettings: PostSpeechConfiguration
     Speaker: SpeechSynthesis
     Frame: SGDField[]
     FieldSize: number
@@ -13,7 +15,7 @@ interface IconsContextType {
     RemoveFromFrame: () => void
     ClearFrame: () => void
     SettingsToggleLocked: () => void
-    SettingsToggleFrameReset: () => void
+    SettingsUpdatePostSpeechConfig: (setting: PostSpeechConfiguration) => void
     SettingsDisplaySheet: (status: boolean) => void
     SettingsSwitchLanguage: (language: LanguageOption) => void
 }
@@ -21,10 +23,9 @@ interface IconsContextType {
 export const IconsContext = React.createContext<IconsContextType>({
     Settings: {
         Locked: false,
-        SheetOpen: false,
-        ResetAfterSpeak: false,
         LanguageContext: 'L1'
     },
+    PostSpeechSettings: 'None',
     Speaker: window.speechSynthesis,
     Frame: [],
     FieldSize: 5,
@@ -33,7 +34,7 @@ export const IconsContext = React.createContext<IconsContextType>({
     RemoveFromFrame: () => {},
     ClearFrame: () => {},
     SettingsToggleLocked: () => {},
-    SettingsToggleFrameReset: () => {},
+    SettingsUpdatePostSpeechConfig: () => {},
     SettingsDisplaySheet: () => {},
     SettingsSwitchLanguage: () => {}
 })
@@ -45,10 +46,11 @@ type Props = {
 export const IconsProvider: React.FC<Props> = ({ children }) => {
     const speechSynthesis = window.speechSynthesis
 
+    const [postSpeechSettings, setPostSpeechSettings] =
+        React.useState<PostSpeechConfiguration>('None')
+
     const [settings, setSettings] = React.useState<BoardSettings>({
         Locked: false,
-        SheetOpen: false,
-        ResetAfterSpeak: false,
         LanguageContext: 'L1'
     })
 
@@ -58,6 +60,7 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
         <IconsContext.Provider
             value={{
                 Settings: settings,
+                PostSpeechSettings: postSpeechSettings,
                 Speaker: speechSynthesis,
                 Frame: frame,
                 FieldSize: 5,
@@ -69,19 +72,14 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
                     setSettings((prev) => {
                         return {
                             ...prev,
-                            Locked: !prev.Locked,
-                            SheetOpen:
-                                !prev.Locked === true ? false : prev.SheetOpen
+                            Locked: !prev.Locked
                         }
                     })
                 },
-                SettingsToggleFrameReset: () => {
-                    setSettings((prev) => {
-                        return {
-                            ...prev,
-                            ResetAfterSpeak: !prev.ResetAfterSpeak
-                        }
-                    })
+                SettingsUpdatePostSpeechConfig: (
+                    setting: PostSpeechConfiguration
+                ) => {
+                    setPostSpeechSettings(setting)
                 },
                 SettingsDisplaySheet: (status) => {
                     setSettings((prev) => {

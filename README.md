@@ -1,4 +1,4 @@
-# Otsu (PWA) Prototype
+# Behavior Engineering Lab AAC Prototype (Bilingual AAC)
 
 ## Description
 

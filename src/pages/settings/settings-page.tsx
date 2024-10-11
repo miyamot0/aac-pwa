@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
 import {
     Select,
     SelectContent,
@@ -21,15 +20,20 @@ import {
     CardTitle
 } from '@/components/ui/card'
 import { BOARD_PAGE } from '@/lib/links'
+import {
+    PostSpeechConfigSelectOptions,
+    PostSpeechConfiguration
+} from '@/types/board-settings'
 
 export default function SettingsPage() {
     const {
-        SettingsToggleLocked,
-        SettingsToggleFrameReset,
+        SettingsUpdatePostSpeechConfig,
         SettingsSwitchLanguage,
-        Settings
+        Settings,
+        PostSpeechSettings
     } = useContext(IconsContext)
-    const { Locked, LanguageContext, ResetAfterSpeak } = Settings
+
+    const { LanguageContext } = Settings
 
     return (
         <div>
@@ -54,25 +58,33 @@ export default function SettingsPage() {
                     </CardHeader>
                     <CardContent className="flex flex-col gap-6 py-4 grow">
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label htmlFor="secure-mode">
-                                Lock Board Setting
-                            </Label>
-                            <Switch
-                                id="secure-mode"
-                                checked={Locked}
-                                onCheckedChange={() => SettingsToggleLocked()}
-                            />
+                            <Label>Post Speech Configuration</Label>
+                            <Select
+                                value={PostSpeechSettings}
+                                onValueChange={(
+                                    setting: PostSpeechConfiguration
+                                ) => {
+                                    SettingsUpdatePostSpeechConfig(setting)
+                                }}
+                            >
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Set Post-speech Behavior" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {PostSpeechConfigSelectOptions.map(
+                                        (option) => (
+                                            <SelectItem
+                                                value={option.value}
+                                                key={option.value}
+                                            >
+                                                {option.label}
+                                            </SelectItem>
+                                        )
+                                    )}
+                                </SelectContent>
+                            </Select>
                         </div>
-                        <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label htmlFor="frame-mode">Frame Reset</Label>
-                            <Switch
-                                id="frame-mode"
-                                checked={ResetAfterSpeak}
-                                onCheckedChange={() =>
-                                    SettingsToggleFrameReset()
-                                }
-                            />
-                        </div>
+
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
                             <Label>Language Setting</Label>
                             <Select

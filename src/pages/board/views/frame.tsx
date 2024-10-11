@@ -47,9 +47,14 @@ function FrameIconAnimated({ icon }: { icon: SGDField }) {
 }
 
 export default function BoardFrame() {
-    const { Frame, RemoveFromFrame, Speaker, Settings, ClearFrame } =
-        useContext(IconsContext)
-    const { ResetAfterSpeak } = Settings
+    const {
+        Frame,
+        RemoveFromFrame,
+        Speaker,
+        Settings,
+        ClearFrame,
+        PostSpeechSettings
+    } = useContext(IconsContext)
 
     return (
         <div className="flex flex-col px-2">
@@ -104,7 +109,7 @@ export default function BoardFrame() {
                             await getNextAudio(words[i])
                         }
 
-                        if (ResetAfterSpeak) {
+                        if (PostSpeechSettings === 'ResetFrameAfterSpeech') {
                             ClearFrame()
                         }
                     }}
