@@ -1,11 +1,12 @@
-import React, { ReactNode } from 'react'
-import { BoardSettings, LanguageOption } from './provider-types'
+import React, { FC, ReactNode, useState } from 'react'
+import { BoardSettings, LanguageOption } from '../types/provider-types'
 import { Toaster } from '@/components/ui/sonner'
-import { db, SGDField } from '@/lib/db'
+import { SGDField } from '@/lib/db'
 import {
     FieldManagementConfiguration,
     PostSpeechConfiguration
 } from '@/types/board-settings'
+import { ShuffleAndUpdateIcons } from './actions'
 
 const FIELD_SIZE_DEFAULT = 6
 
@@ -56,35 +57,21 @@ type Props = {
     children: ReactNode
 }
 
-export const IconsProvider: React.FC<Props> = ({ children }) => {
+export const IconsProvider: FC<Props> = ({ children }) => {
     const speechSynthesis = window.speechSynthesis
 
     const [postSpeechSettings, setPostSpeechSettings] =
-        React.useState<PostSpeechConfiguration>('None')
+        useState<PostSpeechConfiguration>('None')
 
     const [iconPositioning, setIconPositioning] =
-        React.useState<FieldManagementConfiguration>('NoChange')
+        useState<FieldManagementConfiguration>('NoChange')
 
-    const [settings, setSettings] = React.useState<BoardSettings>({
+    const [settings, setSettings] = useState<BoardSettings>({
         Locked: false,
         LanguageContext: 'L1'
     })
 
-    const [frame, setFrame] = React.useState<SGDField[]>([])
-
-    async function shuffleIndices() {
-        const current_icons: SGDField[] = await db.icons.toArray()
-        const default_array = [0, 1, 2, 3, 4, 5]
-
-        const shuffled = default_array
-            .map((value) => ({ value, sort: Math.random() }))
-            .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value)
-
-        current_icons.forEach(async (icon, _index) => {
-            await db.icons.update(icon, { index: shuffled[_index] })
-        })
-    }
+    const [frame, setFrame] = useState<SGDField[]>([])
 
     return (
         <IconsContext.Provider
@@ -99,7 +86,7 @@ export const IconsProvider: React.FC<Props> = ({ children }) => {
                 AddToFrame: (icon: SGDField) => setFrame([...frame, icon]),
                 RemoveFromFrame: () => setFrame([...frame.slice(0, -1)]),
                 ClearFrame: () => setFrame([]),
-                ShuffleField: async () => await shuffleIndices(),
+                ShuffleField: async () => await ShuffleAndUpdateIcons(),
                 SettingsToggleLocked: () => {
                     setSettings((prev) => {
                         return {

@@ -1119,20 +1119,6 @@
     "@babel/helper-validator-identifier" "^7.25.7"
     to-fast-properties "^2.0.0"
 
-"@dannymoerkerke/file-tree@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@dannymoerkerke/file-tree/-/file-tree-0.0.5.tgz#1b0ede9aeda2fea4223ceef91a6eea13e9e38188"
-  integrity sha512-sY3A09A6yv3EGd4xqGj0uXVtBnNqirkg0U4Rx6sFrmAss0zBT73TUvRk44juKLfP/9qs4mLg6r/PfULM9EhjJA==
-  dependencies:
-    "@dannymoerkerke/material-webcomponents" "^1.2.15"
-
-"@dannymoerkerke/material-webcomponents@^1.2.15":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@dannymoerkerke/material-webcomponents/-/material-webcomponents-1.4.0.tgz#b6f15fb9eeba44dc3802397d3126e48aea5e6c87"
-  integrity sha512-Fk8VhmHP63EtlfXJCNuqrO1YghYyROJ8mReKkHvnsvC7Shf/DG80Qii0dxHK5uMZyqYt3bo3p3YsOavrYO2NhA==
-  dependencies:
-    "@webcomponents/webcomponentsjs" "^1.0.17"
-
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
   resolved "https://registry.yarnpkg.com/@esbuild/aix-ppc64/-/aix-ppc64-0.21.5.tgz#c7184a326533fcdf1b8ee0733e21c713b975575f"
@@ -2013,11 +1999,6 @@
     "@babel/plugin-transform-react-jsx-source" "^7.24.7"
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.14.2"
-
-"@webcomponents/webcomponentsjs@^1.0.17":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@webcomponents/webcomponentsjs/-/webcomponentsjs-1.3.3.tgz#5bb82a0d3210c836bd4623e13a4a93145cb9dc27"
-  integrity sha512-eLH04VBMpuZGzBIhOnUjECcQPEPcmfhWEijW9u1B5I+2PPYdWf3vWUExdDxu4Y3GljRSTCOlWnGtS9tpzmXMyQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"

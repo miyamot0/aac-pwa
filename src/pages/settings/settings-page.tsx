@@ -8,7 +8,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { LanguageOption } from '@/providers/provider-types'
+import { LanguageOption } from '@/types/provider-types'
 import HeaderBackground from '@/components/layout/header-bg'
 import { Link } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'

@@ -12,34 +12,28 @@ export type LanguageContext = {
     Image: string
 }
 
+export type IconStateType = {
+    Language: 'en' | 'es' | 'N/A'
+    Label: string
+    Image?: string
+    File?: Uint8Array
+}
+
 export interface SGDField {
     id: number
     index: number
     conditional: boolean
-    L1: {
-        Language: 'en' | 'es'
-        Label: string
-        Image?: string
-        File?: Uint8Array
-    }
-    L2?: {
-        Language: 'en' | 'es' | 'N/A'
-        Label: string
-        Image?: string
-        File?: Uint8Array
-    }
+    L1: IconStateType
+    L2?: IconStateType
 }
 
 const db = new Dexie('FriendsDatabase') as Dexie & {
-    files: EntityTable<
-        SavedFile,
-        'id' // primary key "id" (for the typings only)
-    >
+    files: EntityTable<SavedFile, 'id'>
     icons: EntityTable<SGDField, 'id'>
 }
 
 db.version(4).stores({
-    files: '++id, timestamp, file', // primary key "id" (for the runtime!),
+    files: '++id, timestamp, file',
     icons: '++id, index, conditional, L1, L2, file'
 })
 

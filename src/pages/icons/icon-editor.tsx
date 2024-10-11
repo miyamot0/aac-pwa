@@ -38,6 +38,7 @@ import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { IconEditorSchema } from '@/forms/icon-editor/schema'
 import { LanguageType } from '@/types/language-types'
+import { IconSettingsSelectOptions } from '@/types/icon-settings'
 
 type LoaderReturn = {
     icon: SGDField
@@ -256,101 +257,124 @@ export default function IconEditorPage() {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="en">
-                                                            English
-                                                        </SelectItem>
-                                                        <SelectItem value="es">
-                                                            Spanish
-                                                        </SelectItem>
+                                                        {IconSettingsSelectOptions.map(
+                                                            (option) => (
+                                                                <SelectItem
+                                                                    key={
+                                                                        option.value
+                                                                    }
+                                                                    value={
+                                                                        option.value
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        option.label
+                                                                    }
+                                                                </SelectItem>
+                                                            )
+                                                        )}
                                                     </SelectContent>
                                                 </Select>
                                             </EntryFieldWrapper>
                                         </FormItem>
                                     )}
                                 />
-                                <FormField
-                                    control={form.control}
-                                    name="conditional"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <EntryFieldWrapper>
-                                                <div className="col-span-2">
-                                                    <FormLabel>
-                                                        Conditional Display
-                                                    </FormLabel>
 
-                                                    <FormDescription>
-                                                        Should this be hidden
-                                                        when language is set to
-                                                        L2?
-                                                    </FormDescription>
-                                                    <FormMessage />
-                                                </div>
-                                                <div className="flex justify-end">
-                                                    <FormControl>
-                                                        <Switch
-                                                            name={field.name}
-                                                            id={field.name}
-                                                            checked={
-                                                                field.value
-                                                            }
-                                                            onCheckedChange={
-                                                                field.onChange
-                                                            }
-                                                        />
-                                                    </FormControl>
-                                                </div>
-                                            </EntryFieldWrapper>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="L1_Label"
-                                    render={({ field }) => (
-                                        <FormItem>
+                                <div
+                                    className={cn('flex flex-col gap-6', {
+                                        hidden: form.getValues('L1') === 'N/A'
+                                    })}
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name="conditional"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <EntryFieldWrapper>
+                                                    <div className="col-span-2">
+                                                        <FormLabel>
+                                                            Conditional Display
+                                                        </FormLabel>
+
+                                                        <FormDescription>
+                                                            Should this be
+                                                            hidden when language
+                                                            is set to L2?
+                                                        </FormDescription>
+                                                        <FormMessage />
+                                                    </div>
+                                                    <div className="flex justify-end">
+                                                        <FormControl>
+                                                            <Switch
+                                                                name={
+                                                                    field.name
+                                                                }
+                                                                id={field.name}
+                                                                checked={
+                                                                    field.value
+                                                                }
+                                                                onCheckedChange={
+                                                                    field.onChange
+                                                                }
+                                                            />
+                                                        </FormControl>
+                                                    </div>
+                                                </EntryFieldWrapper>
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="L1_Label"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>
+                                                    Label for L1 Icon
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder=""
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormDescription>
+                                                    This is the text that will
+                                                    be emitted (Default Setting)
+                                                </FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <div className="grid">
+                                        <div
+                                            className="flex flex-col justify-start gap-4 mr-4"
+                                            onClick={() => {
+                                                try {
+                                                    form.handleSubmit(
+                                                        onSubmit
+                                                    )()
+                                                } finally {
+                                                    navigate(
+                                                        `/icons/${relevantIcon.id}/L1`,
+                                                        {
+                                                            unstable_viewTransition:
+                                                                true
+                                                        }
+                                                    )
+                                                }
+                                            }}
+                                        >
                                             <FormLabel>
-                                                Label for L1 Icon
+                                                Image for L1 Icon
                                             </FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder=""
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormDescription>
-                                                This is the text that will be
-                                                emitted (Default Setting)
-                                            </FormDescription>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <div className="grid">
-                                    <div
-                                        className="flex flex-col justify-start gap-4 mr-4"
-                                        onClick={() => {
-                                            try {
-                                                form.handleSubmit(onSubmit)()
-                                            } finally {
-                                                navigate(
-                                                    `/icons/${relevantIcon.id}/L1`,
-                                                    {
-                                                        unstable_viewTransition:
-                                                            true
-                                                    }
-                                                )
-                                            }
-                                        }}
-                                    >
-                                        <FormLabel>Image for L1 Icon</FormLabel>
 
-                                        <img
-                                            className="p-4 w-full aspect-square border rounded object-cover "
-                                            src={l1_asset}
-                                            alt={'L1 Asset'}
-                                            draggable={false}
-                                        />
+                                            <img
+                                                className="p-4 w-full aspect-square border rounded object-cover "
+                                                src={l1_asset}
+                                                alt={'L1 Asset'}
+                                                draggable={false}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 <Button type="submit" className="w-full">
@@ -442,15 +466,22 @@ export default function IconEditorPage() {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="en">
-                                                            English
-                                                        </SelectItem>
-                                                        <SelectItem value="es">
-                                                            Spanish
-                                                        </SelectItem>
-                                                        <SelectItem value="N/A">
-                                                            N/A (Disabled)
-                                                        </SelectItem>
+                                                        {IconSettingsSelectOptions.map(
+                                                            (option) => (
+                                                                <SelectItem
+                                                                    key={
+                                                                        option.value
+                                                                    }
+                                                                    value={
+                                                                        option.value
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        option.label
+                                                                    }
+                                                                </SelectItem>
+                                                            )
+                                                        )}
                                                     </SelectContent>
                                                 </Select>
                                             </EntryFieldWrapper>
