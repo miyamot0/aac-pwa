@@ -53,7 +53,9 @@ export default function BoardFrame() {
         Speaker,
         Settings,
         ClearFrame,
-        PostSpeechSettings
+        PostSpeechSettings,
+        ShuffleField,
+        IconPositioning
     } = useContext(IconsContext)
 
     return (
@@ -83,6 +85,8 @@ export default function BoardFrame() {
                     className="col-span-1 rounded flex flex-row justify-center items-center data-[empty=false]:cursor-pointer"
                     data-empty={Frame.length === 0}
                     onClick={async () => {
+                        if (Frame.length === 0) return
+
                         const words = [
                             Frame.map((icon: SGDField) =>
                                 Settings.LanguageContext === 'L1'
@@ -111,6 +115,10 @@ export default function BoardFrame() {
 
                         if (PostSpeechSettings === 'ResetFrameAfterSpeech') {
                             ClearFrame()
+                        }
+
+                        if (IconPositioning === 'ShufflePosition') {
+                            await ShuffleField()
                         }
                     }}
                 >

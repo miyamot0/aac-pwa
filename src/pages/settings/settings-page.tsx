@@ -21,16 +21,20 @@ import {
 } from '@/components/ui/card'
 import { BOARD_PAGE } from '@/lib/links'
 import {
+    FieldManagementConfigSelectOptions,
+    FieldManagementConfiguration,
     PostSpeechConfigSelectOptions,
     PostSpeechConfiguration
 } from '@/types/board-settings'
 
 export default function SettingsPage() {
     const {
-        SettingsUpdatePostSpeechConfig,
-        SettingsSwitchLanguage,
         Settings,
-        PostSpeechSettings
+        SettingsSwitchLanguage,
+        PostSpeechSettings,
+        SettingsUpdatePostSpeechConfig,
+        IconPositioning,
+        SettingsUpdateIconPositioningConfig
     } = useContext(IconsContext)
 
     const { LanguageContext } = Settings
@@ -57,6 +61,28 @@ export default function SettingsPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col gap-6 py-4 grow">
+                        <div className="flex flex-row gap-4 justify-between items-center h-8">
+                            <Label>Language Setting</Label>
+                            <Select
+                                value={LanguageContext}
+                                onValueChange={(lang: LanguageOption) => {
+                                    SettingsSwitchLanguage(lang)
+                                }}
+                            >
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Language Type" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="L1">
+                                        Language #1
+                                    </SelectItem>
+                                    <SelectItem value="L2">
+                                        Language #2
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
                             <Label>Post Speech Configuration</Label>
                             <Select
@@ -86,23 +112,29 @@ export default function SettingsPage() {
                         </div>
 
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label>Language Setting</Label>
+                            <Label>Icon Positioning Behavior</Label>
                             <Select
-                                value={LanguageContext}
-                                onValueChange={(lang: LanguageOption) => {
-                                    SettingsSwitchLanguage(lang)
+                                value={IconPositioning}
+                                onValueChange={(
+                                    setting: FieldManagementConfiguration
+                                ) => {
+                                    SettingsUpdateIconPositioningConfig(setting)
                                 }}
                             >
                                 <SelectTrigger className="w-[180px]">
-                                    <SelectValue placeholder="Language Type" />
+                                    <SelectValue placeholder="Set Post-speech Behavior" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="L1">
-                                        Language #1
-                                    </SelectItem>
-                                    <SelectItem value="L2">
-                                        Language #2
-                                    </SelectItem>
+                                    {FieldManagementConfigSelectOptions.map(
+                                        (option) => (
+                                            <SelectItem
+                                                value={option.value}
+                                                key={option.value}
+                                            >
+                                                {option.label}
+                                            </SelectItem>
+                                        )
+                                    )}
                                 </SelectContent>
                             </Select>
                         </div>
