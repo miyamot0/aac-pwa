@@ -98,8 +98,6 @@ export const IconsProvider: FC<Props> = ({ children }) => {
         setPostSpeechSettings(PostSpeechSettings)
         setIconPositioning(IconPositioning)
         setFrameRestrictions(FrameRestrictions)
-
-        screenOrientation.lock('landscape-primary')
     }, [screenOrientation])
 
     return (
