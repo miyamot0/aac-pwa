@@ -46,6 +46,8 @@ export default function BoardFrame() {
                     onClick={async () => {
                         if (Frame.length === 0) return
 
+                        if (Speaker.speaking) return
+
                         const words = [
                             Frame.map((icon: SGDField) =>
                                 Settings.LanguageContext === 'L1'
