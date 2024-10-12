@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/select'
 import HeaderBackground from '@/components/layout/header-bg'
 import { Link } from 'react-router-dom'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, TableOfContentsIcon } from 'lucide-react'
 import {
     Card,
     CardContent,
@@ -18,7 +18,7 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
-import { BOARD_PAGE } from '@/lib/links'
+import { BOARD_PAGE, DOCS_PAGE } from '@/lib/links'
 import {
     FieldManagementConfigSelectOptions,
     FieldManagementConfiguration,
@@ -50,6 +50,12 @@ export default function SettingsPage() {
                     Back
                 </Link>
                 <span className="text-lg text-center">Program Settings</span>
+                <div className="flex flex-row justify-end">
+                    <Link to={DOCS_PAGE} className="flex flex-row gap-2">
+                        <TableOfContentsIcon className="h-6 w-6" />
+                        Documentation
+                    </Link>
+                </div>
             </HeaderBackground>
             <div className="flex flex-row justify-center my-4">
                 <Card className="max-w-screen-lg w-full">

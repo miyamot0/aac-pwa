@@ -12,7 +12,8 @@ import SettingsPage from './pages/settings/settings-page'
 import CameraPage from './pages/camera/camera-page'
 import FileSystemPage from './pages/files/file-system-page'
 import LandingPage from './pages/landing/landing-page'
-import { BOARD_PAGE, IMAGES_PAGE, SETTINGS_PAGE } from './lib/links'
+import { BOARD_PAGE, DOCS_PAGE, IMAGES_PAGE, SETTINGS_PAGE } from './lib/links'
+import DocumentationPage from './pages/docs/documentation-page'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
             <Route path={BOARD_PAGE} element={<BoardPage />} />
             <Route path={SETTINGS_PAGE} element={<SettingsPage />} />
             <Route path={IMAGES_PAGE} element={<FileSystemPage />} />
+            <Route path={DOCS_PAGE} element={<DocumentationPage />} />
             <Route
                 path={'/icons/:id'}
                 element={<IconEditorPage />}

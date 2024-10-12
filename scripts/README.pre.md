@@ -8,9 +8,10 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 
 ## Changelog
 
--   0.0.2: Output specific to linguistic context
--   0.0.3: Add in field movement functionality
--   0.0.4: Add in persistent settings
+- 0.0.2: Output specific to linguistic context
+- 0.0.3: Add in field movement functionality
+- 0.0.4: Add in persistent settings
+- 0.0.5: Introduce functionality for documentation
 
 ## Referenced Works
 

@@ -8,13 +8,16 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 
 ## Changelog
 
--   0.0.2: Output specific to linguistic context
--   0.0.3: Add in field movement functionality
--   0.0.4: Add in persistent settings
+- 0.0.2: Output specific to linguistic context
+- 0.0.3: Add in field movement functionality
+- 0.0.4: Add in persistent settings
+- 0.0.5: Introduce functionality for documentation
 
 ## Referenced Works
 
 @hookform/resolvers (3.9.0). Copyright bluebill1049 <bluebill1049@hotmail.com> -- MIT Licensed: [Repo](https://github.com/react-hook-form/resolvers.git) 
+ 
+@mdx-js/mdx (3.0.1). Copyright John Otander <johnotander@gmail.com> (https://johno.com) -- MIT Licensed: [Repo](https://github.com/mdx-js/mdx.git) 
  
 @radix-ui/react-dialog (1.1.2). Copyright n/a -- MIT Licensed: [Repo](https://github.com/radix-ui/primitives.git) 
  
@@ -27,6 +30,8 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 @radix-ui/react-slot (1.1.0). Copyright n/a -- MIT Licensed: [Repo](https://github.com/radix-ui/primitives.git) 
  
 @radix-ui/react-switch (1.1.1). Copyright n/a -- MIT Licensed: [Repo](https://github.com/radix-ui/primitives.git) 
+ 
+@tailwindcss/typography (0.5.15). Copyright n/a -- MIT Licensed: [Repo](https://github.com/tailwindlabs/tailwindcss-typography.git) 
  
 class-variance-authority (0.7.0). Copyright Joe Bell (https://joebell.co.uk) -- Apache-2.0 Licensed: [Repo](https://github.com/joe-bell/cva.git) 
  
@@ -50,6 +55,8 @@ sonner (1.5.0). Copyright Emil Kowalski <e@emilkowal.ski> -- MIT Licensed: [Repo
  
 tailwind-merge (2.5.2). Copyright Dany Castillo -- MIT Licensed: [Repo](https://github.com/dcastil/tailwind-merge.git) 
  
+tailwindcss-font-inter (3.1.0). Copyright Yuri Sementsov <hello@smcv.dev> -- MIT Licensed: [Repo](https://github.com/semencov/tailwindcss-font-inter.git) 
+ 
 zod (3.23.8). Copyright Colin McDonnell <colin@colinhacks.com> -- MIT Licensed: [Repo](https://github.com/colinhacks/zod.git) 
 
 ## License
@@ -58,5 +65,5 @@ MIT - Shawn Gilroy, Louisiana State University
 
 ## Version
 
-Version 0.0.4
+Version 0.0.5
 

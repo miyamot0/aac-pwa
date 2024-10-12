@@ -53,5 +53,5 @@ export default {
             }
         }
     },
-    plugins: [require('tailwindcss-animate'), require('tailwindcss-safe-area')]
+    plugins: [require('tailwindcss-animate'), require('tailwindcss-safe-area'), require('@tailwindcss/typography'), require('tailwindcss-font-inter')]
 }
