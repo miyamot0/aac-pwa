@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { BoardSettings, LanguageOption } from '../types/provider-types'
 import { Toaster } from '@/components/ui/sonner'
 import { SGDField } from '@/lib/db'
@@ -8,6 +8,7 @@ import {
     PostSpeechConfiguration
 } from '@/types/board-settings'
 import { ShuffleAndUpdateIcons } from './actions'
+import { loadSavedPreferences, storeSavedPreferences } from '@/lib/prefs'
 
 export const FIELD_SIZE_DEFAULT = 18
 export const FIELD_ROWS_DEFAULT = 3
@@ -82,6 +83,22 @@ export const IconsProvider: FC<Props> = ({ children }) => {
 
     const [frame, setFrame] = useState<SGDField[]>([])
 
+    useEffect(() => {
+        const savedPrefs = loadSavedPreferences()
+
+        const {
+            Settings,
+            PostSpeechSettings,
+            IconPositioning,
+            FrameRestrictions
+        } = savedPrefs
+
+        setSettings(Settings)
+        setPostSpeechSettings(PostSpeechSettings)
+        setIconPositioning(IconPositioning)
+        setFrameRestrictions(FrameRestrictions)
+    }, [])
+
     return (
         <IconsContext.Provider
             value={{
@@ -106,17 +123,29 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                 ClearFrame: () => setFrame([]),
                 ShuffleField: async () => await ShuffleAndUpdateIcons(),
                 SettingsToggleLocked: () => {
-                    setSettings((prev) => {
-                        return {
-                            ...prev,
-                            Locked: !prev.Locked
-                        }
-                    })
+                    const new_settings = {
+                        ...settings,
+                        Locked: !settings.Locked
+                    }
+
+                    setSettings(new_settings)
+                    storeSavedPreferences(
+                        new_settings,
+                        postSpeechSettings,
+                        iconPositioning,
+                        frameRestrictions
+                    )
                 },
                 SettingsUpdatePostSpeechConfig: (
                     setting: PostSpeechConfiguration
                 ) => {
                     setPostSpeechSettings(setting)
+                    storeSavedPreferences(
+                        settings,
+                        setting,
+                        iconPositioning,
+                        frameRestrictions
+                    )
                 },
                 SettingsUpdateIconPositioningConfig: (
                     setting: FieldManagementConfiguration
@@ -124,25 +153,43 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                     setIconPositioning(setting)
                 },
                 SettingsDisplaySheet: (status) => {
-                    setSettings((prev) => {
-                        return {
-                            ...prev,
-                            SheetOpen: status
-                        }
-                    })
+                    const new_settings = {
+                        ...settings,
+                        SheetOpen: status
+                    }
+
+                    setSettings(new_settings)
+                    storeSavedPreferences(
+                        new_settings,
+                        postSpeechSettings,
+                        iconPositioning,
+                        frameRestrictions
+                    )
                 },
                 SettingsSwitchLanguage: (language) => {
-                    setSettings((prev) => {
-                        return {
-                            ...prev,
-                            LanguageContext: language
-                        }
-                    })
+                    const new_settings = {
+                        ...settings,
+                        LanguageContext: language
+                    }
+
+                    setSettings(new_settings)
+                    storeSavedPreferences(
+                        new_settings,
+                        postSpeechSettings,
+                        iconPositioning,
+                        frameRestrictions
+                    )
                 },
                 SettingsUpdateFrameRestriction: (
                     setting: FrameLengthConfiguration
                 ) => {
                     setFrameRestrictions(setting)
+                    storeSavedPreferences(
+                        settings,
+                        postSpeechSettings,
+                        iconPositioning,
+                        setting
+                    )
                 }
             }}
         >
