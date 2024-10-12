@@ -66,6 +66,7 @@ type Props = {
 
 export const IconsProvider: FC<Props> = ({ children }) => {
     const speechSynthesis = window.speechSynthesis
+    const screenOrientation = window.screen.orientation
 
     const [postSpeechSettings, setPostSpeechSettings] =
         useState<PostSpeechConfiguration>('None')
@@ -97,7 +98,9 @@ export const IconsProvider: FC<Props> = ({ children }) => {
         setPostSpeechSettings(PostSpeechSettings)
         setIconPositioning(IconPositioning)
         setFrameRestrictions(FrameRestrictions)
-    }, [])
+
+        screenOrientation.lock('landscape-primary')
+    }, [screenOrientation])
 
     return (
         <IconsContext.Provider

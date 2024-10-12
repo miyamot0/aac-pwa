@@ -1,7 +1,7 @@
 {
-    "name": "Web-based Port of Otsu (PWA)",
-    "short_name": "Otsu PWA",
-    "description": "Otsu (PWA) is an experimental port of AAC software for research.",
+    "short_name": "Bilingual AAC Prototype PWA",
+    "name": "Web-based Port of Otsu/FastTalker (PWA)",
+    "description": "This is a prototype of a web-based version of the Otsu/FastTalker AAC system.",
     "scope": "/",
     "theme_color": "#1976d2",
     "background_color": "#fafafa",
