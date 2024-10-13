@@ -13,6 +13,7 @@ import HeaderBackground from '@/components/layout/header-bg'
 import { SETTINGS_PAGE } from '@/lib/links'
 import { db, SGDField } from '@/lib/db'
 import { toast } from 'sonner'
+import { APP_TITLE } from '@/lib/strings'
 
 export default function BoardMenuBar() {
     const {
@@ -67,7 +68,7 @@ export default function BoardMenuBar() {
     return (
         <HeaderBackground>
             <div className="flex flex-row gap-2">
-                <span className="text-lg">{`Otsu (PWA Port) - ${
+                <span className="text-lg">{`${APP_TITLE} - ${
                     is_L1 ? 'L1 Mode' : 'L2 Mode'
                 }`}</span>
             </div>
