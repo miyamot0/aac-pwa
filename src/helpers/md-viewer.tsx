@@ -14,16 +14,14 @@ import type { MDXComponents } from 'mdx/types'
 
 function useMDXComponents(components: MDXComponents): MDXComponents {
     return {
-        // Allows customizing built-in components, e.g. to add styling.
+        p: ({ children }) => <p className="m-0 my-4">{children}</p>,
         h2: ({ children }) => (
-            <h2 style={{ textAlign: 'center' }}>{children}</h2>
+            <h2 className="text-center m-0 mb-4">{children}</h2>
         ),
         h3: ({ children }) => (
-            <h3 style={{ fontWeight: 'bold' }}>{children}</h3>
+            <h3 className="font-bold m-0 my-4">{children}</h3>
         ),
-        h4: ({ children }) => (
-            <h4 style={{ fontStyle: 'italic' }}>{children}</h4>
-        ),
+        h4: ({ children }) => <h4 className="italic m-0 my-4">{children}</h4>,
         ...components
     }
 }
