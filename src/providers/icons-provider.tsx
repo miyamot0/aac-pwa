@@ -184,7 +184,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
             }}
         >
             {children}
-            <Toaster />
+            <Toaster richColors={true} duration={2000} visibleToasts={1} />
         </IconsContext.Provider>
     )
 }
