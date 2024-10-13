@@ -187,14 +187,15 @@ export default function IconEditorPage() {
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="grid grid-cols-1 lg:grid-cols-2 max-w-screen-lg w-full gap-4 h-auto py-4"
                     >
-                        <Card className="h-fit">
+                        <Card className="w-full col-span-1 lg:col-span-2">
                             <CardHeader>
-                                <CardTitle>L1 Icon Settings</CardTitle>
+                                <CardTitle>Shared Icon Settings</CardTitle>
                                 <CardDescription>
-                                    Manage Settings for L1 Icon
+                                    Settings for the entry regardless of
+                                    language context (L1/L2)
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="flex flex-col gap-6">
+                            <CardContent className="flex flex-col gap-8">
                                 <FormField
                                     control={form.control}
                                     name="index"
@@ -242,7 +243,17 @@ export default function IconEditorPage() {
                                         </FormItem>
                                     )}
                                 />
+                            </CardContent>
+                        </Card>
 
+                        <Card className="h-fit">
+                            <CardHeader>
+                                <CardTitle>L1 Icon Settings</CardTitle>
+                                <CardDescription>
+                                    Manage Settings for L1 Icon
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent className="flex flex-col gap-6">
                                 <FormField
                                     control={form.control}
                                     name="L1_Hidden"
@@ -251,7 +262,7 @@ export default function IconEditorPage() {
                                             <EntryFieldWrapper>
                                                 <div className="col-span-2">
                                                     <FormLabel>
-                                                        Hide Icon
+                                                        L1 Hide Settings
                                                     </FormLabel>
 
                                                     <FormDescription>
@@ -340,7 +351,7 @@ export default function IconEditorPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Label for L1 Icon
+                                                    L1 Icon Label
                                                 </FormLabel>
                                                 <FormControl>
                                                     <Input
@@ -375,10 +386,7 @@ export default function IconEditorPage() {
                                                 }
                                             }}
                                         >
-                                            <FormLabel>
-                                                Image for L1 Icon
-                                            </FormLabel>
-
+                                            <FormLabel>L1 Icon Image</FormLabel>
                                             <img
                                                 className="p-4 w-full aspect-square border rounded object-cover "
                                                 src={l1_asset}
@@ -401,61 +409,13 @@ export default function IconEditorPage() {
                             <CardContent className="flex flex-col gap-6">
                                 <FormField
                                     control={form.control}
-                                    name="index"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <EntryFieldWrapper>
-                                                <div className="col-span-2">
-                                                    <FormLabel>
-                                                        Icon Location (Index)
-                                                    </FormLabel>
-                                                    <FormDescription>
-                                                        This is the number slot
-                                                        in the field
-                                                    </FormDescription>
-                                                    <FormMessage />
-                                                </div>
-                                                <Select
-                                                    onValueChange={
-                                                        field.onChange
-                                                    }
-                                                    defaultValue={field.value.toString()}
-                                                    value={field.value.toString()}
-                                                >
-                                                    <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Index in field" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {available_indices
-                                                            .sort(
-                                                                (a, b) => a - b
-                                                            )
-                                                            .map((index) => (
-                                                                <SelectItem
-                                                                    key={index.toString()}
-                                                                    value={index.toString()}
-                                                                >
-                                                                    {index.toString()}
-                                                                </SelectItem>
-                                                            ))}
-                                                    </SelectContent>
-                                                </Select>
-                                            </EntryFieldWrapper>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
                                     name="L2_Hidden"
                                     render={({ field }) => (
                                         <FormItem>
                                             <EntryFieldWrapper>
                                                 <div className="col-span-2">
                                                     <FormLabel>
-                                                        Hide Icon
+                                                        L2 Hide Settings
                                                     </FormLabel>
 
                                                     <FormDescription>
@@ -544,7 +504,7 @@ export default function IconEditorPage() {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Label for L2 Icon
+                                                    L2 Icon Label
                                                 </FormLabel>
                                                 <FormControl>
                                                     <Input
@@ -580,9 +540,7 @@ export default function IconEditorPage() {
                                                 }
                                             }}
                                         >
-                                            <FormLabel>
-                                                Image for L2 Icon
-                                            </FormLabel>
+                                            <FormLabel>L2 Icon Image</FormLabel>
 
                                             <img
                                                 className="p-4 w-full aspect-square border rounded object-cover "
