@@ -27,7 +27,7 @@ export default function TableOfContentsDocs({
                             className={cn(
                                 'bg-white border rounded-lg py-2 cursor-pointer shadow border-gray-300 flex flex-col gap-1 transition-colors duration-300 ease-in-out',
                                 {
-                                    'cursor-default bg-green-200 shadow-xl':
+                                    'cursor-default bg-green-100 shadow-xl':
                                         Documentation.matter.index ===
                                         entry.matter.index
                                 }

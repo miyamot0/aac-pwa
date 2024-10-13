@@ -60,14 +60,21 @@ export default function SettingsPage() {
             <div className="flex flex-row justify-center my-4">
                 <Card className="max-w-screen-lg w-full">
                     <CardHeader>
-                        <CardTitle>AAC Settings</CardTitle>
+                        <CardTitle>Current Program Settings</CardTitle>
                         <CardDescription>
-                            Settings for the AAC board
+                            Various program settings are available for
+                            adjustment
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="flex flex-col gap-6 py-4 grow">
+                    <CardContent className="flex flex-col gap-8">
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label>Post Speech Configuration</Label>
+                            <div>
+                                <Label>Post Speech Frame Options</Label>
+                                <div className="text-muted-foreground text-sm">
+                                    Determine after effects following speech
+                                    output
+                                </div>
+                            </div>
                             <Select
                                 value={PostSpeechSettings}
                                 onValueChange={(
@@ -95,7 +102,15 @@ export default function SettingsPage() {
                         </div>
 
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label>Icon Positioning Behavior</Label>
+                            <div>
+                                <Label>
+                                    Post Speech Icon Positioning Options
+                                </Label>
+                                <div className="text-muted-foreground text-sm">
+                                    Determine icon positioning following speech
+                                    output
+                                </div>
+                            </div>
                             <Select
                                 value={IconPositioning}
                                 onValueChange={(
@@ -123,7 +138,16 @@ export default function SettingsPage() {
                         </div>
 
                         <div className="flex flex-row gap-4 justify-between items-center h-8">
-                            <Label>Length of Response Restrictions</Label>
+                            <div>
+                                <Label>
+                                    Sentence Frame Length Limiting Options
+                                </Label>
+
+                                <div className="text-muted-foreground text-sm">
+                                    Limitations on sentence frame length
+                                </div>
+                            </div>
+
                             <Select
                                 value={FrameRestrictions}
                                 onValueChange={(
