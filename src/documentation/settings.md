@@ -7,7 +7,7 @@ author: Shawn Gilroy
 index: 1
 ---
 
-## Board Settings
+## Overview of Board Settings
 
 The program supports a range of various settings to assist with examining which arrangement most supports the language learner. Generally, these settings are likely to be most useful for the earliest learners, and evaluating the usefulness of any specific setting is suggested.
 

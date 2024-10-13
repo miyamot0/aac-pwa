@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import { IconsContext } from '@/providers/icons-provider'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 type Props = { Icon: SGDField }
 
@@ -40,7 +41,13 @@ export function Icon({ Icon }: Props) {
                     return
                 }
 
-                if (!has_label) return
+                if (!has_label) {
+                    toast.error(
+                        'Note: This icon has no label and cannot be added to frame'
+                    )
+
+                    return
+                }
 
                 AddToFrame(Icon)
             }}

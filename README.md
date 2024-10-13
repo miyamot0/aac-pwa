@@ -12,6 +12,21 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 - 0.0.3: Add in field movement functionality
 - 0.0.4: Add in persistent settings
 - 0.0.5: Introduce functionality for documentation
+- 0.0.6: Documentation and settings adjustment
+
+## Program Features
+
+Simple, but flexible grid-based interface for programmed icons.
+
+![Grid-based Learner Interface](public/screenshots/board_active.webp 'User Interface')
+
+Highly-customizable options for icons in grid interface.
+
+![Editing Grid-based Learner Interface](public/screenshots/board_editing.webp 'Adaptive User Interface')
+
+Multiple options for icon programming *across* varying languages.
+
+![Multiple language support](public/screenshots/icon_editing.webp 'Multilingual support')
 
 ## Referenced Works
 
@@ -65,5 +80,5 @@ MIT - Shawn Gilroy, Louisiana State University
 
 ## Version
 
-Version 0.0.5
+Version 0.0.6
 

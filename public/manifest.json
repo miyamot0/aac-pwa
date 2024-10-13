@@ -73,6 +73,29 @@
             "purpose": "maskable"
         }
     ],
+    "screenshots": [
+        {
+            "src": "/public/screenshots/board_active.webp",
+            "sizes": "2224x1668",
+            "type": "image/webp",
+            "form_factor": "wide",
+            "label": "Illustration of active board"
+        },
+        {
+            "src": "/public/screenshots/board_editing.webp",
+            "sizes": "2224x1668",
+            "type": "image/webp",
+            "form_factor": "wide",
+            "label": "Illustration of board in edit mode"
+        },
+        {
+            "src": "/public/screenshots/icon_editing.webp",
+            "sizes": "2224x1668",
+            "type": "image/webp",
+            "form_factor": "wide",
+            "label": "Illustration of icon editing"
+        }
+    ],
     "orientation": "landscape",
     "dir": "auto",
     "lang": "en-US",

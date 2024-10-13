@@ -115,8 +115,9 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                     if (
                         frameRestrictions === 'LimitToOneIcon' &&
                         frame.length > 0
-                    )
+                    ) {
                         return
+                    }
 
                     setFrame([...frame, icon])
                 },

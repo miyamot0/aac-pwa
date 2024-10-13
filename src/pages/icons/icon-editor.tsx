@@ -19,8 +19,7 @@ import {
     FormLabel,
     FormMessage
 } from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import { ChevronLeft, DeleteIcon } from 'lucide-react'
+import { ChevronLeft, DeleteIcon, SaveIcon } from 'lucide-react'
 import {
     Select,
     SelectContent,
@@ -112,6 +111,12 @@ export default function IconEditorPage() {
             })
     }
 
+    async function saveIcon() {
+        if (!relevantIcon) return
+
+        form.handleSubmit(onSubmit)()
+    }
+
     useEffect(() => {
         form.trigger()
     }, [form, relevantIcon])
@@ -148,20 +153,32 @@ export default function IconEditorPage() {
                     Back
                 </Link>
                 <span className="text-lg text-center">Icon Entry Editor</span>
-                <div
-                    className="w-full flex flex-row gap-2 items-center justify-end cursor-pointer"
-                    onClick={() => {
-                        if (
-                            window.confirm(
-                                'Are you sure you want to delete this icon?'
-                            )
-                        ) {
-                            deleteIcon()
-                        }
-                    }}
-                >
-                    <DeleteIcon className="h-6 w-6" />
-                    <span className="text-sm hidden md:block">Delete Icon</span>
+                <div className="w-full flex flex-row gap-4 items-center justify-between">
+                    <div
+                        className="w-full flex flex-row gap-2 items-center justify-end cursor-pointer"
+                        onClick={() => {
+                            if (
+                                window.confirm(
+                                    'Are you sure you want to delete this icon?'
+                                )
+                            ) {
+                                deleteIcon()
+                            }
+                        }}
+                    >
+                        <DeleteIcon className="h-6 w-6" />
+                        <span className="text-sm hidden md:block">Delete</span>
+                    </div>
+
+                    <div
+                        className="flex flex-row gap-2 items-center justify-end cursor-pointer"
+                        onClick={() => {
+                            saveIcon()
+                        }}
+                    >
+                        <SaveIcon className="h-6 w-6" />
+                        <span className="text-sm hidden md:block">Save</span>
+                    </div>
                 </div>
             </HeaderBackground>
             <div className="flex flex-row justify-center">
@@ -225,6 +242,42 @@ export default function IconEditorPage() {
                                         </FormItem>
                                     )}
                                 />
+
+                                <FormField
+                                    control={form.control}
+                                    name="L1_Hidden"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <EntryFieldWrapper>
+                                                <div className="col-span-2">
+                                                    <FormLabel>
+                                                        Hide Icon
+                                                    </FormLabel>
+
+                                                    <FormDescription>
+                                                        Should this be hidden?
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </div>
+                                                <div className="flex justify-end">
+                                                    <FormControl>
+                                                        <Switch
+                                                            name={field.name}
+                                                            id={field.name}
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </EntryFieldWrapper>
+                                        </FormItem>
+                                    )}
+                                />
+
                                 <FormField
                                     control={form.control}
                                     name="L1"
@@ -283,43 +336,6 @@ export default function IconEditorPage() {
                                 >
                                     <FormField
                                         control={form.control}
-                                        name="L1_Hidden"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <EntryFieldWrapper>
-                                                    <div className="col-span-2">
-                                                        <FormLabel>
-                                                            Hide Icon
-                                                        </FormLabel>
-
-                                                        <FormDescription>
-                                                            Should this be
-                                                            hidden?
-                                                        </FormDescription>
-                                                        <FormMessage />
-                                                    </div>
-                                                    <div className="flex justify-end">
-                                                        <FormControl>
-                                                            <Switch
-                                                                name={
-                                                                    field.name
-                                                                }
-                                                                id={field.name}
-                                                                checked={
-                                                                    field.value
-                                                                }
-                                                                onCheckedChange={
-                                                                    field.onChange
-                                                                }
-                                                            />
-                                                        </FormControl>
-                                                    </div>
-                                                </EntryFieldWrapper>
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
                                         name="L1_Label"
                                         render={({ field }) => (
                                             <FormItem>
@@ -372,9 +388,6 @@ export default function IconEditorPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <Button type="submit" className="w-full">
-                                    Update Icon
-                                </Button>
                             </CardContent>
                         </Card>
 
@@ -433,6 +446,42 @@ export default function IconEditorPage() {
                                         </FormItem>
                                     )}
                                 />
+
+                                <FormField
+                                    control={form.control}
+                                    name="L2_Hidden"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <EntryFieldWrapper>
+                                                <div className="col-span-2">
+                                                    <FormLabel>
+                                                        Hide Icon
+                                                    </FormLabel>
+
+                                                    <FormDescription>
+                                                        Should this be hidden?
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </div>
+                                                <div className="flex justify-end">
+                                                    <FormControl>
+                                                        <Switch
+                                                            name={field.name}
+                                                            id={field.name}
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </EntryFieldWrapper>
+                                        </FormItem>
+                                    )}
+                                />
+
                                 <FormField
                                     control={form.control}
                                     name="L2"
@@ -483,48 +532,12 @@ export default function IconEditorPage() {
                                         </FormItem>
                                     )}
                                 />
+
                                 <div
                                     className={cn('flex flex-col gap-6', {
                                         hidden: form.getValues('L2') === 'N/A'
                                     })}
                                 >
-                                    <FormField
-                                        control={form.control}
-                                        name="L2_Hidden"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <EntryFieldWrapper>
-                                                    <div className="col-span-2">
-                                                        <FormLabel>
-                                                            Hide Icon
-                                                        </FormLabel>
-
-                                                        <FormDescription>
-                                                            Should this be
-                                                            hidden?
-                                                        </FormDescription>
-                                                        <FormMessage />
-                                                    </div>
-                                                    <div className="flex justify-end">
-                                                        <FormControl>
-                                                            <Switch
-                                                                name={
-                                                                    field.name
-                                                                }
-                                                                id={field.name}
-                                                                checked={
-                                                                    field.value
-                                                                }
-                                                                onCheckedChange={
-                                                                    field.onChange
-                                                                }
-                                                            />
-                                                        </FormControl>
-                                                    </div>
-                                                </EntryFieldWrapper>
-                                            </FormItem>
-                                        )}
-                                    />
                                     <FormField
                                         control={form.control}
                                         name="L2_Label"
@@ -579,9 +592,6 @@ export default function IconEditorPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <Button type="submit" className="w-full">
-                                    Update Icon
-                                </Button>
                             </CardContent>
                         </Card>
                     </form>
