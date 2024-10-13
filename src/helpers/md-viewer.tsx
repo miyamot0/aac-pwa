@@ -10,7 +10,25 @@ import { evaluate } from '@mdx-js/mdx'
 type ReactMDXContent = (props: MDXProps) => ReactNode
 type Runtime = Pick<EvaluateOptions, 'jsx' | 'jsxs' | 'Fragment'>
 
-const runtime = { jsx, jsxs, Fragment } as Runtime
+import type { MDXComponents } from 'mdx/types'
+
+function useMDXComponents(components: MDXComponents): MDXComponents {
+    return {
+        // Allows customizing built-in components, e.g. to add styling.
+        h2: ({ children }) => (
+            <h2 style={{ textAlign: 'center' }}>{children}</h2>
+        ),
+        h3: ({ children }) => (
+            <h3 style={{ fontWeight: 'bold' }}>{children}</h3>
+        ),
+        h4: ({ children }) => (
+            <h4 style={{ fontStyle: 'italic' }}>{children}</h4>
+        ),
+        ...components
+    }
+}
+
+const runtime = { jsx, jsxs, Fragment, useMDXComponents } as Runtime
 
 export const MdViewer: FC<{ source?: string }> = ({ source = '' }) => {
     const [MdxContent, setMdxContent] = useState<ReactMDXContent>(

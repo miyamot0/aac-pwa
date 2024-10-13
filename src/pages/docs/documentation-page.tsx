@@ -21,7 +21,7 @@ export default function DocumentationPage() {
     const [display, setDisplay] = useState(FrontMatter[0])
 
     return (
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col w-full min-h-svh">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
                     to={SETTINGS_PAGE}
@@ -35,10 +35,10 @@ export default function DocumentationPage() {
                     Program Documentation
                 </span>
             </HeaderBackground>
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full px-4 gap-4">
-                <div className="col-span-1 flex flex-col gap-4 border-r-1 border-black">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 mt-2 px-2">
+                <div className="col-span-1 flex flex-col gap-4 border-r-1 border-black px-4 pt-4">
                     <h1 className="text-2xl font-bold text-center">
-                        Table of Contents
+                        Documentation
                     </h1>
                     <ul className="flex flex-col gap-4">
                         {FrontMatter.map((entry) => (
@@ -50,9 +50,9 @@ export default function DocumentationPage() {
                             >
                                 <div
                                     className={cn(
-                                        'bg-white border rounded-lg py-2 px-2 cursor-pointer',
+                                        'bg-white border rounded-lg py-2 px-2 cursor-pointer shadow-xl border-gray-300',
                                         {
-                                            'cursor-default bg-green-100':
+                                            'cursor-default bg-gray-200':
                                                 display.matter.index ===
                                                 entry.matter.index
                                         }
@@ -74,8 +74,8 @@ export default function DocumentationPage() {
                         ))}
                     </ul>
                 </div>
-                <div className="col-span-2 lg:col-span-2 xl:col-span-3 flex flex-col">
-                    <div className="bg-white rounded-lg border prose dark:prose-invert !max-w-none p-4">
+                <div className="bg-white col-span-2 lg:col-span-2 xl:col-span-3 flex flex-col h-full border rounded-t-lg">
+                    <div className="prose dark:prose-invert !max-w-none py-4 px-4 lg:px-6 override-prose">
                         <MdViewer source={display.value} />
                     </div>
                 </div>

@@ -79,8 +79,6 @@
     }
 }
 
-/* h-dvh */
-
 html {
     touch-action: pan-x pan-y;
     overscroll-behavior: none;
