@@ -9,8 +9,6 @@ interface SavedFile {
 interface SavedAudioFile {
     id: number
     label: string
-    length: number
-    language: 'en' | 'es'
     timestamp: string
     file: Uint8Array
 }
@@ -46,7 +44,7 @@ const db = new Dexie('FriendsDatabase') as Dexie & {
 db.version(4).stores({
     files: '++id, timestamp, file',
     icons: '++id, index, conditional, L1, L2, file',
-    recordings: '++id, label, length, language, timestamp, file'
+    recordings: '++id, label, timestamp, file'
 })
 
 export type { SavedFile, SavedAudioFile }

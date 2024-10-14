@@ -14,7 +14,8 @@ import FileSystemPage from './pages/files/file-system-page'
 import LandingPage from './pages/landing/landing-page'
 import { BOARD_PAGE, DOCS_PAGE, SETTINGS_PAGE } from './lib/links'
 import DocumentationPage from './pages/docs/documentation-page'
-import SpeechEditor from './pages/speech/speech-editor'
+import RecordedSpeechPage from './pages/speech/recorded-speech-page'
+import AudioRecorderPage from './pages/audio/audio-recording-page'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,7 +31,14 @@ const router = createBrowserRouter(
             />
             <Route path={'/icons/:id/:slot'} element={<FileSystemPage />} />
             <Route path={'/icons/:id/:slot/camera'} element={<CameraPage />} />
-            <Route path={'/recordings/:id/:slot'} element={<SpeechEditor />} />
+            <Route
+                path={'/recordings/:id/:slot'}
+                element={<RecordedSpeechPage />}
+            />
+            <Route
+                path={'/recordings/:id/:slot/microphone'}
+                element={<AudioRecorderPage />}
+            />
         </Route>
     )
 )
