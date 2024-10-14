@@ -8,11 +8,12 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 
 ## Changelog
 
-- 0.0.2: Output specific to linguistic context
-- 0.0.3: Add in field movement functionality
-- 0.0.4: Add in persistent settings
-- 0.0.5: Introduce functionality for documentation
-- 0.0.6: Documentation and settings adjustment
+-   0.0.2: Output specific to linguistic context
+-   0.0.3: Add in field movement functionality
+-   0.0.4: Add in persistent settings
+-   0.0.5: Introduce functionality for documentation
+-   0.0.6: Documentation and settings adjustment
+-   0.0.7: Add in audio recording functionality
 
 ## Program Features
 
@@ -24,7 +25,7 @@ Highly-customizable options for icons in grid interface.
 
 ![Editing Grid-based Learner Interface](public/screenshots/board_editing.webp 'Adaptive User Interface')
 
-Multiple options for icon programming *across* varying languages.
+Multiple options for icon programming _across_ varying languages.
 
 ![Multiple language support](public/screenshots/icon_editing.webp 'Multilingual support')
 
@@ -64,6 +65,8 @@ react-dom (18.3.1). Copyright n/a -- MIT Licensed: [Repo](https://github.com/fac
  
 react-hook-form (7.53.0). Copyright <bluebill1049@hotmail.com> -- MIT Licensed: [Repo](https://github.com/react-hook-form/react-hook-form.git) 
  
+react-media-recorder (1.7.1). Copyright Giridharan GM -- MIT Licensed: [Repo](https://github.com/giridharangm/react-media-recorder.git) 
+ 
 react-router-dom (6.26.2). Copyright Remix Software <hello@remix.run> -- MIT Licensed: [Repo](https://github.com/remix-run/react-router.git) 
  
 sonner (1.5.0). Copyright Emil Kowalski <e@emilkowal.ski> -- MIT Licensed: [Repo](https://github.com/emilkowalski/sonner.git) 
@@ -80,5 +83,5 @@ MIT - Shawn Gilroy, Louisiana State University
 
 ## Version
 
-Version 0.0.6
+Version 0.0.7
 
