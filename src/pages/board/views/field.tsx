@@ -21,7 +21,7 @@ export default function BoardField() {
     const COLS: number = Math.floor(FieldSize / FieldRows)
 
     return (
-        <div className="flex flex-col flex-1 justify-center grow px-2">
+        <div className="flex flex-col flex-1 justify-center w-full grow px-0">
             <div
                 className={cn('grid grid-cols-4 gap-4 items-center', {
                     'grid-cols-2': COLS === 2,
@@ -106,6 +106,14 @@ export default function BoardField() {
                                         className="object-cover w-full h-full"
                                         draggable={false}
                                     />
+
+                                    <div
+                                        className={cn(
+                                            'absolute top-1 left-1 p-1 bg-white rounded border border-black'
+                                        )}
+                                    >
+                                        ID: {icon.id}
+                                    </div>
 
                                     <div
                                         className={cn(

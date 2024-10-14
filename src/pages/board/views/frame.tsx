@@ -18,7 +18,7 @@ export default function BoardFrame() {
     } = useContext(IconsContext)
 
     return (
-        <div className="flex flex-col px-2">
+        <div className="flex flex-col w-full px-2">
             <div className="grid grid-cols-8 h-[20dvh] max-h-[20dvh] text-center gap-1 lg:gap-2">
                 <div className="col-span-7 bg-white rounded border border-black flex flex-row justify-between items-center px-4">
                     <div className="flex flex-row overflow-x-hidden">
