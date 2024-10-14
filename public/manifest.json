@@ -4,7 +4,7 @@
     "description": "This is a prototype of a web-based version of the Otsu/FastTalker AAC system.",
     "scope": "/",
     "theme_color": "#1976d2",
-    "background_color": "#fafafa",
+    "background_color": "#000000",
     "icons": [
         {
             "src": "assets/icons/icon-36x36.png",
@@ -75,21 +75,21 @@
     ],
     "screenshots": [
         {
-            "src": "/public/screenshots/board_active.webp",
+            "src": "/screenshots/board_active.webp",
             "sizes": "2224x1668",
             "type": "image/webp",
             "form_factor": "wide",
             "label": "Illustration of active board"
         },
         {
-            "src": "/public/screenshots/board_editing.webp",
+            "src": "/screenshots/board_editing.webp",
             "sizes": "2224x1668",
             "type": "image/webp",
             "form_factor": "wide",
             "label": "Illustration of board in edit mode"
         },
         {
-            "src": "/public/screenshots/icon_editing.webp",
+            "src": "/screenshots/icon_editing.webp",
             "sizes": "2224x1668",
             "type": "image/webp",
             "form_factor": "wide",
