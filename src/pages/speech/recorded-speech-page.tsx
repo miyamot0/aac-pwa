@@ -2,7 +2,7 @@ import HeaderBackground from '@/components/layout/header-bg'
 import { Button } from '@/components/ui/button'
 import { db, SavedAudioFile } from '@/lib/db'
 import { useLiveQuery } from 'dexie-react-hooks'
-import { AudioLinesIcon, ChevronLeft } from 'lucide-react'
+import { AudioLinesIcon, ChevronLeft, TrashIcon } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -14,6 +14,76 @@ export default function RecordedSpeechPage() {
     const files: SavedAudioFile[] | undefined = useLiveQuery(() =>
         db.recordings.toArray()
     )
+
+    async function removeRecordingFromIcon() {
+        if (!id) return
+
+        const id_n = parseInt(id)
+
+        if (!id_n) return
+
+        const icon_in_db = await db.icons.get(id_n)
+
+        if (!icon_in_db) return
+
+        if (slot === 'L1') {
+            const L1 = {
+                ...icon_in_db.L1,
+                Recording: undefined
+            }
+
+            db.icons.update(icon_in_db, { L1 }).then(() => {
+                toast.success('Recording removed from icon')
+            })
+        } else if (slot === 'L2') {
+            const L2 = {
+                ...icon_in_db.L2,
+                Recording: undefined
+            }
+
+            db.icons.update(icon_in_db, { L2 }).then(() => {
+                toast.success('Recording removed from icon')
+            })
+        }
+    }
+
+    async function addRecordingToIcon(file: SavedAudioFile) {
+        if (!id) return
+
+        const id_n = parseInt(id)
+
+        if (!id_n) return
+
+        const icon_in_db = await db.icons.get(id_n)
+
+        if (!icon_in_db) return
+
+        if (slot === 'L1') {
+            const L1 = {
+                ...icon_in_db.L1,
+                Recording: file.file.buffer
+            }
+
+            db.icons
+                // @ts-expect-error type error?
+                .update(icon_in_db, { L1 })
+                .then(() => {
+                    toast.success('Recording added to icon')
+                })
+        } else if (slot === 'L2') {
+            const L2 = {
+                ...icon_in_db.L2,
+                Recording: file.file.buffer
+            }
+
+            db.icons
+                // @ts-expect-error type error?
+                .update(icon_in_db, { L2 })
+                .then(() => {
+                    toast.success('Recording added to icon')
+                })
+        }
+    }
 
     return (
         <div className="flex flex-col gap-2">
@@ -30,14 +100,20 @@ export default function RecordedSpeechPage() {
                     Recorded Speech Viewer
                 </span>
                 <div className="w-full flex flex-row gap-4 items-center justify-between">
+                    <div
+                        className="flex flex-row gap-2 items-center justify-end cursor-pointer w-full"
+                        onClick={() => removeRecordingFromIcon()}
+                    >
+                        <TrashIcon className="h-6 w-6" />
+                        <span className="text-sm hidden md:block">Delete</span>
+                    </div>
+
                     <Link
                         to={`/recordings/${id}/${slot}/microphone`}
                         className="flex flex-row gap-2 items-center justify-end cursor-pointer w-full"
                     >
                         <AudioLinesIcon className="h-6 w-6" />
-                        <span className="text-sm hidden md:block">
-                            Create Recording
-                        </span>
+                        <span className="text-sm hidden md:block">Create</span>
                     </Link>
                 </div>
             </HeaderBackground>
@@ -60,7 +136,13 @@ export default function RecordedSpeechPage() {
                                 )}
                             />
                             <div className="flex flex-row justify-between">
-                                <Button>Select</Button>
+                                <Button
+                                    onClick={() => {
+                                        addRecordingToIcon(file)
+                                    }}
+                                >
+                                    Select
+                                </Button>
                                 <Button
                                     onClick={() => {
                                         const new_name = prompt(

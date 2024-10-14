@@ -25,6 +25,7 @@ export type IconStateType = {
     Hidden: boolean
     Image?: string
     File?: Uint8Array
+    Recording?: Uint8Array
 }
 
 export interface SGDField {
@@ -41,7 +42,7 @@ const db = new Dexie('FriendsDatabase') as Dexie & {
     recordings: EntityTable<SavedAudioFile, 'id'>
 }
 
-db.version(4).stores({
+db.version(5).stores({
     files: '++id, timestamp, file',
     icons: '++id, index, conditional, L1, L2, file',
     recordings: '++id, label, timestamp, file'
