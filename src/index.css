@@ -77,6 +77,10 @@
     .icon-field-type {
         @apply max-w-[15svw] w-full;
     }
+
+    .full-size-with-fallback {
+        @apply min-h-screen-safe;
+    }
 }
 
 html {

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export default function LandingPage() {
     return (
-        <div className="flex flex-col w-full px-4 full-size-with-fallback">
+        <div className="flex flex-col w-full px-4 h-screen max-h-screen-safe">
             <div className="flex flex-row justify-between py-4">
                 <span></span>
                 <div className="flex flex-col gap-4 w-fit">
