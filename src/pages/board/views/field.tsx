@@ -21,7 +21,7 @@ export default function BoardField() {
     const COLS: number = Math.floor(FieldSize / FieldRows)
 
     return (
-        <div className="flex flex-col flex-1 justify-center w-full grow px-0">
+        <div className="flex flex-col flex-1 justify-center w-full grow px-2">
             <div
                 className={cn('grid grid-cols-4 gap-4 items-center', {
                     'grid-cols-2': COLS === 2,

@@ -58,7 +58,7 @@ export default function SettingsPage() {
                 </div>
             </HeaderBackground>
 
-            <div className="flex flex-row justify-center my-4">
+            <div className="flex flex-row justify-center my-4 px-2">
                 <Card className="max-w-screen-lg w-full">
                     <CardHeader>
                         <CardTitle>Current Program Settings</CardTitle>

@@ -181,7 +181,7 @@ export default function IconEditorPage() {
                     </div>
                 </div>
             </HeaderBackground>
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center px-2">
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
