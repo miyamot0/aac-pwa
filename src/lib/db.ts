@@ -6,6 +6,15 @@ interface SavedFile {
     file: Uint8Array
 }
 
+interface SavedAudioFile {
+    id: number
+    label: string
+    length: number
+    language: 'en' | 'es'
+    timestamp: string
+    file: Uint8Array
+}
+
 export type LanguageContext = {
     Language: 'en' | 'es'
     Label: string
@@ -31,12 +40,14 @@ export interface SGDField {
 const db = new Dexie('FriendsDatabase') as Dexie & {
     files: EntityTable<SavedFile, 'id'>
     icons: EntityTable<SGDField, 'id'>
+    recordings: EntityTable<SavedAudioFile, 'id'>
 }
 
 db.version(4).stores({
     files: '++id, timestamp, file',
-    icons: '++id, index, conditional, L1, L2, file'
+    icons: '++id, index, conditional, L1, L2, file',
+    recordings: '++id, label, length, language, timestamp, file'
 })
 
-export type { SavedFile }
+export type { SavedFile, SavedAudioFile }
 export { db }

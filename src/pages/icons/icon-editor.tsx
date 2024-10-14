@@ -395,6 +395,33 @@ export default function IconEditorPage() {
                                             />
                                         </div>
                                     </div>
+
+                                    <div className="grid">
+                                        <div
+                                            className="flex flex-col justify-start gap-4 mr-4"
+                                            onClick={() => {
+                                                try {
+                                                    form.handleSubmit(
+                                                        onSubmit
+                                                    )()
+                                                } finally {
+                                                    navigate(
+                                                        `/recordings/${relevantIcon.id}/L1`,
+                                                        {
+                                                            unstable_viewTransition:
+                                                                true
+                                                        }
+                                                    )
+                                                }
+                                            }}
+                                        >
+                                            <FormLabel>
+                                                L1 Custom Speech
+                                            </FormLabel>
+
+                                            <div className="w-full aspect-square"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
@@ -547,6 +574,33 @@ export default function IconEditorPage() {
                                                 src={l2_asset}
                                                 draggable={false}
                                             />
+                                        </div>
+                                    </div>
+
+                                    <div className="grid">
+                                        <div
+                                            className="flex flex-col justify-start gap-4 mr-4"
+                                            onClick={() => {
+                                                try {
+                                                    form.handleSubmit(
+                                                        onSubmit
+                                                    )()
+                                                } finally {
+                                                    navigate(
+                                                        `/recordings/${relevantIcon.id}/L2`,
+                                                        {
+                                                            unstable_viewTransition:
+                                                                true
+                                                        }
+                                                    )
+                                                }
+                                            }}
+                                        >
+                                            <FormLabel>
+                                                L2 Custom Speech
+                                            </FormLabel>
+
+                                            <div className="w-full aspect-square"></div>
                                         </div>
                                     </div>
                                 </div>
