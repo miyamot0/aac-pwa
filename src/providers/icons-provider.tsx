@@ -9,6 +9,7 @@ import {
 } from '@/types/board-settings'
 import { ShuffleAndUpdateIcons } from './actions'
 import { loadSavedPreferences, storeSavedPreferences } from '@/lib/prefs'
+import { toast } from 'sonner'
 
 export const FIELD_SIZE_DEFAULT = 18
 export const FIELD_ROWS_DEFAULT = 3
@@ -31,7 +32,6 @@ interface IconsContextType {
     SettingsUpdateIconPositioningConfig: (
         setting: FieldManagementConfiguration
     ) => void
-    SettingsDisplaySheet: (status: boolean) => void
     SettingsSwitchLanguage: (language: LanguageOption) => void
     SettingsUpdateFrameRestriction: (setting: FrameLengthConfiguration) => void
 }
@@ -55,7 +55,6 @@ export const IconsContext = React.createContext<IconsContextType>({
     SettingsToggleLocked: () => {},
     SettingsUpdatePostSpeechConfig: () => {},
     SettingsUpdateIconPositioningConfig: () => {},
-    SettingsDisplaySheet: () => {},
     SettingsSwitchLanguage: () => {},
     SettingsUpdateFrameRestriction: () => {}
 })
@@ -148,26 +147,15 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         iconPositioning,
                         frameRestrictions
                     )
+
+                    toast.success(`Post Speech Configuration Updated`)
                 },
                 SettingsUpdateIconPositioningConfig: (
                     setting: FieldManagementConfiguration
                 ) => {
                     setIconPositioning(setting)
                 },
-                SettingsDisplaySheet: (status) => {
-                    const new_settings = {
-                        ...settings,
-                        SheetOpen: status
-                    }
 
-                    setSettings(new_settings)
-                    storeSavedPreferences(
-                        new_settings,
-                        postSpeechSettings,
-                        iconPositioning,
-                        frameRestrictions
-                    )
-                },
                 SettingsSwitchLanguage: (language) => {
                     const new_settings = {
                         ...settings,
@@ -196,7 +184,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
             }}
         >
             {children}
-            <Toaster />
+            <Toaster richColors={true} duration={2000} visibleToasts={1} />
         </IconsContext.Provider>
     )
 }

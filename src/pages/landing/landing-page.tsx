@@ -1,29 +1,22 @@
 import { buttonVariants } from '@/components/ui/button'
 import { BOARD_PAGE } from '@/lib/links'
 import { cn } from '@/lib/utils'
-import { GithubIcon, HomeIcon } from 'lucide-react'
+import { GithubIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function LandingPage() {
     return (
         <div className="flex flex-col w-full px-4 min-h-screen-safe">
             <div className="flex flex-row justify-between py-4">
-                <div></div>
-                <div className="flex flex-row gap-4 w-fit">
+                <span></span>
+                <div className="flex flex-col gap-4 w-fit">
                     <Link
                         to={'https://github.com/miyamot0/aac-pwa'}
                         target="_blank"
-                        className="border rounded shadow-xl bg-gray-400"
+                        className="border rounded shadow-xl bg-gray-500 flex flex-row items-center px-2"
                     >
                         <GithubIcon className="h-6 w-6 m-2 text-white" />
-                    </Link>
-
-                    <Link
-                        to={'https://github.com/miyamot0/aac-pwa'}
-                        target="_blank"
-                        className="border rounded shadow-xl bg-gray-400"
-                    >
-                        <HomeIcon className="h-6 w-6 m-2 text-white" />
+                        <span className="text-white mr-2">Github Repo</span>
                     </Link>
                 </div>
             </div>
@@ -46,17 +39,15 @@ export default function LandingPage() {
                 </div>
             </div>
 
-            <div className="flex flex-row justify-between py-4">
-                <div>
-                    <span className="text-lg text-center w-full pt-4">
-                        Shawn Gilroy, Louisiana State University (MIT License)
-                    </span>
-                </div>
-                <div className="flex flex-row gap-6 w-fit">
-                    <span>
-                        Version {BUILD_VERSION} ({BUILD_DATE})
-                    </span>
-                </div>
+            <div className="flex flex-row justify-between">
+                <span className="text-lg text-left">
+                    Developed/Maintained by Shawn Gilroy <br />
+                    Louisiana State University (MIT License)
+                </span>
+                <span className="text-right">
+                    Version {BUILD_VERSION} (alpha) <br /> Build Date{' '}
+                    {BUILD_DATE}
+                </span>
             </div>
         </div>
     )

@@ -25,9 +25,9 @@ export default function TableOfContentsDocs({
                     >
                         <div
                             className={cn(
-                                'bg-white border rounded-lg py-2 cursor-pointer shadow-xl border-gray-300 flex flex-col gap-1',
+                                'bg-white border rounded-lg py-2 cursor-pointer shadow border-gray-300 flex flex-col gap-1 transition-colors duration-300 ease-in-out',
                                 {
-                                    'cursor-default bg-gray-200':
+                                    'cursor-default bg-green-100 shadow-xl':
                                         Documentation.matter.index ===
                                         entry.matter.index
                                 }
@@ -42,7 +42,7 @@ export default function TableOfContentsDocs({
                                 {entry.matter.description}
                             </p>
 
-                            <p className="text-muted-foreground px-2 text-sm">
+                            <p className="text-muted-foreground px-2 text-sm text-right">
                                 Updated: {entry.matter.date}
                             </p>
                         </div>
