@@ -153,7 +153,7 @@ export default function BoardField() {
                                         }
                                     }}
                                 >
-                                    <div>{`Image for ${Settings.LanguageContext} Needed`}</div>
+                                    <div className="text-center">{`Image for ${Settings.LanguageContext} Needed`}</div>
                                 </div>
                             </IconWrapper>
                         )
