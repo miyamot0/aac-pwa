@@ -96,7 +96,8 @@ export default function BoardField() {
                                     onClick={() => {
                                         if (Settings.Locked === false) {
                                             navigate(`/icons/${icon.id}`, {
-                                                unstable_viewTransition: true
+                                                unstable_viewTransition: true,
+                                                replace: true
                                             })
 
                                             return
@@ -154,7 +155,8 @@ export default function BoardField() {
                                     onClick={() => {
                                         if (Settings.Locked === false) {
                                             navigate(`/icons/${icon.id}`, {
-                                                unstable_viewTransition: true
+                                                unstable_viewTransition: true,
+                                                replace: true
                                             })
 
                                             return

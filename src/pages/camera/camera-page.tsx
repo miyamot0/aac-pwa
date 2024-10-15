@@ -60,7 +60,7 @@ export default function CameraPage() {
                     <CardContent className="flex flex-col items-center gap-4">
                         {img && (
                             <img
-                                className="object-scale-down aspect-square "
+                                className="object-contain aspect-square "
                                 src={img}
                             />
                         )}

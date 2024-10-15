@@ -116,7 +116,10 @@ export default function IconEditorPage() {
                 toast.success('Icon deleted')
             })
             .finally(() => {
-                navigate(BOARD_PAGE)
+                navigate(BOARD_PAGE, {
+                    unstable_viewTransition: true,
+                    replace: true
+                })
             })
     }
 
@@ -439,7 +442,8 @@ export default function IconEditorPage() {
                                                         `/icons/${relevantIcon.id}/L1`,
                                                         {
                                                             unstable_viewTransition:
-                                                                true
+                                                                true,
+                                                            replace: true
                                                         }
                                                     )
                                                 }
@@ -500,6 +504,8 @@ export default function IconEditorPage() {
                                                                     `/recordings/${relevantIcon.id}/L1`,
                                                                     {
                                                                         unstable_viewTransition:
+                                                                            true,
+                                                                        replace:
                                                                             true
                                                                     }
                                                                 )
@@ -717,7 +723,8 @@ export default function IconEditorPage() {
                                                         `/icons/${relevantIcon.id}/L2`,
                                                         {
                                                             unstable_viewTransition:
-                                                                true
+                                                                true,
+                                                            replace: true
                                                         }
                                                     )
                                                 }
@@ -776,6 +783,8 @@ export default function IconEditorPage() {
                                                                     `/recordings/${relevantIcon.id}/L2`,
                                                                     {
                                                                         unstable_viewTransition:
+                                                                            true,
+                                                                        replace:
                                                                             true
                                                                     }
                                                                 )

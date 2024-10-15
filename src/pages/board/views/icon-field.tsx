@@ -36,7 +36,8 @@ export function Icon({ Icon }: Props) {
             onClick={() => {
                 if (Settings.Locked === false) {
                     navigate(`/icons/${Icon.id}`, {
-                        unstable_viewTransition: true
+                        unstable_viewTransition: true,
+                        replace: true
                     })
 
                     return
