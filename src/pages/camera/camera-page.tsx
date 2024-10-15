@@ -46,9 +46,9 @@ export default function CameraPage() {
                     <ChevronLeft className="h-6 w-6" />
                     Back
                 </Link>
-                <span className="text-lg text-center">Icon Image Capture</span>
+                <span className="text-lg text-center">Capture New Image</span>
             </HeaderBackground>
-            <div className="grid grid-cols-2 p-4 gap-4 max-w-screen-xl w-full mx-auto">
+            <div className="flex flex-col max-w-screen-md w-full mx-auto">
                 <Card>
                     <CardHeader>
                         <CardTitle>Image Preview</CardTitle>
@@ -56,56 +56,63 @@ export default function CameraPage() {
                             Preview image before saving
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="object-scale-down aspect-square flex flex-col items-center">
-                        {img && <img src={img} />}
+                    <CardContent className="flex flex-col items-center gap-4">
+                        {img && (
+                            <img
+                                className="object-scale-down aspect-square "
+                                src={img}
+                            />
+                        )}
+
+                        <input
+                            ref={fileInputRef}
+                            style={{ display: 'none' }}
+                            type="file"
+                            name="picture"
+                            accept="image/*"
+                            capture="environment"
+                            onChange={async (e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setImg(
+                                        URL.createObjectURL(e.target.files[0])
+                                    )
+
+                                    const reader = new FileReader()
+                                    reader.onload = async function (e) {
+                                        setBuffer(
+                                            new Uint8Array(
+                                                e.target?.result as ArrayBuffer
+                                            )
+                                        )
+                                    }
+                                    reader.readAsArrayBuffer(e.target.files[0])
+                                }
+                            }}
+                        />
+
+                        <Button
+                            className={cn('flex flex-row gap-2 w-full')}
+                            onClick={() => {
+                                if (fileInputRef.current) {
+                                    fileInputRef.current.click()
+                                }
+                            }}
+                        >
+                            <CameraIcon className="h-4 w-4" />
+                            Capture Image from Camera
+                        </Button>
+                        <Button
+                            disabled={!buffer}
+                            className={cn(
+                                'flex flex-row gap-2 w-full bg-green-500 hover:bg-green-400 text-white'
+                            )}
+                            onClick={() => saveImageToDB()}
+                        >
+                            <SaveIcon className="h-4 w-4" />
+                            Save to Asset Gallery
+                        </Button>
                     </CardContent>
                 </Card>
-
-                <div className="flex flex-col gap-4">
-                    <input
-                        ref={fileInputRef}
-                        style={{ display: 'none' }}
-                        type="file"
-                        name="picture"
-                        accept="image/*"
-                        capture="environment"
-                        onChange={async (e) => {
-                            if (e.target.files && e.target.files[0]) {
-                                setImg(URL.createObjectURL(e.target.files[0]))
-
-                                const reader = new FileReader()
-                                reader.onload = async function (e) {
-                                    setBuffer(
-                                        new Uint8Array(
-                                            e.target?.result as ArrayBuffer
-                                        )
-                                    )
-                                }
-                                reader.readAsArrayBuffer(e.target.files[0])
-                            }
-                        }}
-                    />
-
-                    <Button
-                        className={cn('flex flex-row gap-2')}
-                        onClick={() => {
-                            if (fileInputRef.current) {
-                                fileInputRef.current.click()
-                            }
-                        }}
-                    >
-                        <CameraIcon className="h-4 w-4" />
-                        Take Picture
-                    </Button>
-                    <Button
-                        disabled={!buffer}
-                        className={cn('flex flex-row gap-2')}
-                        onClick={() => saveImageToDB()}
-                    >
-                        <SaveIcon className="h-4 w-4" />
-                        Save Image to Gallery
-                    </Button>
-                </div>
             </div>
         </div>
     )

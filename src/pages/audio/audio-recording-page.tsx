@@ -58,9 +58,7 @@ export default function AudioRecorderPage() {
                     <ChevronLeft className="h-6 w-6" />
                     Back
                 </Link>
-                <span className="text-lg text-center">
-                    Custom Speech Capture
-                </span>
+                <span className="text-lg text-center">Capture New Audio</span>
             </HeaderBackground>
             <div className="flex flex-col max-w-screen-md w-full mx-auto">
                 <Card>
@@ -163,7 +161,7 @@ export default function AudioRecorderPage() {
                                 onClick={saveBufferToDB}
                             >
                                 <FileMusicIcon className="h-4 w-4 mr-2" />
-                                Save Recording
+                                Save to Asset Gallery
                             </Button>
                         )}
                     </CardContent>

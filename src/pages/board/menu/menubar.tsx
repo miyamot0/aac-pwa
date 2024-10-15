@@ -14,6 +14,7 @@ import { SETTINGS_PAGE } from '@/lib/links'
 import { db, SGDField } from '@/lib/db'
 import { toast } from 'sonner'
 import { APP_TITLE } from '@/lib/strings'
+import { PASSWORD } from '@/lib/auth'
 
 export default function BoardMenuBar() {
     const {
@@ -48,11 +49,13 @@ export default function BoardMenuBar() {
                 L1: {
                     Language: 'en',
                     Hidden: false,
+                    HideText: false,
                     Label: 'Blank'
                 },
                 L2: {
                     Language: 'es',
                     Hidden: false,
+                    HideText: false,
                     Label: 'Blank'
                 }
             } as SGDField
@@ -77,8 +80,24 @@ export default function BoardMenuBar() {
                     <div
                         className={cn('p-1 rounded cursor-pointer')}
                         onClick={() => {
-                            SettingsToggleLocked()
-                            ClearFrame()
+                            toast.info('Board is locked', {
+                                description: 'Unlock by entering PIN',
+                                action: {
+                                    label: 'Unlock',
+                                    onClick: (e) => {
+                                        e.preventDefault()
+
+                                        if (
+                                            prompt(
+                                                'Enter Pin to Unlock'
+                                            )?.trim() === PASSWORD
+                                        ) {
+                                            SettingsToggleLocked()
+                                            ClearFrame()
+                                        }
+                                    }
+                                }
+                            })
                         }}
                     >
                         <LockIcon className="h-6 w-6" />

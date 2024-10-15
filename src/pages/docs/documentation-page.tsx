@@ -7,6 +7,8 @@ import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import TableOfContentsDocs from './views/table-of-contents'
+import { removeDuplicates } from '@/lib/arrays'
+import { COLOR_LIST } from '@/lib/colors'
 
 const FrontMatter = DocumentationObjects.sort(
     (a, b) => a.matter.index - b.matter.index
@@ -16,6 +18,20 @@ const FrontMatter = DocumentationObjects.sort(
         matter: entry.matter as FrontMatterUniversalType
     }
 })
+
+const all_keywords = FrontMatter.flatMap((matter) =>
+    matter.matter.keywords.split(',').flatMap((keyword) => keyword.trim())
+)
+
+const filtered_keywords = removeDuplicates(all_keywords).map(
+    (keyword, index) => {
+        return {
+            keyword,
+            index,
+            color: COLOR_LIST[index % COLOR_LIST.length]
+        }
+    }
+)
 
 export default function DocumentationPage() {
     const [display, setDisplay] = useState(FrontMatter[0])
@@ -40,6 +56,7 @@ export default function DocumentationPage() {
                     DocumentationEntries={FrontMatter}
                     setDocumentation={setDisplay}
                     Documentation={display}
+                    ThemedKeywords={filtered_keywords}
                 />
                 <div className="bg-white col-span-2 lg:col-span-2 xl:col-span-3 flex flex-col h-full border rounded-t-lg">
                     <div className="prose dark:prose-invert !max-w-none py-4 px-4 lg:px-6 override-prose">

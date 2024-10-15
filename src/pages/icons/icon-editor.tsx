@@ -19,7 +19,7 @@ import {
     FormLabel,
     FormMessage
 } from '@/components/ui/form'
-import { ChevronLeft, DeleteIcon, SaveIcon } from 'lucide-react'
+import { ChevronLeft, SaveIcon, Trash2Icon } from 'lucide-react'
 import {
     Select,
     SelectContent,
@@ -64,10 +64,12 @@ export default function IconEditorPage() {
             index: relevantIcon.index,
             L1: relevantIcon.L1.Language as unknown as LanguageType,
             L1_Hidden: relevantIcon.L1.Hidden ?? false,
+            L1_Hidden_Label: relevantIcon.L1.HideText ?? false,
             L1_Label: relevantIcon.L1.Label,
             L1_Recording: relevantIcon.L1.Recording,
             L2: relevantIcon.L2.Language as unknown as LanguageType,
             L2_Hidden: relevantIcon.L2.Hidden ?? false,
+            L2_Hidden_Label: relevantIcon.L2.HideText ?? false,
             L2_Label: relevantIcon.L2.Label,
             L2_Recording: relevantIcon.L2.Recording
         }
@@ -83,6 +85,7 @@ export default function IconEditorPage() {
                     Language: values.L1 as 'en' | 'es',
                     Label: values.L1_Label,
                     Hidden: values.L1_Hidden,
+                    HideText: values.L1_Hidden_Label,
                     Image: relevantIcon.L1.Image,
                     File: relevantIcon.L1.File,
                     Recording: values.L1_Recording
@@ -91,6 +94,7 @@ export default function IconEditorPage() {
                     Language: values.L2 as 'en' | 'es' | 'N/A',
                     Label: values.L2_Label,
                     Hidden: values.L2_Hidden,
+                    HideText: values.L2_Hidden_Label,
                     Image: relevantIcon.L2.Image,
                     File: relevantIcon.L2.File,
                     Recording: values.L2_Recording
@@ -158,32 +162,21 @@ export default function IconEditorPage() {
                     Back
                 </Link>
                 <span className="text-lg text-center">Icon Entry Editor</span>
-                <div className="w-full flex flex-row gap-4 items-center justify-between">
-                    <div
-                        className="w-full flex flex-row gap-2 items-center justify-end cursor-pointer"
-                        onClick={() => {
-                            if (
-                                window.confirm(
-                                    'Are you sure you want to delete this icon?'
-                                )
-                            ) {
-                                deleteIcon()
-                            }
-                        }}
-                    >
-                        <DeleteIcon className="h-6 w-6" />
-                        <span className="text-sm hidden md:block">Delete</span>
-                    </div>
+                <div className="flex flex-row justify-end">
+                    <Button
+                        variant={'outline'}
+                        className="flex flex-row gap-2 items-center cursor-pointer w-fit bg-transparent"
+                        onClick={(e) => {
+                            e.preventDefault()
 
-                    <div
-                        className="flex flex-row gap-2 items-center justify-end cursor-pointer"
-                        onClick={() => {
                             saveIcon()
                         }}
                     >
                         <SaveIcon className="h-6 w-6" />
-                        <span className="text-sm hidden md:block">Save</span>
-                    </div>
+                        <span className="text-sm hidden md:block">
+                            Save Icon
+                        </span>
+                    </Button>
                 </div>
             </HeaderBackground>
             <div className="flex flex-row justify-center px-2">
@@ -194,7 +187,10 @@ export default function IconEditorPage() {
                     >
                         <Card className="w-full col-span-1 lg:col-span-2">
                             <CardHeader>
-                                <CardTitle>Shared Icon Settings</CardTitle>
+                                <CardTitle>
+                                    Shared Icon Settings{' '}
+                                    {`(ID = ${relevantIcon.id})`}
+                                </CardTitle>
                                 <CardDescription>
                                     Settings for the entry regardless of
                                     language context (L1/L2)
@@ -248,6 +244,25 @@ export default function IconEditorPage() {
                                         </FormItem>
                                     )}
                                 />
+
+                                <Button
+                                    variant={'destructive'}
+                                    className="w-full flex flex-row gap-2 items-center cursor-pointer"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+
+                                        if (
+                                            window.confirm(
+                                                'Are you sure you want to delete this icon?'
+                                            )
+                                        ) {
+                                            deleteIcon()
+                                        }
+                                    }}
+                                >
+                                    <Trash2Icon className="h-4 w-4" />
+                                    Delete Icon
+                                </Button>
                             </CardContent>
                         </Card>
 
@@ -271,7 +286,44 @@ export default function IconEditorPage() {
                                                     </FormLabel>
 
                                                     <FormDescription>
-                                                        Should this be hidden?
+                                                        Should the whole icon be
+                                                        hidden?
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </div>
+                                                <div className="flex justify-end">
+                                                    <FormControl>
+                                                        <Switch
+                                                            name={field.name}
+                                                            id={field.name}
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </EntryFieldWrapper>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="L1_Hidden_Label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <EntryFieldWrapper>
+                                                <div className="col-span-2">
+                                                    <FormLabel>
+                                                        L1 Hide Label Settings
+                                                    </FormLabel>
+
+                                                    <FormDescription>
+                                                        Should the label be
+                                                        hidden?
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </div>
@@ -311,6 +363,7 @@ export default function IconEditorPage() {
                                                     <FormMessage />
                                                 </div>
                                                 <Select
+                                                    disabled
                                                     onValueChange={
                                                         field.onChange
                                                     }
@@ -374,7 +427,7 @@ export default function IconEditorPage() {
                                     />
                                     <div className="grid">
                                         <div
-                                            className="flex flex-col justify-start gap-4 mr-4"
+                                            className="flex flex-col justify-start gap-1 mr-4"
                                             onClick={() => {
                                                 try {
                                                     form.handleSubmit(
@@ -392,6 +445,12 @@ export default function IconEditorPage() {
                                             }}
                                         >
                                             <FormLabel>L1 Icon Image</FormLabel>
+
+                                            <FormDescription>
+                                                This is the image displayed on
+                                                the board
+                                            </FormDescription>
+
                                             <img
                                                 className="p-4 w-full aspect-square border rounded object-cover "
                                                 src={l1_asset}
@@ -402,15 +461,21 @@ export default function IconEditorPage() {
                                     </div>
 
                                     <div className="grid">
-                                        <div className="flex flex-col justify-start gap-4 mr-4">
+                                        <div className="flex flex-col justify-start gap-2 mr-4">
                                             <div className="flex flex-row justify-between items-center">
                                                 <FormLabel>
                                                     L1 Custom Speech
                                                 </FormLabel>
 
-                                                <div className="flex flex-row gap-2 items-center">
+                                                <div className="flex flex-row gap-4 items-center">
                                                     <Button
-                                                        variant={'destructive'}
+                                                        variant={'secondary'}
+                                                        className="border"
+                                                        disabled={
+                                                            !form.getValues(
+                                                                'L1_Recording'
+                                                            )
+                                                        }
                                                         onClick={() => {
                                                             form.setValue(
                                                                 'L1_Recording',
@@ -445,12 +510,17 @@ export default function IconEditorPage() {
                                                 </div>
                                             </div>
 
+                                            <FormDescription>
+                                                If selected, the icon will emit
+                                                the selected recording
+                                            </FormDescription>
+
                                             <div className="w-full">
                                                 {form.getValues(
                                                     'L1_Recording'
                                                 ) && (
                                                     <audio
-                                                        className="w-full"
+                                                        className="w-full mt-2"
                                                         controls
                                                         src={URL.createObjectURL(
                                                             new Blob(
@@ -493,7 +563,44 @@ export default function IconEditorPage() {
                                                     </FormLabel>
 
                                                     <FormDescription>
-                                                        Should this be hidden?
+                                                        Should the whole icon be
+                                                        hidden?
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </div>
+                                                <div className="flex justify-end">
+                                                    <FormControl>
+                                                        <Switch
+                                                            name={field.name}
+                                                            id={field.name}
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </EntryFieldWrapper>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="L2_Hidden_Label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <EntryFieldWrapper>
+                                                <div className="col-span-2">
+                                                    <FormLabel>
+                                                        L2 Hide Label Settings
+                                                    </FormLabel>
+
+                                                    <FormDescription>
+                                                        Should the label be
+                                                        hidden?
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </div>
@@ -533,6 +640,7 @@ export default function IconEditorPage() {
                                                     <FormMessage />
                                                 </div>
                                                 <Select
+                                                    disabled
                                                     onValueChange={
                                                         field.onChange
                                                     }
@@ -597,7 +705,7 @@ export default function IconEditorPage() {
 
                                     <div className="grid">
                                         <div
-                                            className="flex flex-col justify-start gap-4 mr-4"
+                                            className="flex flex-col justify-start gap-1 mr-4"
                                             onClick={() => {
                                                 try {
                                                     form.handleSubmit(
@@ -615,6 +723,10 @@ export default function IconEditorPage() {
                                             }}
                                         >
                                             <FormLabel>L2 Icon Image</FormLabel>
+                                            <FormDescription>
+                                                This is the image displayed on
+                                                the board
+                                            </FormDescription>
 
                                             <img
                                                 className="p-4 w-full aspect-square border rounded object-cover "
@@ -625,15 +737,21 @@ export default function IconEditorPage() {
                                     </div>
 
                                     <div className="grid">
-                                        <div className="flex flex-col justify-start gap-4 mr-4">
+                                        <div className="flex flex-col justify-start gap-2 mr-4">
                                             <div className="flex flex-row justify-between items-center">
                                                 <FormLabel>
                                                     L2 Custom Speech
                                                 </FormLabel>
 
-                                                <div className="flex flex-row gap-2 items-center">
+                                                <div className="flex flex-row gap-4 items-center">
                                                     <Button
-                                                        variant={'destructive'}
+                                                        variant={'secondary'}
+                                                        className="border"
+                                                        disabled={
+                                                            !form.getValues(
+                                                                'L2_Recording'
+                                                            )
+                                                        }
                                                         onClick={() => {
                                                             form.setValue(
                                                                 'L2_Recording',
@@ -668,12 +786,17 @@ export default function IconEditorPage() {
                                                 </div>
                                             </div>
 
+                                            <FormDescription>
+                                                If selected, the icon will emit
+                                                the selected recording
+                                            </FormDescription>
+
                                             <div className="w-full">
                                                 {form.getValues(
                                                     'L2_Recording'
                                                 ) && (
                                                     <audio
-                                                        className="w-full"
+                                                        className="w-full mt-2"
                                                         controls
                                                         src={URL.createObjectURL(
                                                             new Blob(

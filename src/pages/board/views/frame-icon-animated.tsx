@@ -37,7 +37,11 @@ export function FrameIconAnimated({ icon }: { icon: SGDField }) {
                 draggable={false}
                 className="object-cover w-full h-full"
             />
-            <div className="absolute bg-white px-2 rounded-sm mb-2">
+            <div
+                className={cn('absolute bg-white px-2 rounded-sm mb-2', {
+                    invisible: icon_to_reference.HideText
+                })}
+            >
                 {icon_to_reference?.Label}
             </div>
         </div>

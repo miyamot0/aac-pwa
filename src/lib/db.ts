@@ -22,6 +22,7 @@ export type LanguageContext = {
 export type IconStateType = {
     Language: 'en' | 'es' | 'N/A'
     Label: string
+    HideText?: boolean
     Hidden?: boolean
     Image?: string
     File?: Uint8Array
@@ -42,7 +43,7 @@ const db = new Dexie('FriendsDatabase') as Dexie & {
     recordings: EntityTable<SavedAudioFile, 'id'>
 }
 
-db.version(5).stores({
+db.version(6).stores({
     files: '++id, timestamp, file',
     icons: '++id, index, conditional, L1, L2, file',
     recordings: '++id, label, timestamp, file'

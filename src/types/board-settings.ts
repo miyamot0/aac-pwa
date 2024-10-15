@@ -59,3 +59,25 @@ export const FieldManagementConfigSelectOptions = [
         label: 'Shuffle Positions'
     }
 ]
+
+// ----------------- Verbosity Options -----------------
+
+/* DO NOT alter positions */
+const _default = 'DefaultVerbosity'
+
+const _minimized_display = 'MinimalInformation'
+
+export type InterfaceVerbosityConfiguration =
+    | typeof _default
+    | typeof _minimized_display
+
+export const InterfaceVerbosityConfigurationSelectOptions = [
+    {
+        value: _default,
+        label: 'Display All Information (Default)'
+    },
+    {
+        value: _minimized_display,
+        label: 'Display Minimal Information'
+    }
+]

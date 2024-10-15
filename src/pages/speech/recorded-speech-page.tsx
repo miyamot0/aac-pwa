@@ -1,5 +1,5 @@
 import HeaderBackground from '@/components/layout/header-bg'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
     Card,
     CardContent,
@@ -8,6 +8,7 @@ import {
     CardTitle
 } from '@/components/ui/card'
 import { db, SavedAudioFile } from '@/lib/db'
+import { cn } from '@/lib/utils'
 import { useLiveQuery } from 'dexie-react-hooks'
 import {
     AudioLinesIcon,
@@ -77,22 +78,23 @@ export default function RecordedSpeechPage() {
                     <ChevronLeft className="h-6 w-6" />
                     Back
                 </Link>
-                <span className="text-lg text-center">
-                    Recorded Speech Viewer
-                </span>
-                <div className="w-full flex flex-row gap-4 items-center justify-between">
+                <span className="text-lg text-center">Audio Asset Gallery</span>
+                <div className="w-full flex flex-row justify-end">
                     <Link
                         to={`/recordings/${id}/${slot}/microphone`}
-                        className="flex flex-row gap-2 items-center justify-end cursor-pointer w-full"
+                        className={cn(
+                            buttonVariants({ variant: 'outline' }),
+                            'flex flex-row gap-2 items-center justify-end bg-transparent'
+                        )}
                     >
                         <AudioLinesIcon className="h-6 w-6" />
                         <span className="text-sm hidden md:block">
-                            Record Audio
+                            Capture New Audio
                         </span>
                     </Link>
                 </div>
             </HeaderBackground>
-            <div className="flex flex-col px-2 gap-4">
+            <div className="flex flex-col px-2 gap-4 max-w-screen-md w-full mx-auto">
                 {files?.map((file) => (
                     <Card key={file.id}>
                         <CardHeader>

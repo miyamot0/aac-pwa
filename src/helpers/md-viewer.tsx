@@ -11,6 +11,7 @@ type ReactMDXContent = (props: MDXProps) => ReactNode
 type Runtime = Pick<EvaluateOptions, 'jsx' | 'jsxs' | 'Fragment'>
 
 import type { MDXComponents } from 'mdx/types'
+import { cn } from '@/lib/utils'
 
 function useMDXComponents(components: MDXComponents): MDXComponents {
     return {
@@ -32,14 +33,31 @@ export const MdViewer: FC<{ source?: string }> = ({ source = '' }) => {
     const [MdxContent, setMdxContent] = useState<ReactMDXContent>(
         () => () => null
     )
+    const [displayed, setDisplayed] = useState(false)
 
     useEffect(() => {
+        setDisplayed(false)
+
         evaluate(source, {
             ...runtime,
             remarkPlugins: []
             //rehypePlugins: [rehypeHighlight]
-        }).then((r) => setMdxContent(() => r.default))
+        }).then((r) => {
+            setTimeout(function () {
+                setMdxContent(() => r.default)
+                setDisplayed(true)
+            }, 150)
+        })
     }, [source])
 
-    return <MdxContent />
+    return (
+        <div
+            className={cn('transition-all ease-in-out duration-300', {
+                'opacity-100': displayed,
+                'opacity-0': !displayed
+            })}
+        >
+            <MdxContent />
+        </div>
+    )
 }

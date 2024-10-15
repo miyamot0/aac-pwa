@@ -1,4 +1,5 @@
 import { buttonVariants } from '@/components/ui/button'
+import { PASSWORD } from '@/lib/auth'
 import { BOARD_PAGE } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import { GithubIcon } from 'lucide-react'
@@ -8,7 +9,7 @@ export default function LandingPage() {
     return (
         <div className="flex flex-col w-full px-4 h-screen max-h-screen-safe">
             <div className="flex flex-row justify-between py-4">
-                <span></span>
+                <span>Default Password: {PASSWORD}</span>
                 <div className="flex flex-col gap-4 w-fit">
                     <Link
                         to={'https://github.com/miyamot0/aac-pwa'}
