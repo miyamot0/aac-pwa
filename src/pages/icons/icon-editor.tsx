@@ -453,11 +453,16 @@ export default function IconEditorPage() {
                                                         className="w-full"
                                                         controls
                                                         src={URL.createObjectURL(
-                                                            new Blob([
-                                                                form.getValues(
-                                                                    'L1_Recording'
-                                                                )
-                                                            ])
+                                                            new Blob(
+                                                                [
+                                                                    form.getValues(
+                                                                        'L1_Recording'
+                                                                    )
+                                                                ],
+                                                                {
+                                                                    type: 'audio/mp4'
+                                                                }
+                                                            )
                                                         )}
                                                     />
                                                 )}
@@ -671,11 +676,16 @@ export default function IconEditorPage() {
                                                         className="w-full"
                                                         controls
                                                         src={URL.createObjectURL(
-                                                            new Blob([
-                                                                form.getValues(
-                                                                    'L2_Recording'
-                                                                )
-                                                            ])
+                                                            new Blob(
+                                                                [
+                                                                    form.getValues(
+                                                                        'L2_Recording'
+                                                                    )
+                                                                ],
+                                                                {
+                                                                    type: 'audio/mp4'
+                                                                }
+                                                            )
                                                         )}
                                                     />
                                                 )}

@@ -77,7 +77,7 @@ export default function BoardFrame() {
                             if (!audioRef.current) return
 
                             const blob = new Blob([sound_file], {
-                                type: 'audio/wav'
+                                type: 'audio/mp4'
                             })
                             const url = URL.createObjectURL(blob)
 
