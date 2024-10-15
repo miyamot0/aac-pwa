@@ -27,6 +27,8 @@ import {
     PostSpeechConfigSelectOptions,
     PostSpeechConfiguration
 } from '@/types/board-settings'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/button'
 
 export default function SettingsPage() {
     const {
@@ -51,7 +53,13 @@ export default function SettingsPage() {
                 </Link>
                 <span className="text-lg text-center">Program Settings</span>
                 <div className="flex flex-row justify-end">
-                    <Link to={DOCS_PAGE} className="flex flex-row gap-2">
+                    <Link
+                        to={DOCS_PAGE}
+                        className={cn(
+                            buttonVariants({ variant: 'outline' }),
+                            'flex flex-row gap-2 bg-transparent items-center'
+                        )}
+                    >
                         <TableOfContentsIcon className="h-6 w-6" />
                         Documentation
                     </Link>
