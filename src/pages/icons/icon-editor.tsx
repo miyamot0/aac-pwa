@@ -64,10 +64,12 @@ export default function IconEditorPage() {
             index: relevantIcon.index,
             L1: relevantIcon.L1.Language as unknown as LanguageType,
             L1_Hidden: relevantIcon.L1.Hidden ?? false,
+            L1_Hidden_Label: relevantIcon.L1.HideText ?? false,
             L1_Label: relevantIcon.L1.Label,
             L1_Recording: relevantIcon.L1.Recording,
             L2: relevantIcon.L2.Language as unknown as LanguageType,
             L2_Hidden: relevantIcon.L2.Hidden ?? false,
+            L2_Hidden_Label: relevantIcon.L2.HideText ?? false,
             L2_Label: relevantIcon.L2.Label,
             L2_Recording: relevantIcon.L2.Recording
         }
@@ -83,6 +85,7 @@ export default function IconEditorPage() {
                     Language: values.L1 as 'en' | 'es',
                     Label: values.L1_Label,
                     Hidden: values.L1_Hidden,
+                    HideText: values.L1_Hidden_Label,
                     Image: relevantIcon.L1.Image,
                     File: relevantIcon.L1.File,
                     Recording: values.L1_Recording
@@ -91,6 +94,7 @@ export default function IconEditorPage() {
                     Language: values.L2 as 'en' | 'es' | 'N/A',
                     Label: values.L2_Label,
                     Hidden: values.L2_Hidden,
+                    HideText: values.L2_Hidden_Label,
                     Image: relevantIcon.L2.Image,
                     File: relevantIcon.L2.File,
                     Recording: values.L2_Recording
@@ -282,7 +286,44 @@ export default function IconEditorPage() {
                                                     </FormLabel>
 
                                                     <FormDescription>
-                                                        Should this be hidden?
+                                                        Should the whole icon be
+                                                        hidden?
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </div>
+                                                <div className="flex justify-end">
+                                                    <FormControl>
+                                                        <Switch
+                                                            name={field.name}
+                                                            id={field.name}
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </EntryFieldWrapper>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="L1_Hidden_Label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <EntryFieldWrapper>
+                                                <div className="col-span-2">
+                                                    <FormLabel>
+                                                        L1 Hide Label Settings
+                                                    </FormLabel>
+
+                                                    <FormDescription>
+                                                        Should the label be
+                                                        hidden?
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </div>
@@ -522,7 +563,44 @@ export default function IconEditorPage() {
                                                     </FormLabel>
 
                                                     <FormDescription>
-                                                        Should this be hidden?
+                                                        Should the whole icon be
+                                                        hidden?
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </div>
+                                                <div className="flex justify-end">
+                                                    <FormControl>
+                                                        <Switch
+                                                            name={field.name}
+                                                            id={field.name}
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onCheckedChange={
+                                                                field.onChange
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </EntryFieldWrapper>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="L2_Hidden_Label"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <EntryFieldWrapper>
+                                                <div className="col-span-2">
+                                                    <FormLabel>
+                                                        L2 Hide Label Settings
+                                                    </FormLabel>
+
+                                                    <FormDescription>
+                                                        Should the label be
+                                                        hidden?
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </div>

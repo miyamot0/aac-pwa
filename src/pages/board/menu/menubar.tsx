@@ -49,11 +49,13 @@ export default function BoardMenuBar() {
                 L1: {
                     Language: 'en',
                     Hidden: false,
+                    HideText: false,
                     Label: 'Blank'
                 },
                 L2: {
                     Language: 'es',
                     Hidden: false,
+                    HideText: false,
                     Label: 'Blank'
                 }
             } as SGDField
