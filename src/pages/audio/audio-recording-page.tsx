@@ -119,6 +119,14 @@ export default function AudioRecorderPage() {
                                                             }
                                                         )
                                                         setCurrentBlob(blob)
+
+                                                        stream
+                                                            .getTracks()
+                                                            .forEach(
+                                                                (track) => {
+                                                                    track.stop()
+                                                                }
+                                                            )
                                                     }
                                                 mediaRecorder.current.start()
 
