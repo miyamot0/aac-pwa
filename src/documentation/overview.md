@@ -1,15 +1,15 @@
 ---
 title: Overview of Program
-description: Overview of AAC Program, purpose, and design features
+description: Overview program, purpose, and features
 date: 10/12/2024
-keywords: "Introduction, Overview"
+keywords: 'Introduction, Overview'
 author: Shawn Gilroy
 index: 0
 ---
 
 ## Overview of AAC Program
 
-This PWA is a prototype for evaluating simultaneous bilingual communication training practices. It should be considered an *experimental* tool that is currently undergoing evaluation.
+This PWA is a prototype for evaluating simultaneous bilingual communication training practices. It should be considered an _experimental_ tool that is currently undergoing evaluation.
 
 It is not recommended for broad consumption or general clinical applications at this time.
 
@@ -27,12 +27,12 @@ This PWA is intended to be used to support communication training protocols base
 
 The program works by switching between multiple **Language Mode** (i.e., L1 mode or L2 mode). The program allows for a therapist to easily switch between multiple language modes by toggling between them in the menu bar of the application.
 
-As an effort to reduce complexity on the language learner, the ability to switch settings (e.g., language mode) is restricted to when the program is in *board editing* mode.
+As an effort to reduce complexity on the language learner, the ability to switch settings (e.g., language mode) is restricted to when the program is in _board editing_ mode.
 
 #### Board Modes (Editing, Active)
 
-The program, regardless of *language mode*, provides two types of interfaces that correspond with the **Board Mode** (i.e., Editing, Active).
+The program, regardless of _language mode_, provides two types of interfaces that correspond with the **Board Mode** (i.e., Editing, Active).
 
-The *Active* mode is the interface traditionally associated with usage by the language learner. This interface allows for *selecting* icons (i.e., loading them into the sentence frame) and choosing when to emit the language associated with each icon. This simplified interface does not allow for any editing of settings and can be toggled by selecting the "Lock" icon located in the upper right area of the board screen.
+The _Active_ mode is the interface traditionally associated with usage by the language learner. This interface allows for _selecting_ icons (i.e., loading them into the sentence frame) and choosing when to emit the language associated with each icon. This simplified interface does not allow for any editing of settings and can be toggled by selecting the "Lock" icon located in the upper right area of the board screen.
 
-The *Editing* mode is the interface designed to support the therapist in configuring settings to best support the language learner. When in this mode, options for editing the current board will be displayed in the menu bar of the board screen. In this mode, the therapist can add/edit/remove icons as well as edit settings associated with program usage (see Specific Documentation Page).
+The _Editing_ mode is the interface designed to support the therapist in configuring settings to best support the language learner. When in this mode, options for editing the current board will be displayed in the menu bar of the board screen. In this mode, the therapist can add/edit/remove icons as well as edit settings associated with program usage (see Specific Documentation Page).

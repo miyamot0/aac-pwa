@@ -1,6 +1,6 @@
 ---
 title: Overview of Board Settings
-description: Overview of board relevant board settings
+description: Overview of relevant board settings
 date: 10/13/2024
 keywords: Settings, Teaching Strategy
 author: Shawn Gilroy
