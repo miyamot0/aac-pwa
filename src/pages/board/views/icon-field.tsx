@@ -76,7 +76,7 @@ export function Icon({ Icon }: Props) {
                 className={cn(
                     'absolute bg-white px-2 border border-black rounded-sm mb-2',
                     {
-                        'hidden ': !has_label
+                        'hidden ': !has_label || icon_to_reference?.HideText
                     }
                 )}
             >
