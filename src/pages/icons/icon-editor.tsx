@@ -419,15 +419,16 @@ export default function IconEditorPage() {
                                     </div>
 
                                     <div className="grid">
-                                        <div className="flex flex-col justify-start gap-1 mr-4">
+                                        <div className="flex flex-col justify-start gap-2 mr-4">
                                             <div className="flex flex-row justify-between items-center">
                                                 <FormLabel>
                                                     L1 Custom Speech
                                                 </FormLabel>
 
-                                                <div className="flex flex-row gap-2 items-center">
+                                                <div className="flex flex-row gap-4 items-center">
                                                     <Button
-                                                        variant={'destructive'}
+                                                        variant={'secondary'}
+                                                        className="border"
                                                         disabled={
                                                             !form.getValues(
                                                                 'L1_Recording'
@@ -467,12 +468,17 @@ export default function IconEditorPage() {
                                                 </div>
                                             </div>
 
+                                            <FormDescription>
+                                                If selected, the icon will emit
+                                                the selected recording
+                                            </FormDescription>
+
                                             <div className="w-full">
                                                 {form.getValues(
                                                     'L1_Recording'
                                                 ) && (
                                                     <audio
-                                                        className="w-full"
+                                                        className="w-full mt-2"
                                                         controls
                                                         src={URL.createObjectURL(
                                                             new Blob(
@@ -489,11 +495,6 @@ export default function IconEditorPage() {
                                                     />
                                                 )}
                                             </div>
-
-                                            <FormDescription>
-                                                If selected, the icon will emit
-                                                the selected recording
-                                            </FormDescription>
                                         </div>
                                     </div>
                                 </div>
@@ -656,15 +657,16 @@ export default function IconEditorPage() {
                                     </div>
 
                                     <div className="grid">
-                                        <div className="flex flex-col justify-start gap-1 mr-4">
+                                        <div className="flex flex-col justify-start gap-2 mr-4">
                                             <div className="flex flex-row justify-between items-center">
                                                 <FormLabel>
                                                     L2 Custom Speech
                                                 </FormLabel>
 
-                                                <div className="flex flex-row gap-2 items-center">
+                                                <div className="flex flex-row gap-4 items-center">
                                                     <Button
-                                                        variant={'destructive'}
+                                                        variant={'secondary'}
+                                                        className="border"
                                                         disabled={
                                                             !form.getValues(
                                                                 'L2_Recording'
@@ -714,7 +716,7 @@ export default function IconEditorPage() {
                                                     'L2_Recording'
                                                 ) && (
                                                     <audio
-                                                        className="w-full"
+                                                        className="w-full mt-2"
                                                         controls
                                                         src={URL.createObjectURL(
                                                             new Blob(
