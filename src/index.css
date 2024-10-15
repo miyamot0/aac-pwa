@@ -66,7 +66,7 @@
         @apply border-border;
     }
     html {
-        @apply px-safe pt-safe;
+        @apply px-safe pt-safe overscroll-x-none;
     }
     body {
         @apply bg-background text-foreground overscroll-x-none;
