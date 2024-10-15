@@ -78,9 +78,7 @@ export default function RecordedSpeechPage() {
                     <ChevronLeft className="h-6 w-6" />
                     Back
                 </Link>
-                <span className="text-lg text-center">
-                    Recorded Speech Viewer
-                </span>
+                <span className="text-lg text-center">Audio Asset Gallery</span>
                 <div className="w-full flex flex-row justify-end">
                     <Link
                         to={`/recordings/${id}/${slot}/microphone`}
@@ -91,7 +89,7 @@ export default function RecordedSpeechPage() {
                     >
                         <AudioLinesIcon className="h-6 w-6" />
                         <span className="text-sm hidden md:block">
-                            Record Audio Clips
+                            Capture New Audio
                         </span>
                     </Link>
                 </div>
