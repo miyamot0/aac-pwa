@@ -1,8 +1,7 @@
 import { DeleteIcon, Volume2 } from 'lucide-react'
-import { useContext } from 'react'
+import { createRef, useContext } from 'react'
 import { IconsContext } from '@/providers/icons-provider'
 import { cn } from '@/lib/utils'
-import { SGDField } from '@/lib/db'
 import { FrameIconAnimated } from './frame-icon-animated'
 
 export default function BoardFrame() {
@@ -16,6 +15,8 @@ export default function BoardFrame() {
         ShuffleField,
         IconPositioning
     } = useContext(IconsContext)
+
+    const audioRef = createRef<HTMLAudioElement>()
 
     return (
         <div className="flex flex-col w-full px-2">
@@ -44,24 +45,25 @@ export default function BoardFrame() {
                     className="col-span-1 rounded flex flex-row justify-center items-center data-[empty=false]:cursor-pointer"
                     data-empty={Frame.length === 0}
                     onClick={async () => {
+                        // If the frame is empty, return
                         if (Frame.length === 0) return
 
-                        if (Speaker.speaking) return
+                        // If the audio element does not exist, return
+                        if (!audioRef.current) return
 
-                        const words = [
-                            Frame.map((icon: SGDField) =>
-                                Settings.LanguageContext === 'L1'
-                                    ? icon.L1.Label
-                                    : icon.L2?.Label ?? ''
-                            ).join(' ')
-                        ]
+                        // If the audio element is speaking, return
+                        if (
+                            Speaker.speaking ||
+                            (audioRef.current.currentTime > 0 &&
+                                !audioRef.current.ended)
+                        )
+                            return
 
-                        const lang =
-                            Settings.LanguageContext === 'L1' ? 'en' : 'es'
-
+                        // Generated speech
                         async function getNextAudio(sentence: string) {
                             const audio = new SpeechSynthesisUtterance(sentence)
-                            audio.lang = lang
+                            audio.lang =
+                                Settings.LanguageContext === 'L1' ? 'en' : 'es'
 
                             Speaker.speak(audio)
 
@@ -70,8 +72,47 @@ export default function BoardFrame() {
                             })
                         }
 
-                        for (let i = 0; i < words.length; i++) {
-                            await getNextAudio(words[i])
+                        // Saved audio file
+                        async function getNextAudioChunk(
+                            sound_file: Uint8Array
+                        ) {
+                            if (!audioRef.current) return
+
+                            const blob = new Blob([sound_file], {
+                                type: 'audio/mp4'
+                            })
+                            const url = URL.createObjectURL(blob)
+
+                            audioRef.current.src = ''
+                            audioRef.current.src = url
+                            audioRef.current.onended = () => {
+                                URL.revokeObjectURL(url)
+                            }
+                            audioRef.current.play()
+
+                            return new Promise((resolve) => {
+                                audioRef.current!.onended = resolve
+                            })
+                        }
+
+                        for (let i = 0; i < Frame.length; i++) {
+                            if (Settings.LanguageContext === 'L1') {
+                                if (Frame[i].L1.Recording) {
+                                    await getNextAudioChunk(
+                                        Frame[i].L1.Recording!
+                                    )
+                                } else {
+                                    await getNextAudio(Frame[i].L1.Label)
+                                }
+                            } else if (Settings.LanguageContext === 'L2') {
+                                if (Frame[i].L2.Recording) {
+                                    await getNextAudioChunk(
+                                        Frame[i].L2.Recording!
+                                    )
+                                } else {
+                                    await getNextAudio(Frame[i].L2.Label)
+                                }
+                            }
                         }
 
                         if (PostSpeechSettings === 'ResetFrameAfterSpeech') {
@@ -95,6 +136,8 @@ export default function BoardFrame() {
                     />
                 </div>
             </div>
+
+            <audio ref={audioRef} id="audio" className="hidden" />
         </div>
     )
 }

@@ -49,7 +49,7 @@ export default function BoardField() {
 
                     /* When ACTIVE && Hidden: Hide from view  */
                     if (
-                        language_context.Hidden === true &&
+                        language_context?.Hidden === true &&
                         Settings.Locked === true
                     ) {
                         return (
@@ -61,7 +61,7 @@ export default function BoardField() {
 
                     /* When ACTIVE && No Image Assigned: Hide from view  */
                     if (
-                        language_context.Language === 'N/A' &&
+                        language_context?.Language === 'N/A' &&
                         Settings.Locked === true
                     ) {
                         return (
@@ -73,7 +73,7 @@ export default function BoardField() {
 
                     /* When LOCKED && Hidden: Show shaded  */
                     if (
-                        language_context.Hidden === true &&
+                        language_context?.Hidden === true &&
                         Settings.Locked === false
                     ) {
                         const url = language_context?.File
@@ -153,7 +153,7 @@ export default function BoardField() {
                                         }
                                     }}
                                 >
-                                    <div>{`Image for ${Settings.LanguageContext} Needed`}</div>
+                                    <div className="text-center">{`Image for ${Settings.LanguageContext} Needed`}</div>
                                 </div>
                             </IconWrapper>
                         )

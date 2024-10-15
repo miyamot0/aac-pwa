@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils"
-import { IconsContext } from "@/providers/icons-provider"
-import { useContext } from "react"
+import { cn } from '@/lib/utils'
+import { IconsContext } from '@/providers/icons-provider'
+import { useContext } from 'react'
 
 export function EmptyIcon() {
     const { Settings } = useContext(IconsContext)
@@ -18,7 +18,7 @@ export function EmptyIcon() {
             )}
         >
             <p
-                className={cn('', {
+                className={cn('text-center', {
                     hidden: Locked
                 })}
             >

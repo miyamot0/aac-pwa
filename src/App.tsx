@@ -12,8 +12,10 @@ import SettingsPage from './pages/settings/settings-page'
 import CameraPage from './pages/camera/camera-page'
 import FileSystemPage from './pages/files/file-system-page'
 import LandingPage from './pages/landing/landing-page'
-import { BOARD_PAGE, DOCS_PAGE, IMAGES_PAGE, SETTINGS_PAGE } from './lib/links'
+import { BOARD_PAGE, DOCS_PAGE, SETTINGS_PAGE } from './lib/links'
 import DocumentationPage from './pages/docs/documentation-page'
+import RecordedSpeechPage from './pages/speech/recorded-speech-page'
+import AudioRecorderPage from './pages/audio/audio-recording-page'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,7 +23,6 @@ const router = createBrowserRouter(
             <Route index element={<LandingPage />} />
             <Route path={BOARD_PAGE} element={<BoardPage />} />
             <Route path={SETTINGS_PAGE} element={<SettingsPage />} />
-            <Route path={IMAGES_PAGE} element={<FileSystemPage />} />
             <Route path={DOCS_PAGE} element={<DocumentationPage />} />
             <Route
                 path={'/icons/:id'}
@@ -30,6 +31,14 @@ const router = createBrowserRouter(
             />
             <Route path={'/icons/:id/:slot'} element={<FileSystemPage />} />
             <Route path={'/icons/:id/:slot/camera'} element={<CameraPage />} />
+            <Route
+                path={'/recordings/:id/:slot'}
+                element={<RecordedSpeechPage />}
+            />
+            <Route
+                path={'/recordings/:id/:slot/microphone'}
+                element={<AudioRecorderPage />}
+            />
         </Route>
     )
 )

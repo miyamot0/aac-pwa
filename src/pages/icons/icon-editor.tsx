@@ -38,6 +38,7 @@ import { Input } from '@/components/ui/input'
 import { IconEditorSchema } from '@/forms/icon-editor/schema'
 import { LanguageType } from '@/types/language-types'
 import { IconSettingsSelectOptions } from '@/types/icon-settings'
+import { Button } from '@/components/ui/button'
 
 type LoaderReturn = {
     icon: SGDField
@@ -62,11 +63,13 @@ export default function IconEditorPage() {
         values: {
             index: relevantIcon.index,
             L1: relevantIcon.L1.Language as unknown as LanguageType,
-            L1_Hidden: relevantIcon.L1.Hidden,
+            L1_Hidden: relevantIcon.L1.Hidden ?? false,
             L1_Label: relevantIcon.L1.Label,
+            L1_Recording: relevantIcon.L1.Recording,
             L2: relevantIcon.L2.Language as unknown as LanguageType,
-            L2_Hidden: relevantIcon.L2.Hidden,
-            L2_Label: relevantIcon.L2.Label ?? ''
+            L2_Hidden: relevantIcon.L2.Hidden ?? false,
+            L2_Label: relevantIcon.L2.Label,
+            L2_Recording: relevantIcon.L2.Recording
         }
     })
 
@@ -81,14 +84,16 @@ export default function IconEditorPage() {
                     Label: values.L1_Label,
                     Hidden: values.L1_Hidden,
                     Image: relevantIcon.L1.Image,
-                    File: relevantIcon.L1.File
+                    File: relevantIcon.L1.File,
+                    Recording: values.L1_Recording
                 },
                 L2: {
                     Language: values.L2 as 'en' | 'es' | 'N/A',
                     Label: values.L2_Label,
                     Hidden: values.L2_Hidden,
-                    Image: relevantIcon.L2?.Image,
-                    File: relevantIcon.L2?.File
+                    Image: relevantIcon.L2.Image,
+                    File: relevantIcon.L2.File,
+                    Recording: values.L2_Recording
                 }
             })
             .then(() => {
@@ -395,6 +400,75 @@ export default function IconEditorPage() {
                                             />
                                         </div>
                                     </div>
+
+                                    <div className="grid">
+                                        <div className="flex flex-col justify-start gap-4 mr-4">
+                                            <div className="flex flex-row justify-between items-center">
+                                                <FormLabel>
+                                                    L1 Custom Speech
+                                                </FormLabel>
+
+                                                <div className="flex flex-row gap-2 items-center">
+                                                    <Button
+                                                        variant={'destructive'}
+                                                        onClick={() => {
+                                                            form.setValue(
+                                                                'L1_Recording',
+                                                                undefined
+                                                            )
+
+                                                            saveIcon()
+                                                        }}
+                                                    >
+                                                        Clear
+                                                    </Button>
+
+                                                    <Button
+                                                        onClick={() => {
+                                                            try {
+                                                                form.handleSubmit(
+                                                                    onSubmit
+                                                                )()
+                                                            } finally {
+                                                                navigate(
+                                                                    `/recordings/${relevantIcon.id}/L1`,
+                                                                    {
+                                                                        unstable_viewTransition:
+                                                                            true
+                                                                    }
+                                                                )
+                                                            }
+                                                        }}
+                                                    >
+                                                        Select
+                                                    </Button>
+                                                </div>
+                                            </div>
+
+                                            <div className="w-full">
+                                                {form.getValues(
+                                                    'L1_Recording'
+                                                ) && (
+                                                    <audio
+                                                        className="w-full"
+                                                        controls
+                                                        src={URL.createObjectURL(
+                                                            new Blob(
+                                                                [
+                                                                    form.getValues(
+                                                                        'L1_Recording'
+                                                                    )
+                                                                ],
+                                                                {
+                                                                    type: 'audio/mp4'
+                                                                }
+                                                            )
+                                                        )}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
@@ -547,6 +621,75 @@ export default function IconEditorPage() {
                                                 src={l2_asset}
                                                 draggable={false}
                                             />
+                                        </div>
+                                    </div>
+
+                                    <div className="grid">
+                                        <div className="flex flex-col justify-start gap-4 mr-4">
+                                            <div className="flex flex-row justify-between items-center">
+                                                <FormLabel>
+                                                    L2 Custom Speech
+                                                </FormLabel>
+
+                                                <div className="flex flex-row gap-2 items-center">
+                                                    <Button
+                                                        variant={'destructive'}
+                                                        onClick={() => {
+                                                            form.setValue(
+                                                                'L2_Recording',
+                                                                undefined
+                                                            )
+
+                                                            saveIcon()
+                                                        }}
+                                                    >
+                                                        Clear
+                                                    </Button>
+
+                                                    <Button
+                                                        onClick={() => {
+                                                            try {
+                                                                form.handleSubmit(
+                                                                    onSubmit
+                                                                )()
+                                                            } finally {
+                                                                navigate(
+                                                                    `/recordings/${relevantIcon.id}/L2`,
+                                                                    {
+                                                                        unstable_viewTransition:
+                                                                            true
+                                                                    }
+                                                                )
+                                                            }
+                                                        }}
+                                                    >
+                                                        Select
+                                                    </Button>
+                                                </div>
+                                            </div>
+
+                                            <div className="w-full">
+                                                {form.getValues(
+                                                    'L2_Recording'
+                                                ) && (
+                                                    <audio
+                                                        className="w-full"
+                                                        controls
+                                                        src={URL.createObjectURL(
+                                                            new Blob(
+                                                                [
+                                                                    form.getValues(
+                                                                        'L2_Recording'
+                                                                    )
+                                                                ],
+                                                                {
+                                                                    type: 'audio/mp4'
+                                                                }
+                                                            )
+                                                        )}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
