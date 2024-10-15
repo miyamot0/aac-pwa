@@ -22,7 +22,7 @@ export type LanguageContext = {
 export type IconStateType = {
     Language: 'en' | 'es' | 'N/A'
     Label: string
-    Hidden: boolean
+    Hidden?: boolean
     Image?: string
     File?: Uint8Array
     Recording?: Uint8Array
