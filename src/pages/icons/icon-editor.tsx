@@ -154,6 +154,7 @@ export default function IconEditorPage() {
         <div className="flex flex-col gap-2">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={BOARD_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}

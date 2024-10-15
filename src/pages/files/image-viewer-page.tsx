@@ -21,6 +21,7 @@ export default function ImageViewerPage() {
         <div className="flex flex-col gap-2 w-full">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={`/icons/${id}`}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
@@ -31,6 +32,7 @@ export default function ImageViewerPage() {
                 <span className="text-lg text-center">Image Asset Gallery</span>
                 <div className="flex flex-row justify-end">
                     <Link
+                        replace
                         className={cn(
                             buttonVariants({ variant: 'outline' }),
                             'bg-transparent flex flex-row gap-2 items-center cursor-pointer w-fit'

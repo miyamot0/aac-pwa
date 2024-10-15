@@ -51,6 +51,7 @@ export default function AudioRecorderPage() {
         <div className="flex flex-col gap-2 items">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={`/recordings/${id}/${slot}`}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}

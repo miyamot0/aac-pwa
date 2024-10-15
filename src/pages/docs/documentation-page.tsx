@@ -40,6 +40,7 @@ export default function DocumentationPage() {
         <div className="flex flex-col w-full min-h-svh">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={SETTINGS_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}

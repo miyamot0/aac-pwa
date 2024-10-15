@@ -66,10 +66,10 @@
         @apply border-border;
     }
     html {
-        @apply px-safe pt-safe overscroll-x-none;
+        @apply px-safe pt-safe;
     }
     body {
-        @apply bg-background text-foreground overscroll-x-none;
+        @apply bg-background text-foreground;
     }
 }
 
