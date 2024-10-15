@@ -69,7 +69,7 @@
         @apply px-safe pt-safe;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground overscroll-x-none;
     }
 }
 
