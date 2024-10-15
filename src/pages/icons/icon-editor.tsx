@@ -93,7 +93,7 @@ export default function IconEditorPage() {
                     Hidden: values.L2_Hidden,
                     Image: relevantIcon.L2.Image,
                     File: relevantIcon.L2.File,
-                    Recording: values.L1_Recording
+                    Recording: values.L2_Recording
                 }
             })
             .then(() => {

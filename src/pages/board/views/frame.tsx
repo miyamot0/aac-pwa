@@ -59,6 +59,7 @@ export default function BoardFrame() {
                         )
                             return
 
+                        // Generated speech
                         async function getNextAudio(sentence: string) {
                             const audio = new SpeechSynthesisUtterance(sentence)
                             audio.lang =
@@ -71,6 +72,7 @@ export default function BoardFrame() {
                             })
                         }
 
+                        // Saved audio file
                         async function getNextAudioChunk(
                             sound_file: Uint8Array
                         ) {
