@@ -322,6 +322,7 @@ export default function IconEditorPage() {
                                                     <FormMessage />
                                                 </div>
                                                 <Select
+                                                    disabled
                                                     onValueChange={
                                                         field.onChange
                                                     }
@@ -561,6 +562,7 @@ export default function IconEditorPage() {
                                                     <FormMessage />
                                                 </div>
                                                 <Select
+                                                    disabled
                                                     onValueChange={
                                                         field.onChange
                                                     }
