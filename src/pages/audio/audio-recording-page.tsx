@@ -1,5 +1,4 @@
 import HeaderBackground from '@/components/layout/header-bg'
-import { Button } from '@/components/ui/button'
 import {
     Card,
     CardContent,
@@ -7,15 +6,15 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
-import { AudioLinesIcon, ChevronLeft, SaveIcon, TrashIcon } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
-import { useReactMediaRecorder } from 'react-media-recorder'
-import { toast } from 'sonner'
-import { db } from '@/lib/db'
+import { createRef } from 'react'
 
 export default function AudioRecorderPage() {
     const { id, slot } = useParams()
+
+    /*
+
     const {
         status,
         startRecording,
@@ -24,9 +23,15 @@ export default function AudioRecorderPage() {
         mediaBlobUrl
     } = useReactMediaRecorder({ audio: true, video: false })
 
+    */
+
+    const recordBtnRef = createRef<HTMLButtonElement>()
+
     if (!id || !slot) throw new Error('No ID provided')
 
     const is_recording = status === 'recording'
+
+    /*
 
     async function saveBufferToDB(blob_url: string) {
         try {
@@ -48,6 +53,13 @@ export default function AudioRecorderPage() {
         } catch (e: unknown) {
             toast.error(`Failed to save recording: ${e}`)
         }
+    }
+
+
+    */
+
+    if (!navigator.mediaDevices.getUserMedia) {
+        alert('getUserMedia() is not supported in your browser')
     }
 
     return (
@@ -74,13 +86,14 @@ export default function AudioRecorderPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="object-scale-down aspect-square flex flex-col items-center">
-                        {mediaBlobUrl && (
+                        {/* 
+                            mediaBlobUrl && (
                             <audio
                                 src={mediaBlobUrl}
                                 controls
                                 className="w-full"
-                            />
-                        )}
+                            />)
+                        */}
                     </CardContent>
                 </Card>
 
@@ -89,7 +102,8 @@ export default function AudioRecorderPage() {
                         Recording Status: {is_recording ? 'Recording' : 'Idle'}
                     </span>
 
-                    {is_recording && (
+                    {/* 
+{is_recording && (
                         <Button
                             className={cn('flex flex-row gap-2')}
                             onClick={stopRecording}
@@ -132,6 +146,10 @@ export default function AudioRecorderPage() {
                         <SaveIcon className="h-4 w-4" />
                         Save Audio to Database
                     </Button>
+                                        
+                    */}
+
+                    <button ref={recordBtnRef}>new rec</button>
                 </div>
             </div>
         </div>
