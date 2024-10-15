@@ -63,11 +63,11 @@ export default function IconEditorPage() {
         values: {
             index: relevantIcon.index,
             L1: relevantIcon.L1.Language as unknown as LanguageType,
-            L1_Hidden: relevantIcon.L1.Hidden,
+            L1_Hidden: relevantIcon.L1.Hidden ?? false,
             L1_Label: relevantIcon.L1.Label,
             L1_Recording: relevantIcon.L1.Recording,
             L2: relevantIcon.L2.Language as unknown as LanguageType,
-            L2_Hidden: relevantIcon.L2.Hidden,
+            L2_Hidden: relevantIcon.L2.Hidden ?? false,
             L2_Label: relevantIcon.L2.Label,
             L2_Recording: relevantIcon.L2.Recording
         }
