@@ -8,10 +8,46 @@ import {
 } from '@/components/ui/card'
 import { ChevronLeft } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
-import { createRef } from 'react'
+import { createRef, useRef, useState } from 'react'
+import { Button } from '@/components/ui/button'
+
+const constraints = { audio: true }
 
 export default function AudioRecorderPage() {
     const { id, slot } = useParams()
+    const chunks = useRef<Blob[]>([])
+    const mediaRecorder = useRef<MediaRecorder | null>(null)
+    const [currentBlob, setCurrentBlob] = useState<Blob>()
+
+    const [is_recording, setRecording] = useState(false)
+
+    if (!id || !slot) throw new Error('No ID or Slot provided')
+
+    function onSuccess(stream: MediaStream) {
+        mediaRecorder.current = new MediaRecorder(stream)
+        mediaRecorder.current.ondataavailable = (e) => {
+            chunks.current.push(e.data)
+        }
+        mediaRecorder.current.onstop = () => {
+            const blob = new Blob(chunks.current, {
+                type: 'audio/ogg; codecs=opus'
+            })
+            setCurrentBlob(blob)
+
+            //chunks.current = []
+            //const audioURL = URL.createObjectURL(blob)
+            //const audio = new Audio(audioURL)
+            //audio.play()
+        }
+
+        mediaRecorder.current.start()
+
+        setRecording(true)
+    }
+
+    function onError(err: unknown) {
+        console.error('The following error occurred: ' + err)
+    }
 
     /*
 
@@ -28,8 +64,6 @@ export default function AudioRecorderPage() {
     const recordBtnRef = createRef<HTMLButtonElement>()
 
     if (!id || !slot) throw new Error('No ID provided')
-
-    const is_recording = status === 'recording'
 
     /*
 
@@ -86,6 +120,14 @@ export default function AudioRecorderPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="object-scale-down aspect-square flex flex-col items-center">
+                        {currentBlob && (
+                            <audio
+                                src={URL.createObjectURL(currentBlob)}
+                                controls
+                                className="w-full"
+                            />
+                        )}
+
                         {/* 
                             mediaBlobUrl && (
                             <audio
@@ -99,8 +141,23 @@ export default function AudioRecorderPage() {
 
                 <div className="flex flex-col gap-4">
                     <span>
-                        Recording Status: {is_recording ? 'Recording' : 'Idle'}
+                        Recording Status: {is_recording ? 'true' : 'false'}
                     </span>
+
+                    <Button
+                        onClick={() => {
+                            if (is_recording) {
+                                mediaRecorder.current?.stop()
+                                setRecording(false)
+                            } else {
+                                navigator.mediaDevices
+                                    .getUserMedia(constraints)
+                                    .then(onSuccess, onError)
+                            }
+                        }}
+                    >
+                        New On Click
+                    </Button>
 
                     {/* 
 {is_recording && (
