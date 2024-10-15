@@ -48,6 +48,7 @@ export default function SettingsPage() {
         <div>
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={BOARD_PAGE}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
@@ -58,6 +59,7 @@ export default function SettingsPage() {
                 <span className="text-lg text-center">Program Settings</span>
                 <div className="flex flex-row justify-end">
                     <Link
+                        replace
                         to={DOCS_PAGE}
                         className={cn(
                             buttonVariants({ variant: 'outline' }),

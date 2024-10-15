@@ -12,6 +12,7 @@ export default function LandingPage() {
                 <span>Default Password: {PASSWORD}</span>
                 <div className="flex flex-col gap-4 w-fit">
                     <Link
+                        replace
                         to={'https://github.com/miyamot0/aac-pwa'}
                         target="_blank"
                         className="border rounded shadow-xl bg-gray-500 flex flex-row items-center px-2"
@@ -29,6 +30,7 @@ export default function LandingPage() {
                     </h1>
 
                     <Link
+                        replace
                         className={cn(
                             buttonVariants({ variant: 'default', size: 'lg' }),
                             'max-w-screen-sm self-center w-full p-6 text-lg'

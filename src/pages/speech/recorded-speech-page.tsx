@@ -71,6 +71,7 @@ export default function RecordedSpeechPage() {
         <div className="flex flex-col gap-2">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={`/icons/${id}`}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
@@ -81,6 +82,7 @@ export default function RecordedSpeechPage() {
                 <span className="text-lg text-center">Audio Asset Gallery</span>
                 <div className="w-full flex flex-row justify-end">
                     <Link
+                        replace
                         to={`/recordings/${id}/${slot}/microphone`}
                         className={cn(
                             buttonVariants({ variant: 'outline' }),

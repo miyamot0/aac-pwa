@@ -39,6 +39,7 @@ export default function CameraPage() {
         <div className="flex flex-col gap-2 items">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
+                    replace
                     to={`/icons/${id}/${slot}`}
                     className="flex flex-row gap-2"
                     unstable_viewTransition={true}
@@ -59,7 +60,7 @@ export default function CameraPage() {
                     <CardContent className="flex flex-col items-center gap-4">
                         {img && (
                             <img
-                                className="object-scale-down aspect-square "
+                                className="object-contain aspect-square "
                                 src={img}
                             />
                         )}

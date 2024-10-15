@@ -145,6 +145,7 @@ export default function BoardMenuBar() {
                             </span>
                         </div>
                         <Link
+                            replace
                             className={
                                 'p-1 rounded cursor-pointer flex flex-row gap-2 items-center'
                             }
