@@ -8,9 +8,11 @@ import { EmptyIcon } from './icon-empty'
 import { Icon } from './icon-field'
 import { useNavigate } from 'react-router-dom'
 import { EyeOff } from 'lucide-react'
+import { InterfaceVerbosityConfiguration } from '@/types/board-settings'
 
 export default function BoardField() {
-    const { Settings, FieldSize, FieldRows } = useContext(IconsContext)
+    const { Settings, FieldSize, FieldRows, UIVerbosity } =
+        useContext(IconsContext)
     const navigate = useNavigate()
     const icons: SGDField[] | undefined = useLiveQuery(() => db.icons.toArray())
 
@@ -109,7 +111,13 @@ export default function BoardField() {
 
                                     <div
                                         className={cn(
-                                            'absolute top-1 left-1 p-1 bg-white rounded border border-black'
+                                            'absolute top-1 left-1 p-1 bg-white rounded border border-black',
+                                            {
+                                                invisible:
+                                                    Settings.Locked ||
+                                                    UIVerbosity ===
+                                                        ('MinimalInformation' as InterfaceVerbosityConfiguration)
+                                            }
                                         )}
                                     >
                                         ID: {icon.id}
@@ -157,7 +165,10 @@ export default function BoardField() {
                                         className={cn(
                                             'absolute top-1 left-1 p-1 bg-white rounded border border-black',
                                             {
-                                                hidden: Settings.Locked === true
+                                                invisible:
+                                                    Settings.Locked ||
+                                                    UIVerbosity ===
+                                                        ('MinimalInformation' as InterfaceVerbosityConfiguration)
                                             }
                                         )}
                                     >

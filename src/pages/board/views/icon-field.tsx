@@ -1,6 +1,7 @@
 import { SGDField } from '@/lib/db'
 import { cn } from '@/lib/utils'
 import { IconsContext } from '@/providers/icons-provider'
+import { InterfaceVerbosityConfiguration } from '@/types/board-settings'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -8,7 +9,7 @@ import { toast } from 'sonner'
 type Props = { Icon: SGDField }
 
 export function Icon({ Icon }: Props) {
-    const { AddToFrame, Settings } = useContext(IconsContext)
+    const { AddToFrame, Settings, UIVerbosity } = useContext(IconsContext)
     const navigate = useNavigate()
 
     const icon_to_reference =
@@ -62,7 +63,10 @@ export function Icon({ Icon }: Props) {
                 className={cn(
                     'absolute top-1 left-1 p-1 bg-white rounded border border-black',
                     {
-                        hidden: Settings.Locked === true
+                        invisible:
+                            Settings.Locked ||
+                            UIVerbosity ===
+                                ('MinimalInformation' as InterfaceVerbosityConfiguration)
                     }
                 )}
             >
