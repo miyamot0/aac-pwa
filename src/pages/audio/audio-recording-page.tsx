@@ -8,8 +8,9 @@ import {
 } from '@/components/ui/card'
 import { ChevronLeft } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
-import { createRef, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 
 const constraints = { audio: true }
 
@@ -18,7 +19,6 @@ export default function AudioRecorderPage() {
     const chunks = useRef<Blob[]>([])
     const mediaRecorder = useRef<MediaRecorder | null>(null)
     const [currentBlob, setCurrentBlob] = useState<Blob>()
-
     const [is_recording, setRecording] = useState(false)
 
     if (!id || !slot) throw new Error('No ID or Slot provided')
@@ -30,40 +30,18 @@ export default function AudioRecorderPage() {
         }
         mediaRecorder.current.onstop = () => {
             const blob = new Blob(chunks.current, {
-                type: 'audio/ogg; codecs=opus'
+                type: mediaRecorder.current!.mimeType
             })
             setCurrentBlob(blob)
-
-            //chunks.current = []
-            //const audioURL = URL.createObjectURL(blob)
-            //const audio = new Audio(audioURL)
-            //audio.play()
         }
-
         mediaRecorder.current.start()
 
         setRecording(true)
     }
 
     function onError(err: unknown) {
-        console.error('The following error occurred: ' + err)
+        toast.error(`Failed to start recording: ${err}`)
     }
-
-    /*
-
-    const {
-        status,
-        startRecording,
-        stopRecording,
-        clearBlobUrl,
-        mediaBlobUrl
-    } = useReactMediaRecorder({ audio: true, video: false })
-
-    */
-
-    const recordBtnRef = createRef<HTMLButtonElement>()
-
-    if (!id || !slot) throw new Error('No ID provided')
 
     /*
 
@@ -91,10 +69,6 @@ export default function AudioRecorderPage() {
 
 
     */
-
-    if (!navigator.mediaDevices.getUserMedia) {
-        alert('getUserMedia() is not supported in your browser')
-    }
 
     return (
         <div className="flex flex-col gap-2 items">
@@ -144,20 +118,33 @@ export default function AudioRecorderPage() {
                         Recording Status: {is_recording ? 'true' : 'false'}
                     </span>
 
-                    <Button
-                        onClick={() => {
-                            if (is_recording) {
-                                mediaRecorder.current?.stop()
-                                setRecording(false)
-                            } else {
+                    {is_recording === false && (
+                        <Button
+                            onClick={() => {
+                                setCurrentBlob(undefined)
+
                                 navigator.mediaDevices
                                     .getUserMedia(constraints)
                                     .then(onSuccess, onError)
-                            }
-                        }}
-                    >
-                        New On Click
-                    </Button>
+                            }}
+                        >
+                            Begin Recording
+                        </Button>
+                    )}
+
+                    {is_recording && (
+                        <Button
+                            variant={'destructive'}
+                            onClick={() => {
+                                mediaRecorder.current?.stop()
+                                setRecording(false)
+                            }}
+                        >
+                            Recording... Click to End
+                        </Button>
+                    )}
+
+                    {currentBlob && <Button>Save (TODO)</Button>}
 
                     {/* 
 {is_recording && (
@@ -205,8 +192,6 @@ export default function AudioRecorderPage() {
                     </Button>
                                         
                     */}
-
-                    <button ref={recordBtnRef}>new rec</button>
                 </div>
             </div>
         </div>
