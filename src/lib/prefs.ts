@@ -41,7 +41,8 @@ export function storeSavedPreferences(
     postSpeechSettings: PostSpeechConfiguration,
     iconPositioning: FieldManagementConfiguration,
     frame: FrameLengthConfiguration,
-    uiVerbosity: InterfaceVerbosityConfiguration
+    uiVerbosity: InterfaceVerbosityConfiguration,
+    displayToast = true
 ) {
     const prefs = {
         Settings: settings,
@@ -53,5 +54,7 @@ export function storeSavedPreferences(
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs))
 
-    toast.success(`Settings Saved.`)
+    if (displayToast) {
+        toast.success('Preferences saved')
+    }
 }

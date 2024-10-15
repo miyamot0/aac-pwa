@@ -147,7 +147,8 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         postSpeechSettings,
                         iconPositioning,
                         frameRestrictions,
-                        uiVerbosity
+                        uiVerbosity,
+                        false
                     )
                 },
                 SettingsUpdatePostSpeechConfig: (
