@@ -124,7 +124,9 @@ export default function RecordedSpeechPage() {
                                 className="w-full"
                                 controls
                                 src={URL.createObjectURL(
-                                    new Blob([file.file.buffer])
+                                    new Blob([file.file.buffer], {
+                                        type: 'audio/mp4'
+                                    })
                                 )}
                             />
                             <div className="flex flex-row justify-between">

@@ -105,7 +105,6 @@ export default function AudioRecorderPage() {
 
                                                 mediaRecorder.current.ondataavailable =
                                                     (e) => {
-                                                        alert(e.data.type)
                                                         chunks.current.push(
                                                             e.data
                                                         )
