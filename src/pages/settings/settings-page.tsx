@@ -24,6 +24,8 @@ import {
     FieldManagementConfiguration,
     FrameLengthConfiguration,
     FrameLengthConfigurationOptions,
+    InterfaceVerbosityConfiguration,
+    InterfaceVerbosityConfigurationSelectOptions,
     PostSpeechConfigSelectOptions,
     PostSpeechConfiguration
 } from '@/types/board-settings'
@@ -37,7 +39,9 @@ export default function SettingsPage() {
         IconPositioning,
         SettingsUpdateIconPositioningConfig,
         FrameRestrictions,
-        SettingsUpdateFrameRestriction
+        SettingsUpdateFrameRestriction,
+        UIVerbosity,
+        SettingsUpdateUIVerbosity
     } = useContext(IconsContext)
 
     return (
@@ -170,6 +174,42 @@ export default function SettingsPage() {
                                 </SelectTrigger>
                                 <SelectContent>
                                     {FrameLengthConfigurationOptions.map(
+                                        (option) => (
+                                            <SelectItem
+                                                value={option.value}
+                                                key={option.value}
+                                            >
+                                                {option.label}
+                                            </SelectItem>
+                                        )
+                                    )}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="flex flex-row gap-4 justify-between items-center h-8">
+                            <div>
+                                <Label>Interface Verbosity and Detail</Label>
+
+                                <div className="text-muted-foreground text-sm">
+                                    Options for adjusting details presented to
+                                    therapists
+                                </div>
+                            </div>
+
+                            <Select
+                                value={UIVerbosity}
+                                onValueChange={(
+                                    setting: InterfaceVerbosityConfiguration
+                                ) => {
+                                    SettingsUpdateUIVerbosity(setting)
+                                }}
+                            >
+                                <SelectTrigger className="w-full max-w-[300px]">
+                                    <SelectValue placeholder="Set Verbosity of UI" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {InterfaceVerbosityConfigurationSelectOptions.map(
                                         (option) => (
                                             <SelectItem
                                                 value={option.value}

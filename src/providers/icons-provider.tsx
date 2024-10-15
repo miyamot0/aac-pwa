@@ -5,11 +5,11 @@ import { SGDField } from '@/lib/db'
 import {
     FieldManagementConfiguration,
     FrameLengthConfiguration,
+    InterfaceVerbosityConfiguration,
     PostSpeechConfiguration
 } from '@/types/board-settings'
 import { ShuffleAndUpdateIcons } from './actions'
 import { loadSavedPreferences, storeSavedPreferences } from '@/lib/prefs'
-import { toast } from 'sonner'
 
 export const FIELD_SIZE_DEFAULT = 18
 export const FIELD_ROWS_DEFAULT = 3
@@ -19,6 +19,7 @@ interface IconsContextType {
     PostSpeechSettings: PostSpeechConfiguration
     IconPositioning: FieldManagementConfiguration
     FrameRestrictions: FrameLengthConfiguration
+    UIVerbosity: InterfaceVerbosityConfiguration
     Speaker: SpeechSynthesis
     Frame: SGDField[]
     FieldSize: number
@@ -34,6 +35,9 @@ interface IconsContextType {
     ) => void
     SettingsSwitchLanguage: (language: LanguageOption) => void
     SettingsUpdateFrameRestriction: (setting: FrameLengthConfiguration) => void
+    SettingsUpdateUIVerbosity: (
+        setting: InterfaceVerbosityConfiguration
+    ) => void
 }
 
 export const IconsContext = React.createContext<IconsContextType>({
@@ -44,6 +48,7 @@ export const IconsContext = React.createContext<IconsContextType>({
     PostSpeechSettings: 'None',
     IconPositioning: 'NoChange',
     FrameRestrictions: 'NoRestrictions',
+    UIVerbosity: 'DefaultVerbosity',
     Speaker: window.speechSynthesis,
     Frame: [],
     FieldSize: FIELD_SIZE_DEFAULT,
@@ -56,7 +61,8 @@ export const IconsContext = React.createContext<IconsContextType>({
     SettingsUpdatePostSpeechConfig: () => {},
     SettingsUpdateIconPositioningConfig: () => {},
     SettingsSwitchLanguage: () => {},
-    SettingsUpdateFrameRestriction: () => {}
+    SettingsUpdateFrameRestriction: () => {},
+    SettingsUpdateUIVerbosity: () => {}
 })
 
 type Props = {
@@ -76,6 +82,9 @@ export const IconsProvider: FC<Props> = ({ children }) => {
     const [frameRestrictions, setFrameRestrictions] =
         useState<FrameLengthConfiguration>('NoRestrictions')
 
+    const [uiVerbosity, setUIVerbosity] =
+        useState<InterfaceVerbosityConfiguration>('DefaultVerbosity')
+
     const [settings, setSettings] = useState<BoardSettings>({
         Locked: false,
         LanguageContext: 'L1'
@@ -90,13 +99,15 @@ export const IconsProvider: FC<Props> = ({ children }) => {
             Settings,
             PostSpeechSettings,
             IconPositioning,
-            FrameRestrictions
+            FrameRestrictions,
+            UIVerbosity
         } = savedPrefs
 
         setSettings(Settings)
         setPostSpeechSettings(PostSpeechSettings)
         setIconPositioning(IconPositioning)
         setFrameRestrictions(FrameRestrictions)
+        setUIVerbosity(UIVerbosity)
     }, [screenOrientation])
 
     return (
@@ -106,6 +117,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                 PostSpeechSettings: postSpeechSettings,
                 IconPositioning: iconPositioning,
                 FrameRestrictions: frameRestrictions,
+                UIVerbosity: uiVerbosity,
                 Speaker: speechSynthesis,
                 Frame: frame,
                 FieldSize: FIELD_SIZE_DEFAULT,
@@ -134,7 +146,8 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         new_settings,
                         postSpeechSettings,
                         iconPositioning,
-                        frameRestrictions
+                        frameRestrictions,
+                        uiVerbosity
                     )
                 },
                 SettingsUpdatePostSpeechConfig: (
@@ -145,15 +158,21 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         settings,
                         setting,
                         iconPositioning,
-                        frameRestrictions
+                        frameRestrictions,
+                        uiVerbosity
                     )
-
-                    toast.success(`Post Speech Configuration Updated`)
                 },
                 SettingsUpdateIconPositioningConfig: (
                     setting: FieldManagementConfiguration
                 ) => {
                     setIconPositioning(setting)
+                    storeSavedPreferences(
+                        settings,
+                        postSpeechSettings,
+                        setting,
+                        frameRestrictions,
+                        uiVerbosity
+                    )
                 },
 
                 SettingsSwitchLanguage: (language) => {
@@ -167,7 +186,8 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         new_settings,
                         postSpeechSettings,
                         iconPositioning,
-                        frameRestrictions
+                        frameRestrictions,
+                        uiVerbosity
                     )
                 },
                 SettingsUpdateFrameRestriction: (
@@ -178,6 +198,19 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         settings,
                         postSpeechSettings,
                         iconPositioning,
+                        setting,
+                        uiVerbosity
+                    )
+                },
+                SettingsUpdateUIVerbosity: (
+                    setting: InterfaceVerbosityConfiguration
+                ) => {
+                    setUIVerbosity(setting)
+                    storeSavedPreferences(
+                        settings,
+                        postSpeechSettings,
+                        iconPositioning,
+                        frameRestrictions,
                         setting
                     )
                 }
