@@ -10,7 +10,7 @@ export function EmptyIcon() {
     return (
         <div
             className={cn(
-                'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-100 cursor-pointer select-none icon-field-type',
+                'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-gray-400 cursor-auto select-none icon-field-type relative',
                 {
                     'cursor-not-allowed bg-transparent border-0 shadow-none':
                         Locked
@@ -18,7 +18,7 @@ export function EmptyIcon() {
             )}
         >
             <p
-                className={cn('text-center', {
+                className={cn('text-center text-white', {
                     hidden: Locked
                 })}
             >

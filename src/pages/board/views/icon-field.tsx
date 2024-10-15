@@ -57,6 +57,17 @@ export function Icon({ Icon }: Props) {
                 className="object-cover w-full h-full"
                 draggable={false}
             />
+
+            <div
+                className={cn(
+                    'absolute top-1 left-1 p-1 bg-white rounded border border-black',
+                    {
+                        hidden: Settings.Locked === true
+                    }
+                )}
+            >
+                ID: {Icon.id}
+            </div>
             <div
                 className={cn(
                     'absolute bg-white px-2 border border-black rounded-sm mb-2',

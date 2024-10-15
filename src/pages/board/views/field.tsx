@@ -71,7 +71,7 @@ export default function BoardField() {
                         )
                     }
 
-                    /* When LOCKED && Hidden: Show shaded  */
+                    /* When UNLOCKED && Hidden: Show shaded  */
                     if (
                         language_context?.Hidden === true &&
                         Settings.Locked === false
@@ -141,7 +141,7 @@ export default function BoardField() {
                             <IconWrapper key={i}>
                                 <div
                                     className={cn(
-                                        'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-white cursor-pointer select-none icon-field-type'
+                                        'aspect-square border border-black rounded shadow-md flex items-center justify-center bg-white cursor-pointer select-none icon-field-type relative '
                                     )}
                                     onClick={() => {
                                         if (Settings.Locked === false) {
@@ -153,6 +153,16 @@ export default function BoardField() {
                                         }
                                     }}
                                 >
+                                    <div
+                                        className={cn(
+                                            'absolute top-1 left-1 p-1 bg-white rounded border border-black',
+                                            {
+                                                hidden: Settings.Locked === true
+                                            }
+                                        )}
+                                    >
+                                        ID: {icon.id}
+                                    </div>
                                     <div className="text-center">{`Image for ${Settings.LanguageContext} Needed`}</div>
                                 </div>
                             </IconWrapper>
