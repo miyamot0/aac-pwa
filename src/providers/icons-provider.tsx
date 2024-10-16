@@ -65,13 +65,17 @@ export const IconsContext = React.createContext<IconsContextType>({
     SettingsUpdateUIVerbosity: () => {}
 })
 
+const default_start_settings = {
+    Locked: false,
+    LanguageContext: 'L1' as LanguageOption
+}
+
 type Props = {
     children: ReactNode
 }
 
 export const IconsProvider: FC<Props> = ({ children }) => {
     const speechSynthesis = window.speechSynthesis
-    const screenOrientation = window.screen.orientation
 
     const [postSpeechSettings, setPostSpeechSettings] =
         useState<PostSpeechConfiguration>('None')
@@ -85,10 +89,9 @@ export const IconsProvider: FC<Props> = ({ children }) => {
     const [uiVerbosity, setUIVerbosity] =
         useState<InterfaceVerbosityConfiguration>('DefaultVerbosity')
 
-    const [settings, setSettings] = useState<BoardSettings>({
-        Locked: false,
-        LanguageContext: 'L1'
-    })
+    const [settings, setSettings] = useState<BoardSettings>(
+        default_start_settings
+    )
 
     const [frame, setFrame] = useState<SGDField[]>([])
 
@@ -108,7 +111,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
         setIconPositioning(IconPositioning)
         setFrameRestrictions(FrameRestrictions)
         setUIVerbosity(UIVerbosity)
-    }, [screenOrientation])
+    }, [])
 
     return (
         <IconsContext.Provider
