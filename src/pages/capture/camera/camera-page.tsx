@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { createRef, useState } from 'react'
 import { db } from '@/lib/db'
 import { Link, useParams } from 'react-router-dom'
-import { CameraIcon, ChevronLeft, SaveIcon } from 'lucide-react'
+import { CameraIcon, ChevronLeft, FileImageIcon, SaveIcon } from 'lucide-react'
 import HeaderBackground from '@/components/layout/header-bg'
 import {
     Card,
@@ -50,12 +50,12 @@ export default function CameraPage() {
                 </Link>
                 <span className="text-lg text-center">Capture New Image</span>
             </HeaderBackground>
-            <div className="flex flex-col max-w-screen-md w-full mx-auto">
+            <div className="flex flex-col max-w-screen-md w-full mx-auto mb-2">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Image Preview</CardTitle>
+                        <CardTitle>Preview of New Image</CardTitle>
                         <CardDescription>
-                            Preview image before saving
+                            Capture/import an image and inspect before saving
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col items-center gap-4">
@@ -132,8 +132,8 @@ export default function CameraPage() {
                                 }
                             }}
                         >
-                            <CameraIcon className="h-4 w-4" />
-                            Import Image from Device
+                            <FileImageIcon className="h-4 w-4" />
+                            Import Image File from Device
                         </Button>
 
                         <Button
