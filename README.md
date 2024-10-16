@@ -16,6 +16,7 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 -   0.0.7: Add in audio recording functionality
 -   0.0.8: Add in audio playback functionality and iOS support
 -   0.0.9: Add in additional settings (icons), simplistic auth system (PW = 118)
+-   0.1.0: Beta status! Testing file import (non-capture)
 
 ## Program Features
 
@@ -36,8 +37,6 @@ Multiple options for icon programming _across_ varying languages.
 @hookform/resolvers (3.9.0). Copyright bluebill1049 <bluebill1049@hotmail.com> -- MIT Licensed: [Repo](https://github.com/react-hook-form/resolvers.git) 
  
 @mdx-js/mdx (3.0.1). Copyright John Otander <johnotander@gmail.com> (https://johno.com) -- MIT Licensed: [Repo](https://github.com/mdx-js/mdx.git) 
- 
-@radix-ui/react-dialog (1.1.2). Copyright n/a -- MIT Licensed: [Repo](https://github.com/radix-ui/primitives.git) 
  
 @radix-ui/react-icons (1.3.0). Copyright n/a -- MIT Licensed: [Repo](https://registry.npmjs.org/@radix-ui/react-icons/-/react-icons-1.3.0.tgz) 
  
@@ -83,5 +82,5 @@ MIT - Shawn Gilroy, Louisiana State University
 
 ## Version
 
-Version 0.0.9
+Version 0.1.0
 

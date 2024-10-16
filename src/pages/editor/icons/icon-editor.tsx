@@ -154,7 +154,7 @@ export default function IconEditorPage() {
         : undefined
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
             <HeaderBackground className="grid grid-cols-3">
                 <Link
                     replace
@@ -187,7 +187,7 @@ export default function IconEditorPage() {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="grid grid-cols-1 lg:grid-cols-2 max-w-screen-lg w-full gap-4 h-auto py-4"
+                        className="grid grid-cols-1 lg:grid-cols-2 max-w-screen-lg w-full gap-4 h-auto py-2"
                     >
                         <Card className="w-full col-span-1 lg:col-span-2">
                             <CardHeader>
@@ -459,7 +459,6 @@ export default function IconEditorPage() {
                                             <img
                                                 className="p-4 w-full aspect-square border rounded object-cover "
                                                 src={l1_asset}
-                                                alt={'L1 Asset'}
                                                 draggable={false}
                                             />
                                         </div>
