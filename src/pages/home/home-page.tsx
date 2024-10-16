@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { GithubIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-export default function LandingPage() {
+export default function HomePage() {
     return (
         <div className="flex flex-col w-full px-4 h-screen max-h-screen-safe">
             <div className="flex flex-row justify-between py-4">

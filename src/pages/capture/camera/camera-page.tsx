@@ -59,12 +59,7 @@ export default function CameraPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col items-center gap-4">
-                        {img && (
-                            <img
-                                className="object-contain aspect-square "
-                                src={img}
-                            />
-                        )}
+                        {img && <img className="object-contain " src={img} />}
 
                         <input
                             ref={fileInputCaptureRef}
