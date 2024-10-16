@@ -48,7 +48,7 @@ export default function LandingPage() {
                     Louisiana State University (MIT License)
                 </span>
                 <span className="text-right">
-                    Version {BUILD_VERSION} (alpha) <br /> Build Date{' '}
+                    Version {BUILD_VERSION} (beta) <br /> Build Date{' '}
                     {BUILD_DATE}
                 </span>
             </div>

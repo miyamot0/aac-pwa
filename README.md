@@ -16,6 +16,7 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 -   0.0.7: Add in audio recording functionality
 -   0.0.8: Add in audio playback functionality and iOS support
 -   0.0.9: Add in additional settings (icons), simplistic auth system (PW = 118)
+-   0.1.0: Beta status! Testing file import (non-capture)
 
 ## Program Features
 
@@ -83,5 +84,5 @@ MIT - Shawn Gilroy, Louisiana State University
 
 ## Version
 
-Version 0.0.9
+Version 0.1.0
 

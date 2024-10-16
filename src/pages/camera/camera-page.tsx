@@ -22,7 +22,8 @@ export default function CameraPage() {
     const [img, setImg] = useState<string | null>(null)
     const [buffer, setBuffer] = useState<Uint8Array | null>(null)
 
-    const fileInputRef = createRef<HTMLInputElement>()
+    const fileInputCaptureRef = createRef<HTMLInputElement>()
+    const fileInputImportRef = createRef<HTMLInputElement>()
 
     async function saveImageToDB() {
         if (!buffer) return
@@ -66,7 +67,7 @@ export default function CameraPage() {
                         )}
 
                         <input
-                            ref={fileInputRef}
+                            ref={fileInputCaptureRef}
                             style={{ display: 'none' }}
                             type="file"
                             name="picture"
@@ -91,17 +92,55 @@ export default function CameraPage() {
                             }}
                         />
 
+                        <input
+                            ref={fileInputImportRef}
+                            style={{ display: 'none' }}
+                            type="file"
+                            name="picture2"
+                            accept="image/*"
+                            onChange={async (e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setImg(
+                                        URL.createObjectURL(e.target.files[0])
+                                    )
+
+                                    const reader = new FileReader()
+                                    reader.onload = async function (e) {
+                                        setBuffer(
+                                            new Uint8Array(
+                                                e.target?.result as ArrayBuffer
+                                            )
+                                        )
+                                    }
+                                    reader.readAsArrayBuffer(e.target.files[0])
+                                }
+                            }}
+                        />
+
                         <Button
                             className={cn('flex flex-row gap-2 w-full')}
                             onClick={() => {
-                                if (fileInputRef.current) {
-                                    fileInputRef.current.click()
+                                if (fileInputCaptureRef.current) {
+                                    fileInputCaptureRef.current.click()
                                 }
                             }}
                         >
                             <CameraIcon className="h-4 w-4" />
                             Capture Image from Camera
                         </Button>
+
+                        <Button
+                            className={cn('flex flex-row gap-2 w-full')}
+                            onClick={() => {
+                                if (fileInputImportRef.current) {
+                                    fileInputImportRef.current.click()
+                                }
+                            }}
+                        >
+                            <CameraIcon className="h-4 w-4" />
+                            Import Image from Device
+                        </Button>
+
                         <Button
                             disabled={!buffer}
                             className={cn(
