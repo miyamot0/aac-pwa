@@ -9,7 +9,7 @@ export default function HeaderBackground({
     children: React.ReactNode
     className?: string
 }) {
-    const { Settings } = useContext(IconsContext)
+    const { Settings, MaskedColors } = useContext(IconsContext)
     const { LanguageContext } = Settings
 
     return (
@@ -18,8 +18,12 @@ export default function HeaderBackground({
                 'flex flex-row justify-between h-14 items-center px-4 text-white border-b-3 font-semibold',
                 className,
                 {
-                    'bg-red-400': LanguageContext === 'L1',
-                    'bg-blue-400': LanguageContext === 'L2'
+                    'bg-gray-700': MaskedColors === 'DoNotColorCode',
+                    'bg-red-400':
+                        LanguageContext === 'L1' &&
+                        MaskedColors === 'ColorCode',
+                    'bg-blue-400':
+                        LanguageContext === 'L2' && MaskedColors === 'ColorCode'
                 }
             )}
         >
