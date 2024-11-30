@@ -116,11 +116,11 @@ export const IconsProvider: FC<Props> = ({ children }) => {
         } = savedPrefs
 
         setSettings(Settings)
-        setPostSpeechSettings(PostSpeechSettings)
-        setIconPositioning(IconPositioning)
-        setFrameRestrictions(FrameRestrictions)
-        setUIVerbosity(UIVerbosity)
-        setMaskedColors(MaskedColors)
+        setPostSpeechSettings(PostSpeechSettings ?? 'None')
+        setIconPositioning(IconPositioning ?? 'NoChange')
+        setFrameRestrictions(FrameRestrictions ?? 'NoRestrictions')
+        setUIVerbosity(UIVerbosity ?? 'DefaultVerbosity')
+        setMaskedColors(MaskedColors ?? 'ColorCode')
     }, [])
 
     return (
