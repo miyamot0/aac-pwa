@@ -81,3 +81,26 @@ export const InterfaceVerbosityConfigurationSelectOptions = [
         label: 'Display Minimal Information'
     }
 ]
+
+// ----------------- Color Masking -----------------
+
+// ----------------- Frame Options -----------------
+
+/* No additional steps */
+const _colors_no_mask = 'ColorCode'
+
+/* Reset the frame to blank after speaking */
+const _colors_masked = 'DoNotColorCode'
+
+export type ColorMaskingOption = typeof _colors_no_mask | typeof _colors_masked
+
+export const ColorMaskingSelectOptions = [
+    {
+        value: _colors_no_mask,
+        label: 'Color Code L1/L2'
+    },
+    {
+        value: _colors_masked,
+        label: 'Do Not Color Code L1/L2'
+    }
+]

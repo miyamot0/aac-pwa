@@ -20,6 +20,8 @@ import {
 } from '@/components/ui/card'
 import { BOARD_PAGE, DOCS_PAGE } from '@/lib/links'
 import {
+    ColorMaskingOption,
+    ColorMaskingSelectOptions,
     FieldManagementConfigSelectOptions,
     FieldManagementConfiguration,
     FrameLengthConfiguration,
@@ -41,7 +43,9 @@ export default function SettingsPage() {
         FrameRestrictions,
         SettingsUpdateFrameRestriction,
         UIVerbosity,
-        SettingsUpdateUIVerbosity
+        SettingsUpdateUIVerbosity,
+        MaskedColors,
+        SettingsToggleColorMask
     } = useContext(IconsContext)
 
     return (
@@ -221,6 +225,40 @@ export default function SettingsPage() {
                                             </SelectItem>
                                         )
                                     )}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="flex flex-row gap-4 justify-between items-center h-8">
+                            <div>
+                                <Label>Language Setting Color Masking</Label>
+
+                                <div className="text-muted-foreground text-sm">
+                                    Enable/Disable colors signaling L1/L2 in the
+                                    Interface
+                                </div>
+                            </div>
+
+                            <Select
+                                value={MaskedColors}
+                                onValueChange={(
+                                    setting: ColorMaskingOption
+                                ) => {
+                                    SettingsToggleColorMask(setting)
+                                }}
+                            >
+                                <SelectTrigger className="w-full max-w-[300px]">
+                                    <SelectValue placeholder="Set Verbosity of UI" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {ColorMaskingSelectOptions.map((option) => (
+                                        <SelectItem
+                                            value={option.value}
+                                            key={option.value}
+                                        >
+                                            {option.label}
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                         </div>

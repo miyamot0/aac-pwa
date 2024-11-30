@@ -3,6 +3,7 @@ import { BoardSettings, LanguageOption } from '../types/provider-types'
 import { Toaster } from '@/components/ui/sonner'
 import { SGDField } from '@/lib/db'
 import {
+    ColorMaskingOption,
     FieldManagementConfiguration,
     FrameLengthConfiguration,
     InterfaceVerbosityConfiguration,
@@ -24,6 +25,7 @@ interface IconsContextType {
     Frame: SGDField[]
     FieldSize: number
     FieldRows: number
+    MaskedColors: ColorMaskingOption
     ShuffleField: () => Promise<void>
     AddToFrame: (icon: SGDField) => void
     RemoveFromFrame: () => void
@@ -38,6 +40,7 @@ interface IconsContextType {
     SettingsUpdateUIVerbosity: (
         setting: InterfaceVerbosityConfiguration
     ) => void
+    SettingsToggleColorMask: (setting: ColorMaskingOption) => void
 }
 
 export const IconsContext = React.createContext<IconsContextType>({
@@ -53,6 +56,7 @@ export const IconsContext = React.createContext<IconsContextType>({
     Frame: [],
     FieldSize: FIELD_SIZE_DEFAULT,
     FieldRows: FIELD_ROWS_DEFAULT,
+    MaskedColors: 'ColorCode',
     ShuffleField: async () => {},
     AddToFrame: () => {},
     RemoveFromFrame: () => {},
@@ -62,7 +66,8 @@ export const IconsContext = React.createContext<IconsContextType>({
     SettingsUpdateIconPositioningConfig: () => {},
     SettingsSwitchLanguage: () => {},
     SettingsUpdateFrameRestriction: () => {},
-    SettingsUpdateUIVerbosity: () => {}
+    SettingsUpdateUIVerbosity: () => {},
+    SettingsToggleColorMask: () => {}
 })
 
 const default_start_settings = {
@@ -89,6 +94,9 @@ export const IconsProvider: FC<Props> = ({ children }) => {
     const [uiVerbosity, setUIVerbosity] =
         useState<InterfaceVerbosityConfiguration>('DefaultVerbosity')
 
+    const [maskColors, setMaskedColors] =
+        useState<ColorMaskingOption>('ColorCode')
+
     const [settings, setSettings] = useState<BoardSettings>(
         default_start_settings
     )
@@ -103,7 +111,8 @@ export const IconsProvider: FC<Props> = ({ children }) => {
             PostSpeechSettings,
             IconPositioning,
             FrameRestrictions,
-            UIVerbosity
+            UIVerbosity,
+            MaskedColors
         } = savedPrefs
 
         setSettings(Settings)
@@ -111,6 +120,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
         setIconPositioning(IconPositioning)
         setFrameRestrictions(FrameRestrictions)
         setUIVerbosity(UIVerbosity)
+        setMaskedColors(MaskedColors)
     }, [])
 
     return (
@@ -125,6 +135,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                 Frame: frame,
                 FieldSize: FIELD_SIZE_DEFAULT,
                 FieldRows: FIELD_ROWS_DEFAULT,
+                MaskedColors: maskColors,
                 AddToFrame: (icon: SGDField) => {
                     if (
                         frameRestrictions === 'LimitToOneIcon' &&
@@ -151,7 +162,7 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         iconPositioning,
                         frameRestrictions,
                         uiVerbosity,
-                        false
+                        maskColors
                     )
                 },
                 SettingsUpdatePostSpeechConfig: (
@@ -163,7 +174,8 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         setting,
                         iconPositioning,
                         frameRestrictions,
-                        uiVerbosity
+                        uiVerbosity,
+                        maskColors
                     )
                 },
                 SettingsUpdateIconPositioningConfig: (
@@ -175,10 +187,10 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         postSpeechSettings,
                         setting,
                         frameRestrictions,
-                        uiVerbosity
+                        uiVerbosity,
+                        maskColors
                     )
                 },
-
                 SettingsSwitchLanguage: (language) => {
                     const new_settings = {
                         ...settings,
@@ -191,9 +203,11 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         postSpeechSettings,
                         iconPositioning,
                         frameRestrictions,
-                        uiVerbosity
+                        uiVerbosity,
+                        maskColors
                     )
                 },
+
                 SettingsUpdateFrameRestriction: (
                     setting: FrameLengthConfiguration
                 ) => {
@@ -203,7 +217,8 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         postSpeechSettings,
                         iconPositioning,
                         setting,
-                        uiVerbosity
+                        uiVerbosity,
+                        maskColors
                     )
                 },
                 SettingsUpdateUIVerbosity: (
@@ -215,6 +230,18 @@ export const IconsProvider: FC<Props> = ({ children }) => {
                         postSpeechSettings,
                         iconPositioning,
                         frameRestrictions,
+                        setting,
+                        maskColors
+                    )
+                },
+                SettingsToggleColorMask: (setting: ColorMaskingOption) => {
+                    setMaskedColors(setting)
+                    storeSavedPreferences(
+                        settings,
+                        postSpeechSettings,
+                        iconPositioning,
+                        frameRestrictions,
+                        uiVerbosity,
                         setting
                     )
                 }

@@ -1,4 +1,5 @@
 import {
+    ColorMaskingOption,
     FieldManagementConfiguration,
     FrameLengthConfiguration,
     InterfaceVerbosityConfiguration,
@@ -15,6 +16,7 @@ export type SavedPrefsType = {
     IconPositioning: FieldManagementConfiguration
     FrameRestrictions: FrameLengthConfiguration
     UIVerbosity: InterfaceVerbosityConfiguration
+    MaskedColors: ColorMaskingOption
 }
 
 const DEFAULT_PREFS: SavedPrefsType = {
@@ -25,7 +27,8 @@ const DEFAULT_PREFS: SavedPrefsType = {
     PostSpeechSettings: 'None',
     IconPositioning: 'NoChange',
     FrameRestrictions: 'NoRestrictions',
-    UIVerbosity: 'DefaultVerbosity'
+    UIVerbosity: 'DefaultVerbosity',
+    MaskedColors: 'ColorCode'
 }
 
 export function loadSavedPreferences(): SavedPrefsType {
@@ -42,19 +45,20 @@ export function storeSavedPreferences(
     iconPositioning: FieldManagementConfiguration,
     frame: FrameLengthConfiguration,
     uiVerbosity: InterfaceVerbosityConfiguration,
-    displayToast = true
+    maskedColors: ColorMaskingOption
 ) {
     const prefs = {
         Settings: settings,
         PostSpeechSettings: postSpeechSettings,
         IconPositioning: iconPositioning,
         FrameRestrictions: frame,
-        UIVerbosity: uiVerbosity
+        UIVerbosity: uiVerbosity,
+        MaskedColors: maskedColors
     } satisfies SavedPrefsType
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs))
 
-    if (displayToast) {
+    if (uiVerbosity === 'DefaultVerbosity') {
         toast.success('Preferences saved')
     }
 }
