@@ -81,6 +81,14 @@
     .full-size-with-fallback {
         @apply min-h-screen-safe;
     }
+
+    .home-screen-bg {
+        @apply bg-[#e4dfda];
+    }
+
+    .default-header-bg {
+        @apply bg-[#446df6];
+    }
 }
 
 html {

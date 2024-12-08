@@ -16,7 +16,6 @@ export default function HeaderBackground({
         <div
             className={cn(
                 'flex flex-row justify-between h-14 items-center px-4 text-white border-b-3 font-semibold',
-                className,
                 {
                     'bg-gray-700': MaskedColors === 'DoNotColorCode',
                     'bg-red-400':
@@ -24,7 +23,8 @@ export default function HeaderBackground({
                         MaskedColors === 'ColorCode',
                     'bg-blue-400':
                         LanguageContext === 'L2' && MaskedColors === 'ColorCode'
-                }
+                },
+                className
             )}
         >
             {children}

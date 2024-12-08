@@ -12,7 +12,16 @@ import SettingsPage from './pages/editor/settings/settings-page'
 import CameraPage from './pages/capture/camera/camera-page'
 import FileSystemPage from './pages/gallery/images/image-viewer-page'
 import HomePage from './pages/home/home-page'
-import { BOARD_PAGE, DOCS_PAGE, SETTINGS_PAGE } from './lib/links'
+import {
+    AUDIO_CAPTURE_PAGE,
+    BOARD_PAGE,
+    CAMERA_CAPTURE_PAGE,
+    DOCS_PAGE,
+    ICON_EDITOR_AUDIO_GALLERY_PAGE,
+    ICON_EDITOR_GALLERY_PAGE,
+    ICON_EDITOR_PAGE,
+    SETTINGS_PAGE
+} from './lib/links'
 import DocumentationPage from './pages/docs/documentation-page'
 import RecordedSpeechPage from './pages/gallery/speech/recorded-speech-page'
 import AudioRecorderPage from './pages/capture/audio/audio-recording-page'
@@ -25,20 +34,20 @@ const router = createBrowserRouter(
             <Route path={SETTINGS_PAGE} element={<SettingsPage />} />
             <Route path={DOCS_PAGE} element={<DocumentationPage />} />
             <Route
-                path={'/icons/:id'}
+                path={ICON_EDITOR_PAGE}
                 element={<IconEditorPage />}
                 loader={IconEditorLoader}
             />
-            <Route path={'/icons/:id/:slot'} element={<FileSystemPage />} />
-            <Route path={'/icons/:id/:slot/camera'} element={<CameraPage />} />
             <Route
-                path={'/recordings/:id/:slot'}
+                path={ICON_EDITOR_GALLERY_PAGE}
+                element={<FileSystemPage />}
+            />
+            <Route path={CAMERA_CAPTURE_PAGE} element={<CameraPage />} />
+            <Route
+                path={ICON_EDITOR_AUDIO_GALLERY_PAGE}
                 element={<RecordedSpeechPage />}
             />
-            <Route
-                path={'/recordings/:id/:slot/microphone'}
-                element={<AudioRecorderPage />}
-            />
+            <Route path={AUDIO_CAPTURE_PAGE} element={<AudioRecorderPage />} />
         </Route>
     )
 )

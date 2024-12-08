@@ -8,7 +8,6 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import HeaderBackground from '@/components/layout/header-bg'
 import { Link } from 'react-router-dom'
 import { ChevronLeft, TableOfContentsIcon } from 'lucide-react'
 import {
@@ -50,7 +49,11 @@ export default function SettingsPage() {
 
     return (
         <div>
-            <HeaderBackground className="grid grid-cols-3">
+            <div
+                className={cn(
+                    'justify-between h-14 items-center px-4 text-white border-b-3 font-semibold default-header-bg grid grid-cols-3'
+                )}
+            >
                 <Link
                     replace
                     to={BOARD_PAGE}
@@ -74,7 +77,7 @@ export default function SettingsPage() {
                         Documentation
                     </Link>
                 </div>
-            </HeaderBackground>
+            </div>
 
             <div className="flex flex-row justify-center my-4 px-2">
                 <Card className="max-w-screen-lg w-full">

@@ -57,6 +57,7 @@ export default {
         require('tailwindcss-animate'),
         require('tailwindcss-safe-area'),
         require('@tailwindcss/typography'),
-        require('tailwindcss-font-inter')
+        require('tailwindcss-font-inter'),
+        require('@designbycode/tailwindcss-text-stroke')
     ]
 }
