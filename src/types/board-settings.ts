@@ -52,7 +52,7 @@ export type FieldManagementConfiguration =
 export const FieldManagementConfigSelectOptions = [
     {
         value: _no_change,
-        label: 'No Change'
+        label: 'No Change (Default)'
     },
     {
         value: _shuffle_positions,
@@ -97,7 +97,7 @@ export type ColorMaskingOption = typeof _colors_no_mask | typeof _colors_masked
 export const ColorMaskingSelectOptions = [
     {
         value: _colors_no_mask,
-        label: 'Color Code L1/L2'
+        label: 'Color Code L1/L2 (Default)'
     },
     {
         value: _colors_masked,

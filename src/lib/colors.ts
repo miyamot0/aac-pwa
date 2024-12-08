@@ -1,7 +1,7 @@
 export const COLOR_LIST = [
     'bg-blue-500 hover:bg-blue-600',
     'bg-green-500 hover:bg-green-600',
-    'bg-yellow-500 hover:bg-yellow-600',
+    //'bg-yellow-500 hover:bg-yellow-600',
     'bg-purple-500 hover:bg-purple-600',
     'bg-pink-500 hover:bg-pink-600',
     'bg-indigo-500 hover:bg-indigo-600',
