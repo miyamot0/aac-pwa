@@ -17,7 +17,7 @@ import {
     CardHeader,
     CardTitle
 } from '@/components/ui/card'
-import { BOARD_PAGE, DOCS_PAGE } from '@/lib/links'
+import { BOARD_PAGE } from '@/lib/links'
 import {
     ColorMaskingOption,
     ColorMaskingSelectOptions,
@@ -67,10 +67,10 @@ export default function SettingsPage() {
                 <div className="flex flex-row justify-end">
                     <Link
                         replace
-                        to={DOCS_PAGE}
+                        to={'/docs/settings'}
                         className={cn(
                             buttonVariants({ variant: 'outline' }),
-                            'flex flex-row gap-2 bg-transparent items-center'
+                            'flex flex-row gap-2 bg-transparent items-center border-none'
                         )}
                     >
                         <TableOfContentsIcon className="h-6 w-6" />

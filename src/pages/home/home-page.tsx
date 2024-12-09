@@ -77,7 +77,7 @@ export default function HomePage() {
                     </h1>
 
                     <span className="text-center">
-                        Pre-release beta build ({BUILD_DATE})
+                        Pre-release build (Published: {BUILD_DATE})
                     </span>
                 </div>
             </div>
@@ -113,7 +113,9 @@ export default function HomePage() {
                     Load AAC Board
                 </Link>
 
-                <span className="text-center">Version {BUILD_VERSION}</span>
+                <span className="text-center">
+                    Version {BUILD_VERSION} (beta)
+                </span>
             </div>
         </div>
     )

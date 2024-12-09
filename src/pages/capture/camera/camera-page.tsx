@@ -114,6 +114,7 @@ export default function CameraPage() {
 
                         <Button
                             className={cn('flex flex-row gap-2 w-full')}
+                            variant={'default_purple'}
                             onClick={() => {
                                 if (fileInputCaptureRef.current) {
                                     fileInputCaptureRef.current.click()
@@ -126,6 +127,7 @@ export default function CameraPage() {
 
                         <Button
                             className={cn('flex flex-row gap-2 w-full')}
+                            variant={'default_purple'}
                             onClick={() => {
                                 if (fileInputImportRef.current) {
                                     fileInputImportRef.current.click()
