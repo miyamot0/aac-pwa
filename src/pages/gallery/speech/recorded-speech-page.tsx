@@ -86,7 +86,7 @@ export default function RecordedSpeechPage() {
                         to={`/recordings/${id}/${slot}/microphone`}
                         className={cn(
                             buttonVariants({ variant: 'outline' }),
-                            'flex flex-row gap-2 items-center justify-end bg-transparent'
+                            'flex flex-row gap-2 items-center justify-end bg-transparent border-none'
                         )}
                     >
                         <AudioLinesIcon className="h-6 w-6" />
@@ -114,6 +114,7 @@ export default function RecordedSpeechPage() {
                                 </div>
 
                                 <Button
+                                    variant={'default_purple'}
                                     onClick={() => {
                                         addRecordingToIcon(file)
                                     }}
@@ -135,6 +136,7 @@ export default function RecordedSpeechPage() {
                             />
                             <div className="flex flex-row justify-between">
                                 <Button
+                                    variant={'default_purple'}
                                     onClick={() => {
                                         const new_name = prompt(
                                             'Enter label for recording',

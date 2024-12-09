@@ -18,20 +18,33 @@ The Lab AAC Prototype is currently in very, very early stages of development. It
 -   0.0.9: Add in additional settings (icons), simplistic auth system (PW = 118)
 -   0.1.0: Beta status! Testing file import (non-capture)
 -   0.1.1: Options for color blinding (research-related)
+-   0.1.2: Expand docs to current beta support
 
 ## Program Features
 
-Simple, but flexible grid-based interface for programmed icons.
+Simple, PWA-based solution for good operability across mobile devices (no-install).
 
-![Grid-based Learner Interface](public/screenshots/board_active.webp 'User Interface')
+![AAC Board w/ broad support](public/screenshots/landing_page.webp 'Robust support across devices')
 
-Highly-customizable options for icons in grid interface.
+Flexible grid-based interface designing AAC boards.
 
-![Editing Grid-based Learner Interface](public/screenshots/board_editing.webp 'Adaptive User Interface')
+![Editing Grid-based Learner Interface](public/screenshots/icon_edit_functionality.webp 'Adaptive User Interface')
 
 Multiple options for icon programming _across_ varying languages.
 
-![Multiple language support](public/screenshots/icon_editing.webp 'Multilingual support')
+![Multiple language support](public/screenshots/icon_edit_settings.webp 'Multilingual support')
+
+Numerous options for programming AAC board behavior.
+
+![Robust AAC board settings](public/screenshots/board_settings.webp 'Robust support')
+
+Various options for importing image assets
+
+![Image asset options](public/screenshots/image_capture.webp 'Image capture options')
+
+Various options for managing audio assets
+
+![Audio asset options](public/screenshots/audio_capture.webp 'Audio capture options')
 
 ## Referenced Works
 

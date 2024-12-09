@@ -169,7 +169,7 @@ export default function IconEditorPage() {
                 <div className="flex flex-row justify-end">
                     <Button
                         variant={'outline'}
-                        className="flex flex-row gap-2 items-center cursor-pointer w-fit bg-transparent"
+                        className="flex flex-row gap-2 items-center cursor-pointer w-fit bg-transparent border-none"
                         onClick={(e) => {
                             e.preventDefault()
 
@@ -473,7 +473,7 @@ export default function IconEditorPage() {
 
                                                 <div className="flex flex-row gap-4 items-center">
                                                     <Button
-                                                        variant={'secondary'}
+                                                        variant={'destructive'}
                                                         className="border"
                                                         disabled={
                                                             !form.getValues(
@@ -493,6 +493,9 @@ export default function IconEditorPage() {
                                                     </Button>
 
                                                     <Button
+                                                        variant={
+                                                            'default_purple'
+                                                        }
                                                         onClick={() => {
                                                             try {
                                                                 form.handleSubmit(
@@ -752,7 +755,7 @@ export default function IconEditorPage() {
 
                                                 <div className="flex flex-row gap-4 items-center">
                                                     <Button
-                                                        variant={'secondary'}
+                                                        variant={'destructive'}
                                                         className="border"
                                                         disabled={
                                                             !form.getValues(
@@ -772,6 +775,9 @@ export default function IconEditorPage() {
                                                     </Button>
 
                                                     <Button
+                                                        variant={
+                                                            'default_purple'
+                                                        }
                                                         onClick={() => {
                                                             try {
                                                                 form.handleSubmit(

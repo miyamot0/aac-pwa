@@ -91,6 +91,7 @@ export default function AudioRecorderPage() {
 
                         {is_recording === false && (
                             <Button
+                                variant={'default_purple'}
                                 onClick={() => {
                                     chunks.current = []
                                     setCurrentBlob(undefined)

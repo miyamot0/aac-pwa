@@ -25,3 +25,4 @@ dist-ssr
 
 # dev build
 dev-dist/*
+tsconfig.app.tsbuildinfo

@@ -35,7 +35,7 @@ export default function ImageViewerPage() {
                         replace
                         className={cn(
                             buttonVariants({ variant: 'outline' }),
-                            'bg-transparent flex flex-row gap-2 items-center cursor-pointer w-fit'
+                            'bg-transparent flex flex-row gap-2 items-center cursor-pointer w-fit border-none'
                         )}
                         unstable_viewTransition={true}
                         to={`/icons/${id}/${slot}/camera`}
@@ -56,7 +56,7 @@ export default function ImageViewerPage() {
                         const url = URL.createObjectURL(blob)
 
                         return (
-                            <div className="relative">
+                            <div className="relative shadow-xl border-gray-600 rounded-lg">
                                 <Button
                                     className="absolute top-1 right-1 flex flex-row gap-2 items-center border"
                                     onClick={async (e) => {
