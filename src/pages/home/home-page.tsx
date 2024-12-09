@@ -72,7 +72,12 @@ export default function HomePage() {
 
             <div className="flex flex-row grow items-center justify-center">
                 <div className="w-fit flex flex-col gap-4">
-                    <h1 className="text-6xl text-center w-full font-black text-stroke text-stroke-black text-stroke-fill-white font-sans">
+                    <h1
+                        className="text-5xl text-center w-full font-black text-stroke-thick text-stroke-black text-stroke-fill-white"
+                        style={{
+                            paintOrder: 'stroke fill'
+                        }}
+                    >
                         {title}
                     </h1>
 
